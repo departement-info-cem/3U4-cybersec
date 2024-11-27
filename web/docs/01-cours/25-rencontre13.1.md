@@ -5,7 +5,6 @@ sidebar_label: R25 - Chiffrement symétrique (implantation)
 draft: false
 hide_table_of_contents: false
 ---
-# Rencontre 13.1 Implanter crypto symétrique
 
 ## Ne pas coder de la crypto soi-même
 
@@ -27,21 +26,18 @@ Il nous reste à choisir une clé d'encryption pour la plupart des algorithmes:
 
 ## Décompiler le .exe et trouver la clé
 
-```
-Les solutions de cybersec, Jean-Louis et fils propose une solution de cybersécurité
-ultra sophistiquée de cybersécurité qui se présente en 2 applications ultra sécures
 
-1. notre application utilisateur permet d'encrypter avec une clé de 2048 bits (ça fait beaucoup)
-vos mots de passe afin de les stocker de façon sécuritaire. Même si un pirate accède à votre ordi
-il ne pourra pas décoder les mots de passe stockés. Nous utilisons un algo à la pointe du progrès
-BlowFish par l'immense star de la crypto: Bruce Schneier
-2. notre application gardée dans un lieu hyper sécuritaire nous permet si vous oubliez un mot de 
-passe de le retrouver en nous contactant par courriel.
-```
+> Les solutions de cybersec, Jean-Louis et fils propose une solution de cybersécurité
+> ultra sophistiquée de cybersécurité qui se présente en 2 applications ultra sécures
+> 
+> 1. Notre application utilisateur permet d'encrypter avec une clé de 2048 bits (ça fait beaucoup) vos mots de passe afin de les stocker de façon sécuritaire. Même si un pirate accède à votre ordi il ne pourra pas décoder les mots de passe stockés. Nous utilisons un algo à la pointe du progrès BlowFish par l'immense star de la crypto: Bruce Schneier
+> 
+> 2. Notre application gardée dans un lieu hyper sécuritaire nous permet si vous oubliez un mot de passe de le retrouver en nous contactant par courriel.
+
 
 Nous avons acheté la super appli et nous avons encrypté une couple de mot de passe pour s'en souvenir.
 
-L'appli se trouve dans le dossier **sym** JeanLouisEtFils du repo.
+L'appli se trouve dans le dossier **sym** JeanLouisEtFils du repo. Vous pouvez télécharger les fichiers exécutables dans la section [**Releases**](https://github.com/departement-info-cem/3U4-cybersec/releases/tag/JeanLouisEtFils).
 
 - Essayer avec la commande **strings** pour trouver une chaîne dans un exécutable
 - Essayer dotPeek pour décompiler l'appli
@@ -49,17 +45,28 @@ L'appli se trouve dans le dossier **sym** JeanLouisEtFils du repo.
 d'encryption. La bonne nouvelle c'est que comme BlowFish est un algo symétrique, c'est aussi la clé
 de décryption
 
-### Programmer un décrypteur
+## Décrypter les données
 
-On peut alors essayer de décrypter les mots de passe avec la clé qu'on a trouvé:
+C'est la même clé pour encrypter et décrypter. Donc si on connaît la clé qui permet d'encrypter, on a tout ce qu'il faut pour décrypter.
+
+On peut alors essayer de programmer un outil servant à décrypter les données avec le même algorithme, la même clé et les mêmes paramètres.
 - programmer une application qui Decrypt avec BlowFish et la clé qu'on a trouvée
 - passer à travers le fichier ligne par ligne et décrypter les mots de passe
 
-C'est la même clé pour encrypter et décrypter.
+:::tip
+Au lieu de programmer un décrypteur vous-mêmes, vous pouvez utiliser un outil déjà fait. Il suffit de ressortir tous les paramètres. Dans le cas de Blowfish, on a:
+- La clé symétrique
+- Le vecteur d'initialisation (iv)
+- Le mode de chiffrement (cipher)
+- La méthode de remplissage (padding)
+
+Voici un site qui permet de paramétrer l'algorithme: https://www.toolhelper.cn/en/SymmetricEncryption/Blowfish
+:::
+
 
 Pour valider tu peux utiliser l'application corpoDecryptor dans le dossier **sym**.
 
-### Encryption asymétrique
+## Encryption asymétrique
 
 Utiliser une algo asymétrique avec une clé publique d'encryption et une privée pour la décryption:
 - l'application peut encrypter les mots de passe avec la clé publique >> voir JeanLouisEtFils dans le dossier **asym**
