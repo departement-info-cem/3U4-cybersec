@@ -1,7 +1,7 @@
 ---
 id: r28
-title: Rencontre 28
-sidebar_label: R28
+title: Rencontre 28 - Intégration
+sidebar_label: R28 - Intégration
 draft: false
 hide_table_of_contents: false
 ---
