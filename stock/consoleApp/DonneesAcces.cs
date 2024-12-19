@@ -74,8 +74,8 @@ namespace consoleApp
             sqlite_cmd = sqlite_conn.CreateCommand();
             sqlite_cmd.CommandText = "INSERT INTO MUtilisateur (nom, motDePasse, nas) " +
                                      "VALUES('" + compte.Nom + "', '" +
-                                     DonneesSecurite.HashThePassword(compte.MotDePasse) + "', '" +
-                                     DonneesSecurite.Encrypt(compte.NAS) + "'); ";
+                                     DonneesSecurite.HacherLeMotDePasse(compte.MotDePasse) + "', '" +
+                                     DonneesSecurite.Encrypter(compte.NAS) + "'); ";
             sqlite_cmd.ExecuteNonQuery();
             sqlite_conn.Close();
         }
@@ -92,22 +92,16 @@ namespace consoleApp
             sqlite_datareader = sqlite_cmd.ExecuteReader();
             while (sqlite_datareader.Read())
             {
-                //string myreader = sqlite_datareader.GetString(0);
                 DonneesUtilisateur compte = new DonneesUtilisateur();
                 compte.Nom = sqlite_datareader.GetString(0);
                 compte.MotDePasseHash = sqlite_datareader.GetString(1);
                 compte.NAS = sqlite_datareader.GetString(2);
                 //Console.WriteLine(DataSec.Decrypt(compte.NAS));
                 liste.Add(compte);
-
-                //Console.WriteLine(sqlite_datareader.GetString(0));
-                //Console.WriteLine(sqlite_datareader.GetString(1));
-                //Console.WriteLine(sqlite_datareader.GetString(2));
             }
 
             sqlite_conn.Close();
             return liste;
-            //conn.Close();
         }
 
         public static List<DonneesAnneeRevenu> BDRevenusPour(string utilisateurConnecte)
@@ -117,7 +111,7 @@ namespace consoleApp
             SqliteCommand sqlite_cmd;
             sqlite_cmd = sqlite_conn.CreateCommand();
             List<DonneesAnneeRevenu> liste = new List<DonneesAnneeRevenu>();
-            // execute the request and extract the data
+            // exécute la requête et obtient les données
             sqlite_cmd.CommandText = "SELECT * FROM MAnneeRevenu WHERE nom = '" + utilisateurConnecte + "'";
             sqlite_datareader = sqlite_cmd.ExecuteReader();
             while (sqlite_datareader.Read())

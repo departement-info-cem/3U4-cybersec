@@ -7,35 +7,30 @@ namespace consoleApp
 {
     class DonneesSecurite
     {
-        public static string Encrypt(string input)
+        public static string Encrypter(string input)
         {
             string result = "";
             foreach (char c in input)
             {
-                //Console.WriteLine(c);
-                // get the character with code that doubles ascii code of current char
                 char t = (char)(c * 2);
-                //Console.WriteLine(t);
                 result += t;
             }
             return result;
         }
 
-        public static string Decrypt(string input)
+        public static string Decrypter(string input)
         {
             string result = "";
             foreach (char c in input)
             {
-                //Console.WriteLine(c);
-                // get the character with code that doubles ascii code of current char
                 char t = (char)(c / 2);
-                //Console.WriteLine(t);
                 result += t;
             }
             return result;
         }
 
-        public static string HashThePassword(string input)
+        // fonctions permettant le hachage des mots de passe
+        public static string HacherLeMotDePasse(string input)
         {
             // Use input string to calculate MD5 hash
             using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
@@ -45,5 +40,12 @@ namespace consoleApp
                 return Convert.ToHexString(hashBytes); // .NET 5 +
             }
         }
+        
+        public static bool VerifierLeMotDePasse(string motDePasse, string hache)
+        {
+            // Use input string to calculate MD5 hash
+            return hache == DonneesSecurite.HacherLeMotDePasse(motDePasse);
+        }
+        
     }
 }

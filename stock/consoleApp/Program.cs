@@ -70,7 +70,7 @@ class Program
         }
         Console.WriteLine("Nom: " + utilisateurConnecte + 
                           " \n  NAS encrypté : " + DonneesAcces.BDUtilisateurParSonNom(utilisateurConnecte).NAS+
-                          " \n  NAS décrypté : " + DonneesSecurite.Decrypt(DonneesAcces.BDUtilisateurParSonNom(utilisateurConnecte).NAS)+
+                          " \n  NAS décrypté : " + DonneesSecurite.Decrypter(DonneesAcces.BDUtilisateurParSonNom(utilisateurConnecte).NAS)+
                           " \n  Mot de passe hashé : " + DonneesAcces.BDUtilisateurParSonNom(utilisateurConnecte).MotDePasseHash);
         // afficher toutes les années avec des revenus
         List<DonneesAnneeRevenu> liste = DonneesAcces.BDRevenusPour(utilisateurConnecte);
@@ -205,7 +205,7 @@ class Program
         Formulaires.FormulaireConnexion formulaire = Prompt.Bind<Formulaires.FormulaireConnexion>();
         Console.WriteLine(formulaire.MotDePasse);
         DonneesUtilisateur utilisateur = DonneesAcces.BDUtilisateurParSonNom(formulaire.Nom);
-        if (utilisateur.MotDePasseHash == DonneesSecurite.HashThePassword(formulaire.MotDePasse))
+        if (DonneesSecurite.VerifierLeMotDePasse(formulaire.MotDePasse, utilisateur.MotDePasseHash))
         {
             Console.WriteLine("Connexion réussie, bienvenue " + formulaire.Nom);
             utilisateurConnecte = formulaire.Nom;
