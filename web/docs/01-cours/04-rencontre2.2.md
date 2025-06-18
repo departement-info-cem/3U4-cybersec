@@ -1,7 +1,7 @@
 ---
 id: r04
-title: Rencontre 4 - Évaluation des menaces
-sidebar_label: R04 - Évaluation des menaces
+title: Rencontres 4 et 5 - Ateliers
+sidebar_label: R04 - Ateliers
 draft: false
 hide_table_of_contents: false
 ---
@@ -20,6 +20,8 @@ Les séances 4 et 5 sont consacrées à des ateliers en équipe de 4 personnes:
 Votre équipe doit compléter les quatre ateliers. Vous pouvez choisir l'ordre dans lequel vous les réalisez.
 
 Le matériel est limité
+
+:::
 
 ## RubberDucky (environ 20 minutes par équipe)
 

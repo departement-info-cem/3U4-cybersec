@@ -61,12 +61,12 @@ A25
 | [R02 → Authentification](cours/r02)                        | 5%                              |
 | [R03 → CID, faille/exploit/fix etc.](cours/r03)            | 10%                             |
 | [R04 → Ateliers RubberDucky ...](cours/r04)                | 20%                             |
-| [R05 → Ateliers RubberDucky ...](cours/r05)                | 30%                             |
+| [R05 → Ateliers RubberDucky ...](cours/r04)                | 30%                             |
 | [R06 → Sécurité physique](cours/r06)                       | 50%                             |
 | [R07 → TP1 / oral](cours/r07)                              | 75%                             |
-| [R08 → Examen formatif #1](cours/r08)               | 100% remise du TP1              |
-| [R09 → **Examen #1**](cours/r09)                      | --                              |
-| [R10 → ](cours/r10)                           | --                              |
+| [R08 → Examen formatif #1](cours/r08)                      | 100% remise du TP1              |
+| [R09 → **Examen #1**](cours/r09)                           | --                              |
+| [R10 → ](cours/r10)                                        | --                              |
 | [R11 → HTTPS, VPN et cookies](cours/r11)                   | -                             - |
 | [R12 → Droits et privilèges](cours/r12)                    | TP2 : Protéger les équipements  |
 | [R13 → Stratégies de sauvegarde](cours/r13)                | 10%                             |
