@@ -6,45 +6,16 @@ draft: false
 hide_table_of_contents: false
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
-:::note Plan de la rencontre
-
-<Tabs>
-
-<TabItem value="deroulement" label="👨‍🏫 Déroulement">
-
-1. Accueil et discussions
-2. Présentation du plan de cours
-3. Activités brise-glace
-4. Présentation du TP1
-
-</TabItem>
-
-<TabItem value="exercices" label="💻 Exercices">
-
-1. Hachage de mot de passe
-2. Craquage de mot de passe
-3. Salage de mot de passe
-
-</TabItem>
-
-<TabItem value="documents" label="📚 Documents">
-
-   1. 📄 [Plan de cours](/docs/PC_2024A_420-3U4-EM_Département-Informatique.pdf) 
-   2. 👨‍🏫 [Présentation PowerPoint](/docs/3U4-R01-Accueil.pptx)
-
-</TabItem>
-
-</Tabs>
-
-:::
-
 Bienvenue au cours d'introduction à la cybersécurité. Le cours se divise en 3 parties:
+
 1. Introduction aux fondements de la cybersécurité
 2. Cybersécurité des réseaux et postes de travail
 3. Cybersécurité applicative
+
+On veut susciter des **discussions** de groupe. On veut des cours **dynamiques**. Soyez **participatifs**! 
+
+Vous pouvez récupérer votre plan de cours dans Léa.
+
 
 ## Qu'est-ce que la cybersécurité?
 
@@ -58,25 +29,23 @@ La **cybersécurité**, c'est la protection des informations, des systèmes et d
 Tout au long du cours, nous rencontrerons certains termes propres au domaine de la cybersécurité. Les **menaces** (*threats*), ou cybermenaces, sont des événements pouvant causer un dommage ou un préjudice à un système, un équipement, un service ou des données. Les **vulnérabilités** sont les faiblesses d'un système pouvant être **exploitées** pour causer du dommage. On appelle **risque** la probabilité ou le potentiel de dommage ou de préjudice si une menace parvient à exploiter une vulnérabilité.
 
 Voici quelques exemples de cybermenaces:
+
 - Le vol de mes données confidentielles
 - Mon ordinateur est contrôlé par un hacker
 - Le service est dégradé, je n’ai plus accès à rien
 - Un service que je crois légitime est faux
 - Toutes mes données sont effacées
 
-Pour ne pas que ces menaces constituent un risque réel, il faut se protéger en éliminant, ou en mitigeant, les vulnérabilités. Vous avez sans doute en tête plusieurs méthodes de protection: les mots de passe solide, les antivirus et pare-feu, les VPN, le chiffrement (*encryption*), etc. Nous les explorerons plus en détails dans les semaines qui viennent.
-
+Pour ne pas que ces menaces constituent un risque réel, il faut se protéger en éliminant, ou en mitigeant, les vulnérabilités. Vous avez sans doute en tête plusieurs méthodes de protection: un **mot de passe** solide, un **antivirus**, un **pare-feu**, un **VPN**, une méthode de **chiffrement** (*encryption*), etc. Nous les explorerons plus en détails dans les semaines qui viennent.
 
 ## Activité
 
 Nous vous suggérons quelques activités pour briser la glace. Dans cette série d'exercices, nous allons explorer les mots de passe.
 
-:::caution
+:::warning
+Dans ce cours, vous apprendrez des techniques de _hacking_ qui, en dehors du cadre de ce cours, peuvent être **interdites** ou **illégales**. Vous devez vous conformer aux lois et réglementations en vigueur et ne pas utiliser ces compétences à des fins malveillantes ou sans autorisation préalable.
 
-Dans ce cours, vous apprendrez des techniques de hacking qui, en dehors du cadre de ce cours, peuvent être interdites ou illégales. Vous devez vous conformer aux lois et réglementations en vigueur et ne pas utiliser ces compétences à des fins malveillantes.
-
-Soyez responsables et utilisez vos connaissances de manière éthique et légale. La cybersécurité est un domaine passionnant, mais il est essentiel de respecter les droits et la vie privée des autres.
-
+Soyez **responsables** et utilisez vos connaissances de manière **éthique** et **légale**. La cybersécurité est un domaine passionnant, mais il est essentiel de respecter les droits et la vie privée des autres.
 :::
 
 ### Partie 1: Hacher des mots de passe
@@ -91,10 +60,11 @@ flowchart LR
   H["d41e98d1eaf..."]
   P-- "MD5" -->H
 ```
+
 #### Exercice à réaliser
 
 :::danger
-**Pour les activités d'aujourd'hui, n'entre jamais un mot de passe que tu utilises réellement.**
+Pour les activités d'aujourd'hui, vous devrez inventer des mots de passe. **Ne choisissez jamais un mot de passe que vous utilisez réellement!**
 :::
 
 
@@ -113,11 +83,12 @@ flowchart LR
 #### Discussion
 
 Quelques questions qu'on discutera à la fin de l'activité:
-- Est-ce que tous les hashs ont la même longueur? (tu peux les aligner dans notepad++ pour mieux voir le nombre de caractères de chacun)
-- Du coup, il y a un nombre de hash limité?
-- Est-ce que le nombre de mot de passe est limité?
-- Est-ce qu'il y a des mots de passe différents qui auraient le même hash?
-- Est-ce que ça semble facile de deviner le mot de passe si je te donne le hash?
+
+- Est-ce que tous les hashs ont **la même longueur?** (tu peux les aligner dans un éditeur de texte pour mieux voir le nombre de caractères de chacun)
+- Est-ce qu'il y a une limite dans le **nombre de hash possibles**? Si oui, combien?
+- Est-ce que le nombre de **mots de passe possibles** est limité ou illimité?
+- Est-ce qu'il y a des mots de passe différents qui auraient **le même hash**?
+- Est-ce que c'est facile de **deviner** le mot de passe si je te donne le hash?
 
 ### Partie 2 : Craquer des mots de passe
 
@@ -157,8 +128,8 @@ On peut réduire le risque qu'un hash soit craqué en lui introduisant un **sel*
 flowchart LR
   subgraph PS["Mot de passe salé"]
     direction LR
-    P["MotDePasse"]
     S["Sel"]
+    P["MotDePasse"]
     S---P
   end
   H["7f1bb6b9d93..."]
@@ -167,7 +138,7 @@ flowchart LR
 
 #### Exercices à réaliser
 
-1. Allez sur [ce générateur de hash MD5](http://md5.my-addr.com/md5_salted_hash-md5_salt_hash_generator_tool.php). Il permet de générer un *hash* salé avec un sel de votre choix.
+1. Allez sur [ce générateur de hash MD5](https://webutility.io/md5-hash-generator-with-salt). Il permet de générer un *hash* salé avec un sel de votre choix.
 2. Essayez d'entrer les mots de passe précédents qui ont été craqués avec succès (un à la fois).
 3. Prenez en note le hash puis essayez de les craquer de nouveau avec CrackStation
 
