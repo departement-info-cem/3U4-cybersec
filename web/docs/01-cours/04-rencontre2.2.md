@@ -23,6 +23,14 @@ Le matériel est limité
 
 :::
 
+
+## Constitution des équipes
+
+Nous vous recommandons de joindre 2 équipes de 2 personnes faisant leur TP ensemble pour
+former une équipe de 4 personnes.
+
+Le matériel est limité. Pendant les temps morts, vous pourrez avancer votre TP1.
+
 ## RubberDucky (environ 20 minutes par équipe)
 
 Matériel:
@@ -35,18 +43,61 @@ TODO
 - basculer entre le mode clavier et le mode USB
 - bonus: regarder l'IDE?
 
+
 ## Key logger (environ 20 minutes par équipe)
 
-Matériel: 
-- 1 keylogger physique (voir avec le prof l'ordre pour les équipes)
-- vos postes de travail: les informations collectées par le keylogger ne sont pas sensibles
+1. Demandez au professeur un keygrabber. Il y a 2 keyloggers:
+    - Le pico qui fait à peu près 1 pouce de long
+    - Le régulier qui fait environ 2 pouces de long
+2. Séparez votre équipe en deux:
+    - Équipe jaune
+    - Équipe verte
 
-TODO
-- leur faire installer le keylogger physique
-- démontrer l'accès aux logs de frappe
-- splitter l'équipe en deux : équipe A choisit un mot de passe compliqué mais pas un vrai à eux, équipe B le devine avec le keylogger
-- faire l'exercice inverse
-- RAPPORT? TRACE? 
+ATTENTION: nous allons utiliser les postes de travail du collège pour cet atelier.
+Il est très important de remettre les connexions USB comme vous les avez trouvées après l'atelier.
+
+### Découverte du fonctionnement
+1. Sur un poste,
+    - débranchez le clavier de la machine
+    - brancher le clavier dans le keylogger
+    - brancher le keylogger dans le poste dans le port USB où était le clavier
+2. Tapez quelques touches sur le clavier
+    - dans une fenêtre Notepad par exemple
+    - par exemple "Bonjour, je suis un keylogger 2!@#$%&*()_+"
+3. Pour accéder au journal des frappes,
+    - appuyer et maintenir sur les lettres "k" "b" et "s" en même temps
+    - le keylogger va se mettre en mode "storage" et apparaître comme une clé
+    - ouvrez le fichier "log.txt" pour voir les frappes enregistrées
+
+ATTENTION: en aucun cas vous ne toucherez aux autres fichiers du keylogger en mode clé USB.
+
+### Attraper le mot de passe d'un poste de travail
+
+Nous allons simuler une attaque où on essaie de capter le mot de passe d'un ennemi.
+
+1. Équipe jaune: installez le keygrabber sur un de vos postes. Vous devrez sans doute ramper un peu sous le bureau pour le brancher.
+2. Équipe jaune: ouvrez un notepad et le laisser ouvert.
+3. Équipe verte: pendant que l'équipe jaune ne regarde pas, dans le notepad ouvert:
+- tapez "mot de passe 1" puis un mot de passe de votre invention mais simple (que des minuscules)
+- tapez "mot de passe 2" puis un mot de passe de votre invention mais compliqué (minuscules, majuscules, chiffres et caractères spéciaux)
+- tapez "mot de passe 3" puis le mot de passe le plus compliqué mais de moins de 20 caractères.
+- enregistrez le fichier sous "motsPasseVerts.txt" et fermer le notepad
+4. Équipe jaune: en utilisant uniquement les informations du keylogger, essayer de retrouver les mots de passe et sauvegarder dans "devineVerts.txt"
+
+Refaites l'activité en inversant les rôles pour avoir les fichier
+- "motsPasseJaunes.txt"
+- "devineJaunes.txt"
+
+### Synthèse ensemble
+
+1. Essayer de trouver une recette infaillible pour retrouver un mot de passe à partir d'un LOG.TXT
+2. Consigner cette recette dans un fichier texte que vous nommerez "recetteKeylogger.txt".
+3. Conserver tous les fichiers chacun dans vos notes de cours.
+4. Bonus
+- Pouvez vous imaginer des moyens de se protéger contre ce type d'attaque?
+- Un indice le  keylogger ne sait pas quelle fenêtre est active, il enregistre juste les frappes.
+- Proposez une solution casser votre recette infaillible. Vous pouvez valider le tout avec votre prof.
+
 
 ## Boot clé USB externe (environ 20 minutes par équipe)
 
