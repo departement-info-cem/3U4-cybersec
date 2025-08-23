@@ -14,7 +14,7 @@ import TabItem from '@theme/TabItem';
 Les séances 4 et 5 sont consacrées à des ateliers en équipe de 4 personnes:
 - RubberDucky : vous utiliserez une clé USB active pour attaquer un poste de travail
 - Key logger : vous utiliserez un keylogger pour attaquer un poste de travail
-- Hiren : vous utiliserez une clé USB externe pour démarrer un poste de travail, changer un mot de passe, 
+- Hiren : vous utiliserez une clé USB externe pour démarrer un poste de travail, changer un mot de passe 
 - Flipper Zero : vous utiliserez un Flipper Zero pour attaquer un poste de travail
 
 Votre équipe doit compléter les quatre ateliers. Vous pouvez choisir l'ordre dans lequel vous les réalisez.
@@ -103,7 +103,8 @@ Refaites l'activité en inversant les rôles pour avoir les fichier
 
 ### Matériel:
 - Une clé USB bootable avec Hiren’s BootCD PE.
-- Un ordinateur portable du collège sans protection du BIOS (les postes de travail du cégep sont protégés par mot de passe du BIOS)
+- Un ordinateur portable du collège sans protection du BIOS (les postes de travail du cégep sont protégés par mot de passe du BIOS).
+- Un fichier pour prendre des notes.
 
 ### Mise en contexte :
 Le portable que vous utiliserez contient un compte Administrateur, mais vous n'avez pas le mot de passe pour vous y connecter.
@@ -131,7 +132,7 @@ Lorsque vous serez dans le **menu de démarrage du BIOS**, vous verrez une inter
 
 La section **UEFI BOOT** contient les différentes options de démarrage. Par défaut, c'est l'OS Windows (Windows Boot Manager) installé sur le portable qui démarre (premier sur la liste, mais cet ordre peut être modifié). Dans notre cas, nous voulons **démarrer le système d'exploitation externe Hiren** afin de pouvoir utiliser ses outils. 
 
-3. **Sélectionnez l'option de démarrage approprié**.
+3. **Sélectionnez l'option de démarrage approprié**. Dans votre fichier, prenez en note l'option que vous avez selectionnée. 
 
 **Note** : Lorsque vous utilisez un OS externe comme nous le faisons avec Hiren, ce n'est plus Windows qui est installé sur le disque C: (de l'ordinateur courant) qui est lancé. Par conséquent, **tous les processus et mesures de sécurité qui seraient normalement appliqués par Windows ne le sont plus**. Tous les fichiers du disque C: deviennent donc **accessibles**. 
 
@@ -140,6 +141,7 @@ La section **UEFI BOOT** contient les différentes options de démarrage. Par d�
  Une fois que le démarrage est complété, ouvrez **l'explorateur de fichier** et : 
  1. Accédez au contenu du disque local C: 
  2. Trouvez l'image douteuse que l'administrateur conserve sur son compte. 
+ 3. Dans votre fichier, notez le chemin vers l'image en question et dites ce qu'il y a sur l'image. 
 
 ### SECTION C : Changer le mot de passe du compte Administrateur 
 1. Utilisez le programme **NT Password Edit**  
@@ -148,11 +150,8 @@ La section **UEFI BOOT** contient les différentes options de démarrage. Par d�
 4. Redémarrez l'ordinateur (sans accéder au BIOS) et **connectez-vous au compte Administrateur** avec le mot de passe que vous avez créé. 
 
 ### Comment se protéger : 
-Il existe plusieurs manières de se protéger contre des outils bootables externes comme Hiren, en voici quelques-unes.
-- L'idéal est de **chiffrer le disque** avec des outils de chiffrement. Par exemple, en utilisant **BitLocker** qui est intégré dans certaines versions de Windows 10 et 11 (doit être activé). Les données du disque deviendraient donc illisibles et cette approche est plutôt simple.   
-- Une autre option est de **mettre un mot de passe sur le BIOS**, comme c'est le cas pour les postes de travail au cégep. Ceci empêcherait les modifications des paramètres de démarrage, donc un attaquant ne pourrait pas démarrer l'ordinateur avec la clé USB bootable.  
-- Il est également possible de **désactiver le démarrage avec périphériques externes** dans les configurations du BIOS. 
-- Surtout, ne pas laisser trainer son ordi n'importe où! 
+Il existe plusieurs manières de se protéger contre des outils bootables externes comme Hiren. Indiquez dans votre fichier quelques solutions.
+
 
 
 ## Flipper Zero (environ 20 minutes par équipe)
