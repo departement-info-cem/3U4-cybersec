@@ -47,7 +47,7 @@ La notion d'**authentification** est très importante puisque sans elle, n'impor
 
 ## La faiblesse des mots de passe
 
-Un mot de passe est souvent utilisé en guise de preuve d'identité, mais il ne constitue pas vraiment une preuve. Nous avons vu au dernier cours que des mots de passe simples et non salés peuvent être facile à craquer si nous en possédons le hash. Même sans le hash, certains mots de passe sont [faciles à deviner](https://en.wikipedia.org/wiki/Wikipedia:10,000_most_common_passwords).
+Un mot de passe est souvent utilisé en guise de preuve d'identité, mais il ne constitue pas vraiment une preuve. Nous avons vu au dernier cours que des mots de passe simples et non salés peuvent être facile à craquer si nous en possédons le hash. Même sans le hash, certains mots de passe sont [faciles à deviner](https://en.wikipedia.org/wiki/List_of_the_most_common_passwords).
 
 Augmenter la complexité du mot de passe est certes une bonne pratique, mais il y a des limites à son efficacité. Si le mot de passe est trop complexe, il risque d'être difficile à retenir. Si cette complexité est imposée à l'utilisateur, celui-ci risque d'être tenté d'écrire son mot de passe dans un fichier ou un post-it. Choisir un mot de passe long mais peu complexe, qu'on appelle parfois une *passphrase*, est plus difficile à craquer à partir du hash, mais plus facile à deviner par des humains (surtout s'il est composé de mots prévisibles, comme le nom de ses enfants).
 
@@ -60,7 +60,7 @@ Comment fait-on pour obtenir le mot de passe de quelqu'un? Il y a plusieurs mani
 
 ### Attaque par force brute
 
-La manière la plus intuitive d'obtenir le mot de passe de quelqu'un est de tous les essayer un par un, souvent en commençant par [les plus fréquents](https://en.wikipedia.org/wiki/Wikipedia:10,000_most_common_passwords). C'est peu pratiquable pour un humain, mais c'est très facile à faire pour un script. On appelle ce stratagème une [**attaque par force brute**](https://fr.wikipedia.org/wiki/Attaque_par_force_brute) (*brute force attack*).
+La manière la plus intuitive d'obtenir le mot de passe de quelqu'un est de tous les essayer un par un, souvent en commençant par [les plus fréquents](https://en.wikipedia.org/wiki/List_of_the_most_common_passwords). C'est peu pratiquable pour un humain, mais c'est très facile à faire pour un script. On appelle ce stratagème une [**attaque par force brute**](https://fr.wikipedia.org/wiki/Attaque_par_force_brute) (*brute force attack*).
 
 Cette méthode est généralement peu efficace car la plupart des applications vont contrer automatiquement ce stratagème. Plusieurs contremesures:
 - Bloquer l'application après un certain nombre de tentatives
