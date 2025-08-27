@@ -33,15 +33,55 @@ Le matériel est limité. Pendant les temps morts, vous pourrez avancer votre TP
 
 ## RubberDucky (environ 20 minutes par équipe)
 
-Matériel:
+### Matériel:
 - 1 clé USB RubberDucky (voir avec le prof l'ordre pour les équipes)
 - vos postes de travail: les injections proposées par le prof ne font aucun dommage
 - si la clé USB a été modifiée, demande au prof de la restaurer
 
-TODO 
-- POSTE leur faire essayer des inject.bin déjà présents sur la clé
-- basculer entre le mode clavier et le mode USB
-- bonus: regarder l'IDE?
+### Mise en contexte :
+Le RubberDucky ressemble à une clé USB ordinaire, mais permet en fait d'injecter un script sur sa victime. Une fois branchée dans un ordinateur, celle-ci sera détectée par l'ordinateur comme un clavier, permettant ainsi de forcer la victime a exécuté du code arbitraire.
+
+#### Découverte du fonctionnement
+Le RubberDucky possède **deux modes** de fonctionnement;
+- Le mode **Clé USB** : Permets d'ajouter, modifier ou supprimer le script qui sera exécuté par l'appareil
+- Le mode **Attaque / Injection** : Permets d'exécuter le script lorsque la clé USB est branchée dans un appareil.
+
+Dès que le RubberDucky est connecté à un appareil, il passe automatiquement en mode **Attaque / Injection**. Pour basculer vers le mode **Clé USB,** il suffit d'appuyer sur le bouton caché à l'intérieur du RubberDucky (allez voir le prof si vous ne trouvez pas le bouton en question). Si le RubberDucky n'a pas de script nommé **inject.bin** à la racine ou si le fichier de script est corrompu, il basculera automatiquement en mode **Clé USB** lorsqu'il sera branché.
+
+### À faire : 
+L'exercice consiste à simplement attaquer un poste de travail à l'aide de la clé USB, puis de remettre l'ordinateur dans son état initial. Lors de l'exercice, la moitié des membres de l'équipe joueront le rôle des attaquants, et le reste jouera le rôle des victimes.
+
+#### Phase 1
+##### L'attaquant (Ordinateur 1) doit : 
+1. Connecter le RubberDucky sur son poste en mode **Clé USB**.
+2. Parcourir l'arborescence de l'appareil et trouver le fichier de script nommé **SwapScreen.bin**.
+3. Copier le script vers la racine du RubberDucky et renommer le fichier en **inject.bin**.
+4. Éjecter le RubberDucky de façon sécuritaire (Clic droit sur l'appareil, et choisir **Ejecter**).
+
+##### La victime (ordinateur 2) doit :
+1. Connecter le RubberDucky sur son poste.
+2. ~~Subir les conséquences de sa naïveté.~~ Comprendre la gravité de vos actions.
+3. Basculer le RubberDucky en mode **Clé USB** et supprimer le fichier **inject.bin**.
+
+#### Phase 2
+##### L'attaquant (Ordinateur 1) doit : 
+1. Connecter le RubberDucky sur son poste en mode **Clé USB**.
+2. Parcourir l'arborescence de l'appareil et trouver le fichier de script nommé **SwapBackScreen.bin**.
+3. Copier le script vers la racine du RubberDucky et renommer le fichier en **inject.bin**.
+4. Éjecter le RubberDucky de façon sécuritaire (Clic droit sur l'appareil, et choisir **Ejecter**).
+
+##### La victime (ordinateur 2) doit :
+1. Connecter le RubberDucky sur son poste.
+2. Comprendre que l'attaquant a été gentil avec vous et a rétabli votre poste de travail dans son état initial.
+
+### Bonus: Écrire votre propre Script avec l'IDE
+Si le groupe suivant n'a toujours pas terminé son atelier, vous pouvez essayer d'écrire votre propre script **Malicieux**. Pour cela, vous devez :
+
+1. Visitez le site de RubberDucky pour utiliser leur [IDE en version gratuite](https://payloadstudio.hak5.org/community/).
+2. Jouez avec l'outil et apprenez le langage de script "DuckyScript".
+3. Exportez votre script au format **.bin** et remplacez le fichier à la racine du RubberDocky pour que votre script s'exécute (Reprodusez les mêmes étapes que lors de l'exercice).
+
+ATTENTION: Ne pas prendre du code d'internet que vous ne comprenez pas, il pourrait être très dangereux d'exécuter du code provenant d'internet. Le RubbberDucky exécuterait le code comme s'il s'agit de vos actions, vous pourriez donc être accusé d'avoir vous-même exécuté du code malveillant.
 
 
 ## Key logger (environ 20 minutes par équipe)
