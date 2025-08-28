@@ -193,8 +193,88 @@ La section **UEFI BOOT** contient les différentes options de démarrage. Par d�
 Il existe plusieurs manières de se protéger contre des outils bootables externes comme Hiren. Indiquez dans votre fichier quelques solutions.
 
 
-
 ## Flipper Zero (environ 20 minutes par équipe)
 
-TODO
-Cloner un signal Infra Rouge du projecteur?
+Le Flipper Zero est un petit appareil multifonction qui, derrière son apparence de gadget électronique ludique, est une sorte de canif suisse de la cybersécurité. On l'utilise principalement pour émuler et cloner des signaux numériques. Il supporte plusieurs protocoles de communication sans-fil, comme NFC, Bluetooth, RFID ainsi que les signaux infrarouge et radio. Il dispose également d'un port USB, qui peut être utilisé pour émuler des périphériques. Il est aussi muni de ports d'extension entrée/sortie (*GPIO*) pour lui connecter des modules externes afin d'accroitre ses capacités, par exemple en lui ajoutant du support WiFi ou GPS.
+
+![Flipper](flipper.png)
+
+Équipement requis:
+- Le Flipper Zero
+- Un câble USB
+- La télécommande du projecteur
+
+### Partie 1: Pwn les projecteurs (*infrarouge*)
+
+Le Flipper Zero dispose d'un port infrarouge qui permet d'envoyer et de lire les signaux infrarouge. Plusieurs appareils (téléviseurs, projecteurs, climatiseurs, etc.) disposent d'une télécommande qui communique leurs directives à l'aide de signaux infrarouge. Dans cet exercice, vous utiliserez le Flipper pour prendre contrôle du projecteur de la classe (*chut!*, ne le dites pas à la DiSTI!).
+
+Le projecteur devant la classe est muni d'une télécommande qui lui envoie des signaux lumineux. Par exemple, lorsqu'on appuie sur le bouton *Power*, une LED au devant de la télécommande s'allume et s'éteint très rapidement en suivant un pattern précis. Le projecteur, quant à lui, est muni d'une diode photosensible qui surveille les différences de luminosité. Lorsqu'elle détecte un *pattern* connu, l'appareil obéit à la directive correspondante, soit allumer ou éteindre le projecteur. On pourrait croire que pour contrôler le projecteur à distance, on a obligatoirement besoin de la télécommande, mais n'importe quel appareil capable d'envoyer les mêmes signaux lumineux peut "faire croire" au projecteur que son utilisateur possède ladite télécommande. C'est l'un des usages du Flipper.
+
+La principale difficulté de cette attaque est de connaître le pattern de signaux que la télécommande envoie. Chaque marque, chaque modèle, peut avoir son jeu de signaux. Mais avec un peu de chance et de créativité, on peut copier le signal provenant de la télécommande et l'enregistrer dans l'appareil, afin de le répéter à volonté. Pour cela, vous devez être en contact avec la télécommande, juste le temps de cloner son signal, ou encore se trouver sans son champ d'émission lorsqu'elle est utilisée. Pour cet exercice, empruntez la télécommande sur le bureau du prof.
+
+:::note Marche à suivre
+1. Appuyez sur le bouton central pour accéder au menu et sélectionnez l'option Infrared.
+2. Sélectionnez Learn new remote.
+3. Pendant que le Flipper est en mode écoute, pointez la télécommande en direction du port infrarouge et appuyez sur le bouton Power.
+4. Le flipper devrait détecter le signal reçu. Vous pouvez l'enregistrer et lui donner un nom.
+5. Vous pouvez ajouter d'autres boutons de la télécommande de la même manière (le bouton AV/Mute et Freeze par exemple).
+6. Lorsque vous avez cloné les boutons qui vous intéressent (ne les faites pas tous SVP, c'est long et inutile), changez le nom du "remote" et sauvegardez-le.
+7. Testez l'attaque. Pointez le port infrarouge du Flipper en direction du projecteur et tentez de l'allumer ou de l'éteindre (les signaux clonés se trouvent sous "saved remotes").
+:::
+
+Mais supposons que vous soyez incapables d'avoir accès à la télécommande. L'attaque sera certes plus difficile à réaliser. Mais le Flipper a une fonctionnalité qui permet d'allumer ou d'éteindre le projecteur sans avoir cloné le signal au préalable. Voici comment faire:
+
+:::note Marche à suivre
+1. Dans le menu Infrared, sélectionnez "Universal remotes", puis "Projectors"
+2. En pointant le Flipper en direction du projecteur, sélectionnez le bouton Power et appuyez sur le bouton central pour envoyer le signal
+3. Laissez le Flipper pointé en direction du projecteur jusqu'à ce qu'il capte le signal (cela peut prendre quelques secondes)
+
+Discussions
+- Comment pensez-vous que le Flipper arrive à "deviner" les signaux compatibles avec ce projecteur?
+- Comment pourriez-vous éviter ce type d'attaque?
+:::
+
+
+### Partie 2: Mouse jiggler
+
+Le Flipper est muni d'un port USB, qu'on utilise principalement pour charger la batterie de l'appareil et pour le connecter à l'ordinateur. Mais le Flipper dispose de quelques outils permettant d'exploiter les ports USB en émulant des périphériques HID (claviers et souris).
+
+Par exemple, le Flipper peut être utilisé comme un **agitateur de souris** (*mouse jiggler*).
+
+:::note Marche à suivre
+1. Appuyez sur le bouton central pour ouvrir le menu, puis choisissez **Apps**, puis **USB**, puis **Remote**
+2. Ouvrez l'outil Mouse Jiggler.
+3. Connectez le Flipper à votre ordinateur à l'aide du câble USB
+4. Démarrez le Mouse Jiggler et regardez la flèche de la souris.
+:::
+
+Discussions:
+- Que se passe-t-il au juste?
+- Pouvez-vous penser à des situations où un *mouse jiggler* peut être utile dans un contexte de cybersécurité?
+- Comment pourriez-vous éviter ce type d'attaque?
+
+
+### Partie 3: BadUSB
+
+Pour cette partie de l'exercice, on va utiliser le Flipper pour exécuter un script sur un ordinateur. Voici comment s'y prendre:
+
+:::note Marche à suivre
+1. Ne **connectez pas** le câble USB tout de suite!
+2. Appuyez sur le bouton central pour ouvrir le menu, puis choisissez **BadUSB**. 
+3. Choisissez le script `demo3u4` et appuyez sur le bouton central pour l'ouvrir
+4. Connectez maintenant le Flipper au PC avec le câble USB
+5. Appuyez sur le bouton central pour lancer le script
+6. Bon, l'ordinateur n'est plus vraiment utilisable. Heureusement, le script `demo3u4-fix` le remet dans son état normal!
+:::
+
+Discussions:
+- Comment le Flipper a-t-il pu avoir cet effet sur l'ordinateur?
+- Un antivirus aurait-il pu prévenir cette attaque?
+- Pouvez-vous imaginer des situations où cet outil pourrait être utile pour un cybercriminel?
+- Allez jeter un coup d'oeil au [code du script](https://raw.githubusercontent.com/departement-info-cem/3U4-cybersec/refs/heads/main/stock/demoBadUSB/demo3u4.txt).
+
+
+
+
+
+
