@@ -257,7 +257,7 @@ La métrique de disponibilité décrit si l'exploitation de la vulnérabilité a
 Aucun impact sur la disponibilité.
 
 #### Faible (A:L)
-La disponibilité est affectéw de manière intermittente ou partielle, ou la performance peut être dégradée
+La disponibilité est affectée de manière intermittente ou partielle, ou la performance peut être dégradée.
 
 #### Élevée (A:H)
 Un attaquant peut rendre le système vulnérable complètement indisponible.
