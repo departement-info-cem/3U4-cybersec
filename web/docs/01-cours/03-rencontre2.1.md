@@ -4,6 +4,7 @@ title: Rencontre 3 - Faille/exploit/fix - CID - CVSS
 sidebar_label: R03 - Faille/exploit/fix - CID - CVSS 
 draft: false
 hide_table_of_contents: false
+toc_max_heading_level: 4
 ---
 
 import Tabs from '@theme/Tabs';
@@ -29,7 +30,7 @@ import TabItem from '@theme/TabItem';
 
 ## 1. Notions de vulnérabilité, exploit et correctif
 
-## Concepts clés en cybersécurité :
+### Concepts clés en cybersécurité
 
 | **Terme**            | **Définition** |
 |----------------------|-----------------|
@@ -39,16 +40,16 @@ import TabItem from '@theme/TabItem';
 | **Exploit (attaque)** | **Action visant à tirer profit d'une vulnérabilité**. L'exploit est souvent complexe et contient beaucoup d'étapes. Essentiellement, c'est une marche à suivre qu'une personne qualifiée peut appliquer pour mener à bien l'attaque en "exploitant" la vulnérabilité.|
 | **Correctif (fix)** | **Solution pour corriger la vulnérabilité et bloquer l'exploit**. On peut valider un correctif en s'assurant que l'exploit ne fonctionne plus|
 
-## Exemple d'attaque avec exploit et correctif :
+### Exemple d'attaque avec exploit et correctif
 
 **Résumé** :
 > Un étudiant a placé un keylogger physique sur le poste du prof dans le local D0605. Il a pu récupérer les mots de passe des 8 profs qui donnent des cours dans ce local. Cela inclut son prof pour un cours qu'il est au bord de couler.
 
-### Vulnérabilité
+##### Vulnérabilité
 
 L'accès physique aux ordinateurs des profs est possible et il n'y a pas de moyen de surveillance des classes.
 
-### Exploit
+##### Exploit
 
 - acheter un keylogger physique sur un site de vente en ligne
 - attendre une fin de journée un vendredi pour installer le keylogger
@@ -59,7 +60,7 @@ L'accès physique aux ordinateurs des profs est possible et il n'y a pas de moye
 - attendre une période suffisamment longue pour que le keylogger ait enregistré des mots de passe
 - revenir pour récupérer le keylogger en procédant à l'inverse de la première étape
 
-### Correctif
+##### Correctif
 
 Les détails de l'exploit permettent de trouver un correctif:
 - on pourrait empêcher une main de passer derrière les postes
@@ -72,7 +73,7 @@ Les détails de l'exploit permettent de trouver un correctif:
   - s'assurer qu'un technicien passe régulièrement inspecter les postes
   - former les profs pour qu'ils valident que rien n'est branché en arrière en début de cours
 
-### Leçons
+##### Leçons
 
 - Si on ne sait pas comment l'attaque a été menée, on ne peut pas trouver de correctif
 - On essaie de se défendre un peu à l'aveugle
@@ -82,7 +83,9 @@ Les détails de l'exploit permettent de trouver un correctif:
   - https://medium.com/@haydengpt/when-72-characters-is-all-it-takes-unpacking-spring-securitys-latest-snafu-6a65164d370b
   - https://spring.io/security/cve-2025-22228
 
-## Exercice par groupe de 4 : Déterminer la vulnérabilité, l'exploit et le correctif (10 min) :  
+### Exercice par équipe de 3-4 (10 min)
+
+Par groupe de 3 ou 4, déterminer la **vulnérabilité**, l'**exploit** et le **correctif**.
 
 > Joris un des profs du département d'informatique a reçu un courriel venant d'un collègue d'un autre collège. Dedans il y avait un `.exe` avec supposément la démo d'un TP dans un cours qu'il donne.
 >
@@ -92,7 +95,9 @@ Les détails de l'exploit permettent de trouver un correctif:
 
 
 
-## Types d'attaques et objectifs visés (liste non exhaustive) :
+### Types d'attaques et objectifs visés
+
+Ceci est une liste non exhaustive des objectifs visés et des types d'attaques présentant le potentiel de les atteindre.
 
 | **Objectif**                          | **Types d'attaques** |
 |--------------------------------------|--------------------------------|
@@ -112,7 +117,7 @@ Les détails de l'exploit permettent de trouver un correctif:
 | **Disponibilité**   | L’information est disponible et les utilisateurs peuvent y accéder chaque fois qu’ils en ont besoin. |
 
 
-## Exercice triade CID (10 min)
+### Exercice triade CID (10 min)
 
 Faites une petite recherche sur ces événements et dites quel(s) critère(s) de la triade CID ont été compromis.
 - [Desjardins (2019)](https://fr.wikipedia.org/wiki/Caisses_Desjardins#Vol_de_donn%C3%A9es_personnelles)
@@ -124,7 +129,7 @@ Faites une petite recherche sur ces événements et dites quel(s) critère(s) de
 - [Attaque NotPetya contre l’Ukraine (2017)](https://en.wikipedia.org/wiki/2017_Ukraine_ransomware_attacks)
 
 
-## Traçabilité
+### Traçabilité
 
 On ajoute parfois à la triade CID un quatrième critère, celui de la traçabilité.
 Les entreprises vont mettre en place des mesures pour remonter à la source en cas d’attaque, à l’aide de systèmes de détection et de journalisation.
@@ -156,117 +161,117 @@ Le **CVSS** est un système permettant d'**évaluer le niveau de criticité d'un
 
 Dans ce cours, **nous nous atterderons seulement aux métriques de base**.
 
-### Vecteur d'attaque (AV)
+#### AV: Vecteur d'attaque
 
 Le vecteur d'attaque décrit comment la vulnérabilité peut être exploitée.
 
-#### Réseau (AV:N)
+##### Réseau (AV:N)
 La vulnérabilité est exploitable par le réseau et peut passer à travers un routeur.
 
-#### Adjacent (AV:A)
+##### Adjacent (AV:A)
 La vulnérabilité est exploitable par le réseau, mais demande soit une proximité locale (bluetooth, WiFi) soit sur le même segment du réseau local.
 
-#### Local (AV:L)
+##### Local (AV:L)
 La vulnérabilité est exploitable seulement avec un accès local au système, soit directement, soit à distance à l'aide de protocole comme SSH ou RDP, ou encore par ingénierie sociale.
 
-#### Physique (AV:P)
+##### Physique (AV:P)
 La vulnérabilité est exploitable seulement avec un accès physique et direct.
 
-### Complexité de l'attaque (AC)
+#### AC: Complexité de l'attaque
 
 La métrique de complexité décrit le niveau de difficulté de l'exploit. Il n'est pas ici question du niveau de compétence requis pour exploiter la vulnérabilité ou si l'attaque est "compliquée" à réaliser (par exemple, on doit envoyer du code en assembleur et c'est difficile à apprendre). On parle plutôt des conditions dans laquelle l'attaque doit être réalisée.
 
-#### Bas (AC:L)
+##### Bas (AC:L)
 L'attaque peut réussir sans circonstances particulières et sans grands efforts de préparation.
 
-#### Haut (AC:H)
+##### Haut (AC:H)
 Le succès de l'attaque dépend de circonstances hors du contrôle de l'attaquant, qui devra investir des efforts considérables pour préparer son attaque.
 
 
-### Privilèges nécesaires (PR)
+#### PR: Privilèges nécesaires
 
 La métrique de privilège décrit le niveau de privilège requis par un attaquant afin de réussir son exploit.
 
-#### Aucun (PR:N)
+##### Aucun (PR:N)
 L'attaquant n'a pas besoin de s'authentifier ou de s'identifier pour l'attaque.
 
-#### Bas (PR:L)
+##### Bas (PR:L)
 L'attaquant doit être authentifié et disposer d'un accès de base.
 
-#### Élevé (PR:H)
+##### Élevé (PR:H)
 L'attaquant doit être authentifié à l'aide d'un compte disposant de privilèges élevés ou significatifs.
 
 
-### Interaction nécessaire de l'utilisateur (UI)
+#### UI: Interaction nécessaire de l'utilisateur
 
 La métrique d'interaction avec l'utilisateur décrit si le succès d'un exploit dépend d'une action particulière de la part d'un utilisateur tiers (autre que l'attaquant).
 
-#### Aucune (UI:N)
+##### Aucune (UI:N)
 La vulnérabilité peut être exploitée sans dépendre d'une quelconque interaction avec un utilisateur.
 
-#### Requise (UI:R)
+##### Requise (UI:R)
 Le succès de l'exploit dépend d'une action de la part d'un utilisateur (par exemple, cliquer sur un lien dans un courriel).
 
 
-### Portée (S)
+#### S: Portée (*scope*)
 
 La métrique de portée décrit si une attaque réalisée avec succès sur le système vulnérable peut causer un impact sur un autre système.
 
-#### Changée (S:C)
+##### Changée (S:C)
 Une vulnérabilité exploitée peut avoir des répercussions sur d'autres systèmes.
 
-#### Inchangée (S:U)
+##### Inchangée (S:U)
 Le dommage causé par l'exploitation de la vulnérabilité est limité au système vulnérable.
 
 
-### Impact sur la confidentialité
+#### C: Impact sur la confidentialité
 
 La métrique de confidentialité décrit si l'exploitation de la vulnérabilité a le potentiel de permettre l'accès à des données sensibles par des personnes non autorisées.
 
-#### Aucune (C:N)
+##### Aucune (C:N)
 Aucun impact sur la confidentialité.
 
-#### Faible (C:L)
+##### Faible (C:L)
 Il y a un impact sur le confidentialité, mais l'étendue de l'information compromise est partielle ou l'attaquant n'a pas de contrôle sur les données qu'il accède.
 
-#### Élevée (C:H)
+##### Élevée (C:H)
 Un attaquant peut avoir accès à l'entièreté des données du système, incluant des données sensibles.
 
 
 
-### Impact sur l'intégrité
+#### I: Impact sur l'intégrité
 
 La métrique de confidentialité décrit si l'exploitation de la vulnérabilité a le potentiel de permettre la modification ou l'altération de données.
 
-#### Aucune (I:N)
+##### Aucune (I:N)
 Aucun impact sur l'intégrité de l'information.
 
-#### Faible (I:L)
+##### Faible (I:L)
 L'impact sur l'intégrité de l'information est circonscrit et limité.
 
-#### Élevée (I:H)
+##### Élevée (I:H)
 Un attaquant peut modifier toutes les données du système compromis.
 
 
 
-### Impact sur la disponibilité
+#### A: Impact sur la disponibilité (*availability*)
 
 La métrique de disponibilité décrit si l'exploitation de la vulnérabilité a le potentiel d'empêcher l'accès à l'information par les personnes autorisées.
 
-#### Aucune (A:N)
+##### Aucune (A:N)
 Aucun impact sur la disponibilité.
 
-#### Faible (A:L)
+##### Faible (A:L)
 La disponibilité est affectée de manière intermittente ou partielle, ou la performance peut être dégradée.
 
-#### Élevée (A:H)
+##### Élevée (A:H)
 Un attaquant peut rendre le système vulnérable complètement indisponible.
 
 
 
-## Exemple de calcul du score CVSS
+### Exemple de calcul du score CVSS
 
-### Une attaque de déni de service (DDoS) sur le site omnivox pendant la période de remise des notes
+Cet exemple décrit le calcul du score CVSS d'une vulnérabilité ayant permis une attaque de déni de service (DDoS) sur le site omnivox pendant la période de remise des notes.
 
 **Résumé :**
 > On est rendus le 28 décembre, et demain c'est la date limite pour remettre les notes. Plusieurs profs commencent à se plaindre, car la plupart du temps on ne peut pas accéder, et quand on accède, c'est très lent.
@@ -283,9 +288,9 @@ Un attaquant peut rendre le système vulnérable complètement indisponible.
 
 On va donc avoir un **score de 7.5/10**. C'est assez élevé, on va donc devoir s'en occuper rapidement.
 
-## Exercices par équipe de 3-4 (10 min):
+### Exercices par équipe de 3-4 (10 min):
 
-**Déterminer chaque composante du CVSS 3.1 et le score final**. Pensez à prendre des notes, ça pourrait servir
+Par groupe de 3 ou 4, **déterminez chaque composante du CVSS 3.1 et le score final**. Pensez à prendre des notes, ça pourrait servir
 pour les révisions pour l'examen.
 
 > Joris, un des profs du département d'informatique, a reçu un courriel venant d'un collègue d'un autre collège. Dedans, il y avait un `.exe` avec supposément la démo d'un TP dans un cours qu'il donne.
