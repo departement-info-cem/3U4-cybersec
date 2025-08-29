@@ -161,111 +161,91 @@ Le **CVSS** est un système permettant d'**évaluer le niveau de criticité d'un
 
 Dans ce cours, **nous nous atterderons seulement aux métriques de base**.
 
-#### AV: Vecteur d'attaque
+### AV: Vecteur d'attaque
 
 Le vecteur d'attaque décrit comment la vulnérabilité peut être exploitée.
 
-##### Réseau (AV:N)
-La vulnérabilité est exploitable par le réseau et peut passer à travers un routeur.
+| **Valeur** | **Code** | **Description** |
+| --- | -- | --- |
+| Réseau | AV:N | La vulnérabilité est exploitable par le réseau et peut passer à travers un routeur.|
+| Adjacent | AV:A | La vulnérabilité est exploitable par le réseau, mais demande soit une proximité locale (bluetooth, WiFi) soit sur le même segment du réseau local.|
+| Local | AV:L | La vulnérabilité est exploitable seulement avec un accès local au système, soit directement, soit à distance à l'aide de protocole comme SSH ou RDP, ou encore par ingénierie sociale. |
+| Physique | AV:P | La vulnérabilité est exploitable seulement avec un accès physique et direct.|
 
-##### Adjacent (AV:A)
-La vulnérabilité est exploitable par le réseau, mais demande soit une proximité locale (bluetooth, WiFi) soit sur le même segment du réseau local.
-
-##### Local (AV:L)
-La vulnérabilité est exploitable seulement avec un accès local au système, soit directement, soit à distance à l'aide de protocole comme SSH ou RDP, ou encore par ingénierie sociale.
-
-##### Physique (AV:P)
-La vulnérabilité est exploitable seulement avec un accès physique et direct.
-
-#### AC: Complexité de l'attaque
+### AC: Complexité de l'attaque
 
 La métrique de complexité décrit le niveau de difficulté de l'exploit. Il n'est pas ici question du niveau de compétence requis pour exploiter la vulnérabilité ou si l'attaque est "compliquée" à réaliser (par exemple, on doit envoyer du code en assembleur et c'est difficile à apprendre). On parle plutôt des conditions dans laquelle l'attaque doit être réalisée.
 
-##### Bas (AC:L)
-L'attaque peut réussir sans circonstances particulières et sans grands efforts de préparation.
+| **Valeur** | **Code** | **Description** |
+| --- | -- | --- |
+| Bas | AC:L | L'attaque peut réussir sans circonstances particulières et sans grands efforts de préparation. |
+| Haut | AC:H | Le succès de l'attaque dépend de circonstances hors du contrôle de l'attaquant, qui devra investir des efforts considérables pour préparer son attaque. |
 
-##### Haut (AC:H)
-Le succès de l'attaque dépend de circonstances hors du contrôle de l'attaquant, qui devra investir des efforts considérables pour préparer son attaque.
 
-
-#### PR: Privilèges nécesaires
+### PR: Privilèges nécesaires
 
 La métrique de privilège décrit le niveau de privilège requis par un attaquant afin de réussir son exploit.
 
-##### Aucun (PR:N)
-L'attaquant n'a pas besoin de s'authentifier ou de s'identifier pour l'attaque.
-
-##### Bas (PR:L)
-L'attaquant doit être authentifié et disposer d'un accès de base.
-
-##### Élevé (PR:H)
-L'attaquant doit être authentifié à l'aide d'un compte disposant de privilèges élevés ou significatifs.
+| **Valeur** | **Code** | **Description** |
+| --- | -- | --- |
+| Aucun | PR:N | L'attaquant n'a pas besoin de s'authentifier ou de s'identifier pour l'attaque. |
+| Bas | PR:L | L'attaquant doit être authentifié et disposer d'un accès de base. |
+| Élevé | PR:H | L'attaquant doit être authentifié à l'aide d'un compte disposant de privilèges élevés ou significatifs. |
 
 
-#### UI: Interaction nécessaire de l'utilisateur
+### UI: Interaction nécessaire de l'utilisateur
 
 La métrique d'interaction avec l'utilisateur décrit si le succès d'un exploit dépend d'une action particulière de la part d'un utilisateur tiers (autre que l'attaquant).
 
-##### Aucune (UI:N)
-La vulnérabilité peut être exploitée sans dépendre d'une quelconque interaction avec un utilisateur.
+| **Valeur** | **Code** | **Description** |
+| --- | -- | --- |
+| Aucune | UI:N | La vulnérabilité peut être exploitée sans dépendre d'une quelconque interaction avec un utilisateur. |
+| Requise | UI:R | Le succès de l'exploit dépend d'une action de la part d'un utilisateur (par exemple, cliquer sur un lien dans un courriel). |
 
-##### Requise (UI:R)
-Le succès de l'exploit dépend d'une action de la part d'un utilisateur (par exemple, cliquer sur un lien dans un courriel).
 
-
-#### S: Portée (*scope*)
+### S: Portée (*scope*)
 
 La métrique de portée décrit si une attaque réalisée avec succès sur le système vulnérable peut causer un impact sur un autre système.
 
-##### Changée (S:C)
-Une vulnérabilité exploitée peut avoir des répercussions sur d'autres systèmes.
+| **Valeur** | **Code** | **Description** |
+| --- | -- | --- |
+| Changée | S:C | Une vulnérabilité exploitée peut avoir des répercussions sur d'autres systèmes. |
+| Inchangée | S:U | Le dommage causé par l'exploitation de la vulnérabilité est limité au système vulnérable. |
 
-##### Inchangée (S:U)
-Le dommage causé par l'exploitation de la vulnérabilité est limité au système vulnérable.
 
-
-#### C: Impact sur la confidentialité
+### C: Impact sur la confidentialité
 
 La métrique de confidentialité décrit si l'exploitation de la vulnérabilité a le potentiel de permettre l'accès à des données sensibles par des personnes non autorisées.
 
-##### Aucune (C:N)
-Aucun impact sur la confidentialité.
-
-##### Faible (C:L)
-Il y a un impact sur le confidentialité, mais l'étendue de l'information compromise est partielle ou l'attaquant n'a pas de contrôle sur les données qu'il accède.
-
-##### Élevée (C:H)
-Un attaquant peut avoir accès à l'entièreté des données du système, incluant des données sensibles.
+| **Valeur** | **Code** | **Description** |
+| --- | -- | --- |
+| Aucune | C:N | Aucun impact sur la confidentialité. |
+| Faible | C:L | Il y a un impact sur le confidentialité, mais l'étendue de l'information compromise est partielle ou l'attaquant n'a pas de contrôle sur les données qu'il accède. |
+| Élevée | C:H | Un attaquant peut avoir accès à l'entièreté des données du système, incluant des données sensibles. |
 
 
 
-#### I: Impact sur l'intégrité
+### I: Impact sur l'intégrité
 
 La métrique de confidentialité décrit si l'exploitation de la vulnérabilité a le potentiel de permettre la modification ou l'altération de données.
 
-##### Aucune (I:N)
-Aucun impact sur l'intégrité de l'information.
-
-##### Faible (I:L)
-L'impact sur l'intégrité de l'information est circonscrit et limité.
-
-##### Élevée (I:H)
-Un attaquant peut modifier toutes les données du système compromis.
+| **Valeur** | **Code** | **Description** |
+| --- | -- | --- |
+| Aucune | I:N | Aucun impact sur l'intégrité de l'information. |
+| Faible | I:L | L'impact sur l'intégrité de l'information est circonscrit et limité. |
+| Élevée | I:H | Un attaquant peut modifier toutes les données du système compromis. |
 
 
 
-#### A: Impact sur la disponibilité (*availability*)
+### A: Impact sur la disponibilité (*availability*)
 
 La métrique de disponibilité décrit si l'exploitation de la vulnérabilité a le potentiel d'empêcher l'accès à l'information par les personnes autorisées.
 
-##### Aucune (A:N)
-Aucun impact sur la disponibilité.
-
-##### Faible (A:L)
-La disponibilité est affectée de manière intermittente ou partielle, ou la performance peut être dégradée.
-
-##### Élevée (A:H)
-Un attaquant peut rendre le système vulnérable complètement indisponible.
+| **Valeur** | **Code** | **Description** |
+| --- | -- | --- |
+| Aucune | A:N | Aucun impact sur la disponibilité. |
+| Faible | A:L | La disponibilité est affectée de manière intermittente ou partielle, ou la performance peut être dégradée. |
+| Élevée | A:H | Un attaquant peut rendre le système vulnérable complètement indisponible. |
 
 
 
