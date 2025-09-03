@@ -118,7 +118,7 @@ ATTENTION: en aucun cas vous ne toucherez aux autres fichiers du keylogger en mo
 
 Nous allons simuler une attaque où on essaie de capter le mot de passe d'un ennemi.
 
-1. Équipe jaune: installez le keygrabber sur un de vos postes (toujours sur un port USB en avant).
+1. Équipe jaune: installez le keylogger sur un de vos postes (toujours sur un port USB en avant).
 2. Équipe jaune: ouvrez un notepad et le laisser ouvert.
 3. Équipe verte: pendant que l'équipe jaune ne regarde pas, dans le notepad ouvert SUR LE CLAVIER EXTERNE:
 - tapez "mot de passe 1" puis un mot de passe de votre invention mais simple (que des minuscules)
