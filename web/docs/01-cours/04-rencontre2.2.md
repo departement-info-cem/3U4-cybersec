@@ -94,34 +94,37 @@ ATTENTION: Ne pas prendre du code d'internet que vous ne comprenez pas, il pourr
     - Équipe verte
 
 ATTENTION: nous allons utiliser les postes de travail du collège pour cet atelier.
-Il est très important de remettre les connexions USB comme vous les avez trouvées après l'atelier.
+Il est très important d'utiliser un des claviers supplémentaires fournis et de ne pas débrancher le clavier du poste.
 
 ### Découverte du fonctionnement
 1. Sur un poste,
-    - débranchez le clavier de la machine
-    - brancher le clavier dans le keylogger
-    - brancher le keylogger dans le poste dans le port USB où était le clavier
+    - brancher le clavier extra dans le keylogger
+    - brancher le keylogger dans le poste dans le port USB à l'avant du poste
 2. Tapez quelques touches sur le clavier
     - dans une fenêtre Notepad par exemple
     - par exemple "Bonjour, je suis un keylogger 2!@#$%&*()_+"
 3. Pour accéder au journal des frappes,
     - appuyer et maintenir sur les lettres "k" "b" et "s" en même temps
-    - le keylogger va se mettre en mode "storage" et apparaître comme une clé
-    - ouvrez le fichier "log.txt" pour voir les frappes enregistrées
+    - ouvrir l'explorateur de fichiers Windows
+    - le keylogger va se mettre en mode stockage "storage" et apparaître comme une clé USB
+    - ouvrez le fichier "LOG.TXT" pour voir les frappes enregistrées
 
+:::danger
 ATTENTION: en aucun cas vous ne toucherez aux autres fichiers du keylogger en mode clé USB.
+:::
+
 
 ### Attraper le mot de passe d'un poste de travail
 
 Nous allons simuler une attaque où on essaie de capter le mot de passe d'un ennemi.
 
-1. Équipe jaune: installez le keygrabber sur un de vos postes. Vous devrez sans doute ramper un peu sous le bureau pour le brancher.
+1. Équipe jaune: installez le keygrabber sur un de vos postes (toujours sur un port USB en avant).
 2. Équipe jaune: ouvrez un notepad et le laisser ouvert.
-3. Équipe verte: pendant que l'équipe jaune ne regarde pas, dans le notepad ouvert:
+3. Équipe verte: pendant que l'équipe jaune ne regarde pas, dans le notepad ouvert SUR LE CLAVIER EXTERNE:
 - tapez "mot de passe 1" puis un mot de passe de votre invention mais simple (que des minuscules)
 - tapez "mot de passe 2" puis un mot de passe de votre invention mais compliqué (minuscules, majuscules, chiffres et caractères spéciaux)
 - tapez "mot de passe 3" puis le mot de passe le plus compliqué mais de moins de 20 caractères.
-- enregistrez le fichier sous "motsPasseVerts.txt" et fermer le notepad
+- enregistrez le fichier sur le bureau sous "motsPasseVerts.txt" et fermer le notepad
 4. Équipe jaune: en utilisant uniquement les informations du keylogger, essayer de retrouver les mots de passe et sauvegarder dans "devineVerts.txt"
 
 Refaites l'activité en inversant les rôles pour avoir les fichier
