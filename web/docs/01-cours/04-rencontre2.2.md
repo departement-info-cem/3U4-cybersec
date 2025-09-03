@@ -179,14 +179,14 @@ La section **UEFI BOOT** contient les différentes options de démarrage. Par d�
 
 **Note** : Lorsque vous utilisez un OS externe comme nous le faisons avec Hiren, ce n'est plus Windows qui est installé sur le disque C: (de l'ordinateur courant) qui est lancé. Par conséquent, **tous les processus et mesures de sécurité qui seraient normalement appliqués par Windows ne le sont plus**. Tous les fichiers du disque C: deviennent donc **accessibles**. 
 
-### SECTION B : Trouvez une image douteuse sur le compte Administrateur : 
+### SECTION B : Trouvez une image douteuse sur le compte **etudiant** : 
 
  Une fois que le démarrage est complété, ouvrez **l'explorateur de fichier** et : 
  1. Accédez au contenu du disque local C: 
- 2. Trouvez l'image douteuse que l'administrateur conserve sur son compte. 
+ 2. Trouvez l'image douteuse que l'etudiant conserve sur son compte, sur son bureau. 
  3. Dans votre fichier, notez le chemin vers l'image en question et dites ce qu'il y a sur l'image. 
 
-### SECTION C : Changer le mot de passe du compte Administrateur 
+### SECTION C : Changer le mot de passe du compte **etudiant** 
 1. Utilisez le programme **NT Password Edit**  
 2. Une fois ouvert, vous verrez que celui-ci peut accéder à **C:\WINDOWS\SYSTEM32\CONFIG\SAM**. Le fichier SAM (Security Account Manager) est la base de données locale qui contient, entre autres, les identifiants et les Hashs. Si vous démarrez l'ordinateur normalement avec Windows, ce fichier est protégé et inaccessible. 
 3. **Ouvrez son contenu** (cliquez sur open) pour afficher les comptes utilisateurs et **modifiez le mot de passe du compte Administateur**. 
