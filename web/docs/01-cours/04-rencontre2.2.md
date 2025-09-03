@@ -150,11 +150,11 @@ Refaites l'activité en inversant les rôles pour avoir les fichier
 - Un fichier pour prendre des notes.
 
 ### Mise en contexte :
-Le portable que vous utiliserez contient un compte Administrateur, mais vous n'avez pas le mot de passe pour vous y connecter.
+Le portable que vous utiliserez contient un compte **etudiant**, mais vous n'avez pas le mot de passe pour vous y connecter.
 
 Dans cet exercice : 
 1. Vous accèderez au contenu de ce compte, **sans vous y connecter**, pour trouver une image douteuse. 
-2. Vous **modifierez le mot de passe** du compte Administrateur pour vous y connecter.
+2. Vous **modifierez le mot de passe** du compte **etudiant** pour vous y connecter.
 
 Pour y parvenir, vous utiliserez un **environnement de démarrage externe (Hiren’s BootCD PE)** qui vous permettra d'accéder au contenu du disque dur du portable et vous
 fournira des outils pour changer le mot de passe.
@@ -189,8 +189,8 @@ La section **UEFI BOOT** contient les différentes options de démarrage. Par d�
 ### SECTION C : Changer le mot de passe du compte **etudiant** 
 1. Utilisez le programme **NT Password Edit**  
 2. Une fois ouvert, vous verrez que celui-ci peut accéder à **C:\WINDOWS\SYSTEM32\CONFIG\SAM**. Le fichier SAM (Security Account Manager) est la base de données locale qui contient, entre autres, les identifiants et les Hashs. Si vous démarrez l'ordinateur normalement avec Windows, ce fichier est protégé et inaccessible. 
-3. **Ouvrez son contenu** (cliquez sur open) pour afficher les comptes utilisateurs et **modifiez le mot de passe du compte Administateur**. 
-4. Redémarrez l'ordinateur (sans accéder au BIOS) et **connectez-vous au compte Administrateur** avec le mot de passe que vous avez créé. 
+3. **Ouvrez son contenu** (cliquez sur open) pour afficher les comptes utilisateurs et **modifiez le mot de passe du compte etudiant**. 
+4. Redémarrez l'ordinateur (sans accéder au BIOS) et **connectez-vous au compte etudiant** avec le mot de passe que vous avez créé. 
 
 ### Comment se protéger : 
 Il existe plusieurs manières de se protéger contre des outils bootables externes comme Hiren. Indiquez dans votre fichier quelques solutions.
