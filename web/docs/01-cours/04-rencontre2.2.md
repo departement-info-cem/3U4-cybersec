@@ -34,17 +34,17 @@ Le matériel est limité. Pendant les temps morts, vous pourrez avancer votre TP
 ## RubberDucky (environ 20 minutes par équipe)
 
 ### Matériel:
-- 1 clé USB RubberDucky (voir avec le prof l'ordre pour les équipes)
+- 1 clé USB RubberDucky (voir avec le prof pour l'ordre pour les équipes)
 - vos postes de travail: les injections proposées par le prof ne font aucun dommage
 - si la clé USB a été modifiée, demande au prof de la restaurer
 
 ### Mise en contexte :
-Le RubberDucky ressemble à une clé USB ordinaire, mais permet en fait d'injecter un script sur sa victime. Une fois branchée dans un ordinateur, celle-ci sera détectée par l'ordinateur comme un clavier, permettant ainsi de forcer la victime a exécuté du code arbitraire.
+Le RubberDucky ressemble à une clé USB ordinaire, mais permet en fait d'injecter un script sur sa victime. Une fois branchée dans un ordinateur, celle-ci sera détectée par l'ordinateur comme un clavier, permettant ainsi de forcer la victime à exécuter du code arbitraire.
 
 #### Découverte du fonctionnement
 Le RubberDucky possède **deux modes** de fonctionnement;
-- Le mode **Clé USB** : Permets d'ajouter, modifier ou supprimer le script qui sera exécuté par l'appareil
-- Le mode **Attaque / Injection** : Permets d'exécuter le script lorsque la clé USB est branchée dans un appareil.
+- Le mode **Clé USB** : permet d'ajouter, modifier ou supprimer le script qui sera exécuté par l'appareil
+- Le mode **Attaque / Injection** : permet d'exécuter le script lorsque la clé USB est branchée dans un appareil.
 
 Dès que le RubberDucky est connecté à un appareil, il passe automatiquement en mode **Attaque / Injection**. Pour basculer vers le mode **Clé USB,** il suffit d'appuyer sur le bouton caché à l'intérieur du RubberDucky (allez voir le prof si vous ne trouvez pas le bouton en question). Si le RubberDucky n'a pas de script nommé **inject.bin** à la racine ou si le fichier de script est corrompu, il basculera automatiquement en mode **Clé USB** lorsqu'il sera branché.
 
@@ -79,9 +79,9 @@ Si le groupe suivant n'a toujours pas terminé son atelier, vous pouvez essayer 
 
 1. Visitez le site de RubberDucky pour utiliser leur [IDE en version gratuite](https://payloadstudio.hak5.org/community/).
 2. Jouez avec l'outil et apprenez le langage de script "DuckyScript".
-3. Exportez votre script au format **.bin** et remplacez le fichier à la racine du RubberDocky pour que votre script s'exécute (Reprodusez les mêmes étapes que lors de l'exercice).
+3. Exportez votre script au format **.bin** et remplacez le fichier à la racine du RubberDocky pour que votre script s'exécute (Reproduisez les mêmes étapes que lors de l'exercice).
 
-ATTENTION: Ne pas prendre du code d'internet que vous ne comprenez pas, il pourrait être très dangereux d'exécuter du code provenant d'internet. Le RubbberDucky exécuterait le code comme s'il s'agit de vos actions, vous pourriez donc être accusé d'avoir vous-même exécuté du code malveillant.
+ATTENTION: Ne pas prendre du code d'internet que vous ne comprenez pas, il pourrait être très dangereux d'exécuter du code provenant d'internet. Le RubberDucky exécuterait le code comme s'il s'agit de vos actions, vous pourriez donc être accusé d'avoir vous-même exécuté du code malveillant.
 
 
 ## Key logger (environ 20 minutes par équipe)
@@ -106,7 +106,7 @@ Il est très important d'utiliser un des claviers supplémentaires fournis et de
 3. Pour accéder au journal des frappes,
     - appuyer et maintenir sur les lettres "k" "b" et "s" en même temps
     - ouvrir l'explorateur de fichiers Windows
-    - le keylogger va se mettre en mode stockage "storage" et apparaître comme une clé USB
+    - le keylogger va se mettre en mode stockage ("storage") et apparaître comme une clé USB
     - ouvrez le fichier "LOG.TXT" pour voir les frappes enregistrées
 
 :::danger
@@ -123,7 +123,7 @@ Nous allons simuler une attaque où on essaie de capter le mot de passe d'un enn
 3. Équipe verte: pendant que l'équipe jaune ne regarde pas, dans le notepad ouvert SUR LE CLAVIER EXTERNE:
 - tapez "mot de passe 1" puis un mot de passe de votre invention mais simple (que des minuscules)
 - tapez "mot de passe 2" puis un mot de passe de votre invention mais compliqué (minuscules, majuscules, chiffres et caractères spéciaux)
-- tapez "mot de passe 3" puis le mot de passe le plus compliqué mais de moins de 20 caractères.
+- tapez "mot de passe 3" puis le mot de passe le plus compliqué, mais de moins de 20 caractères.
 - enregistrez le fichier sur le bureau sous "motsPasseVerts.txt" et fermer le notepad
 4. Équipe jaune: en utilisant uniquement les informations du keylogger, essayer de retrouver les mots de passe et sauvegarder dans "devineVerts.txt"
 
@@ -133,13 +133,13 @@ Refaites l'activité en inversant les rôles pour avoir les fichier
 
 ### Synthèse ensemble
 
-1. Essayer de trouver une recette infaillible pour retrouver un mot de passe à partir d'un LOG.TXT
-2. Consigner cette recette dans un fichier texte que vous nommerez "recetteKeylogger.txt".
-3. Conserver tous les fichiers chacun dans vos notes de cours.
+1. Essayer de trouver une méthode infaillible pour retrouver un mot de passe à partir d'un LOG.TXT
+2. Consigner cette méthode dans un fichier texte que vous nommerez "recetteKeylogger.txt".
+3. Conserver tous les fichiers dans vos notes de cours.
 4. Bonus
 - Pouvez vous imaginer des moyens de se protéger contre ce type d'attaque?
-- Un indice le  keylogger ne sait pas quelle fenêtre est active, il enregistre juste les frappes.
-- Proposez une solution casser votre recette infaillible. Vous pouvez valider le tout avec votre prof.
+- Un indice : le keylogger ne sait pas quelle fenêtre est active, il enregistre juste les frappes.
+- Proposez une solution casser votre méthode infaillible. Vous pouvez valider le tout avec votre prof.
 
 
 ## Boot clé USB externe (environ 20 minutes par équipe)
@@ -198,7 +198,7 @@ Il existe plusieurs manières de se protéger contre des outils bootables extern
 
 ## Flipper Zero (environ 20 minutes par équipe)
 
-Le Flipper Zero est un petit appareil multifonction qui, derrière son apparence de gadget électronique ludique, est une sorte de canif suisse de la cybersécurité. On l'utilise principalement pour émuler et cloner des signaux numériques. Il supporte plusieurs protocoles de communication sans-fil, comme NFC, Bluetooth, RFID ainsi que les signaux infrarouge et radio. Il dispose également d'un port USB, qui peut être utilisé pour émuler des périphériques. Il est aussi muni de ports d'extension entrée/sortie (*GPIO*) pour lui connecter des modules externes afin d'accroitre ses capacités, par exemple en lui ajoutant du support WiFi ou GPS.
+Le Flipper Zero est un petit appareil multifonction qui, derrière son apparence de gadget électronique ludique, est une sorte de canif suisse de la cybersécurité. On l'utilise principalement pour émuler et cloner des signaux numériques. Il supporte plusieurs protocoles de communication sans-fil, comme NFC, Bluetooth, RFID ainsi que les signaux infrarouges et radio. Il dispose également d'un port USB, qui peut être utilisé pour émuler des périphériques. Il est aussi muni de ports d'extension entrée/sortie (*GPIO*) pour lui connecter des modules externes afin d'accroitre ses capacités, par exemple en lui ajoutant du support WiFi ou GPS.
 
 ![Flipper](flipper.png)
 
@@ -209,7 +209,7 @@ Le Flipper Zero est un petit appareil multifonction qui, derrière son apparence
 
 ### Partie 1: Pwn les projecteurs (*infrarouge*)
 
-Le Flipper Zero dispose d'un port infrarouge qui permet d'envoyer et de lire les signaux infrarouge. Plusieurs appareils (téléviseurs, projecteurs, climatiseurs, etc.) disposent d'une télécommande qui communique leurs directives à l'aide de signaux infrarouge. Dans cet exercice, vous utiliserez le Flipper pour prendre contrôle du projecteur de la classe (*chut!*, ne le dites pas à la DiSTI!).
+Le Flipper Zero dispose d'un port infrarouge qui permet d'envoyer et de lire les signaux infrarouges. Plusieurs appareils (téléviseurs, projecteurs, climatiseurs, etc.) disposent d'une télécommande qui communique leurs directives à l'aide de signaux infrarouges. Dans cet exercice, vous utiliserez le Flipper pour prendre contrôle du projecteur de la classe (*chut!*, ne le dites pas à la DiSTI!).
 
 Le projecteur devant la classe est muni d'une télécommande qui lui envoie des signaux lumineux. Par exemple, lorsqu'on appuie sur le bouton *Power*, une LED au devant de la télécommande s'allume et s'éteint très rapidement en suivant un pattern précis. Le projecteur, quant à lui, est muni d'une diode photosensible qui surveille les différences de luminosité. Lorsqu'elle détecte un *pattern* connu, l'appareil obéit à la directive correspondante, soit allumer ou éteindre le projecteur. On pourrait croire que pour contrôler le projecteur à distance, on a obligatoirement besoin de la télécommande, mais n'importe quel appareil capable d'envoyer les mêmes signaux lumineux peut "faire croire" au projecteur que son utilisateur possède ladite télécommande. C'est l'un des usages du Flipper.
 
