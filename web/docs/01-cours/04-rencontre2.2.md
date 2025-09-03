@@ -272,6 +272,8 @@ Discussions:
 - Un antivirus aurait-il pu prévenir cette attaque?
 - Pouvez-vous imaginer des situations où cet outil pourrait être utile pour un cybercriminel?
 - Allez jeter un coup d'oeil au [code du script](https://raw.githubusercontent.com/departement-info-cem/3U4-cybersec/refs/heads/main/stock/demoBadUSB/demo3u4.txt).
+- **Après avoir essayé le Flipper et le RubberDucky**, vous constaterez que le résultat est assez similaire. Mais est-ce équivalent? Si non, en quoi ces attaques diffèrent?
+
 
 
 
