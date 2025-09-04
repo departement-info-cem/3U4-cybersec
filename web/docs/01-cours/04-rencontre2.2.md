@@ -74,6 +74,13 @@ L'exercice consiste à simplement attaquer un poste de travail à l'aide de la c
 1. Connecter le RubberDucky sur son poste.
 2. Comprendre que l'attaquant a été gentil avec vous et a rétabli votre poste de travail dans son état initial.
 
+### Discussions
+- Expliquez ce qu’a fait le **Rubber Ducky**.  
+- Existe-t-il des moyens de prévenir ce genre d’attaques ?  
+- Quelle attaque de plus grande envergure pourrait être réalisée avec ce type d’appareil ? Essayez de trouver plusieurs exemples.  
+- **Après avoir testé le Flipper et le Rubber Ducky**, vous constaterez que les résultats sont assez similaires. Mais sont-ils équivalents ? Si non, en quoi ces attaques diffèrent-elles ?  
+
+
 ### Bonus: Écrire votre propre Script avec l'IDE
 Si le groupe suivant n'a toujours pas terminé son atelier, vous pouvez essayer d'écrire votre propre script **Malicieux**. Pour cela, vous devez :
 
