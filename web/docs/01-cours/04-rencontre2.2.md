@@ -48,6 +48,8 @@ Le RubberDucky possède **deux modes** de fonctionnement;
 
 Dès que le RubberDucky est connecté à un appareil, il passe automatiquement en mode **Attaque / Injection**. Pour basculer vers le mode **Clé USB,** il suffit d'appuyer sur le bouton caché à l'intérieur du RubberDucky (allez voir le prof si vous ne trouvez pas le bouton en question). Si le RubberDucky n'a pas de script nommé **inject.bin** à la racine ou si le fichier de script est corrompu, il basculera automatiquement en mode **Clé USB** lorsqu'il sera branché.
 
+![Image du menu du BIOS](../../static/img/rubberDucky_Bouton.jpg)
+
 ### À faire : 
 L'exercice consiste à simplement attaquer un poste de travail à l'aide de la clé USB, puis de remettre l'ordinateur dans son état initial. Lors de l'exercice, la moitié des membres de l'équipe joueront le rôle des attaquants, et le reste jouera le rôle des victimes.
 
