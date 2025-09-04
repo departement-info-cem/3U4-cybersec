@@ -182,7 +182,7 @@ Lorsque vous serez dans le **menu de démarrage du BIOS**, vous verrez une inter
 
 ![Image du menu du BIOS](../../static/img/Menu_BIOS.png)
 
-La section **UEFI BOOT** contient les différentes options de démarrage. Par défaut, c'est l'OS Windows (Windows Boot Manager) installé sur le portable qui démarre (premier sur la liste, mais cet ordre peut être modifié). Dans notre cas, nous voulons **démarrer le système d'exploitation externe Hiren** afin de pouvoir utiliser ses outils. 
+La section **UEFI BOOT** contient les différentes options de démarrage. Par défaut, c'est l'OS Windows (Windows Boot Manager) installé sur le portable qui démarre (premier sur la liste, mais cet ordre peut être modifié). Dans notre cas, nous voulons **démarrer le système d'exploitation externe Hiren** afin de pouvoir utiliser ses outils. **Notez que la version de Windows de la clé USB bootable n’est pas la même que celle installée sur l'ordinateur.**
 
 3. **Sélectionnez l'option de démarrage approprié**. Dans votre fichier, prenez en note l'option que vous avez selectionnée. 
 
