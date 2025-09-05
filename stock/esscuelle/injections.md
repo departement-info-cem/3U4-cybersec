@@ -1,51 +1,51 @@
 # Injections pour l'application exemple
 
 
-## base d'injection pour **batch mode**
+## Base d'injection pour **batch mode**
 
-Rend le SQL valide et permet d'injecter une autre requete:
+Rend le SQL valide et permet d'injecter une autre requête :
 - on n'a pas besoin que la requête d'origine fonctionne
 - juste qu'elle soit syntaxiquement valide
-- pour pouvoir exécuter notre truc après
-- par contre on est aveugle qu résultat
+- pour pouvoir exécuter notre code après
+- par contre on est aveugle du résultat
 
-### Concretement
-1. dans l'appli, choisis connexion
-2. dans le champ nom tape le SQL suivant
+### Concrètement
+1. dans l'appli, choisissez connexion
+2. dans le champ nom, tapez le SQL suivant
 ```sql
 '; --
 ```
-3. complète avec un mot de passe "toto"
+3. Complétez avec un mot de passe "toto"
 
-La requête complète devient alors:
+La requête complète devient alors :
 ```sql
 SELECT * FROM MUtilisateur WHERE nom = ''; --' AND motDePasse = 'toto'
 ```
 - la première requête SQL est **SELECT * FROM MUtilisateur WHERE nom = '';**
 - le "--" est un commentaire en SQL, donc tout ce qui suit est ignoré 
 - on peut donc avoir quelque chose qui est du SQL valide
-- on a créé un espace entre ; et -- pour taper n'importe quelle commande SQL!!!!!!!
+- on a créé un espace entre ; et -- pour pouvoir taper n'importe quelle commande SQL !
 
-### injection destructrice
+### Injection destructrice
 
-1. dans l'appli crée quelques comptes normalement (pour avoir des données)
-2. tu peux aller regarder ce qu'il y a dedans avec DataGrip
-3. dans l'appli, choisis connexion
-4. dans le champ nom tape le SQL suivant
+1. dans l'appli, créez quelques comptes normalement (pour avoir des données)
+2. vous pouvez aller regarder ce qu'il y a dedans avec DataGrip
+3. dans l'appli, choisissez connexion
+4. dans le champ nom, tapez le SQL suivant
 ```sql
 ';    DROP TABLE IF EXISTS MNote; DROP TABLE IF EXISTS MUtilisateur;    --
 ```
-5. complète avec un mot de passe quelquonque de 4 car ou plus
+5. Complétez avec un mot de passe quelconque de 4 caractères ou plus
 
-Le SQL devient:
+Le SQL devient :
 ```sql
 SELECT * FROM MUtilisateur WHERE nom = '';    DROP TABLE IF EXISTS MNote; DROP TABLE IF EXISTS MUtilisateur;    --' AND motDePasse = 'toto'
 ```
 
-On a donc:
-- une première requête valide qui ne retourne rien, la fonction de l'application ne marchera pas, mais honnêtement, on s'en fout
+On a donc :
+- une première requête valide qui ne retourne rien, la fonction de l'application ne marchera pas, mais ce n'est pas important dans ce contexte
 - la deuxième requête est notre réel objectif, elle va supprimer toutes les données
-- le commentaire permet d'ignorer la fin de la première requête
+- le commentaire permet d’ignorer la fin de la première requête
 
 
 ## Modifier une requête légitime
@@ -53,7 +53,7 @@ On a donc:
 On va essayer de se connecter en tant que n'importe quel utilisateur pour tromper le controle d'accès.
 
 On voudrait se connecter en tant que "alice" sans connaitre le mot de passe.
-1. dans l'appli, crée plusieurs comptes dont un "alice"
+1. dans l'appli, créez plusieurs comptes dont un "alice"
 2. dans l'appli, on déconnecte puis on choisi connexion
 3. dans le champ nom tape le SQL suivant
 ```sql

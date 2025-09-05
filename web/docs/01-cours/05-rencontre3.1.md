@@ -11,11 +11,11 @@ import TabItem from '@theme/TabItem';
 
 :::note Plan de la rencontre
 
-On continuer les ateliers de la rencontre 4. 
+On continue les ateliers de la rencontre 4. 
 Chaque équipe doit compléter les quatre ateliers. 
 
 :::
 
-Vous pourrez regarder la video suivante pour qu'on puisse en discuter  https://www.youtube.com/watch?v=XJCQBqTmGUU
+Vous pourrez regarder la vidéo suivante pour qu'on puisse en discuter.  https://www.youtube.com/watch?v=XJCQBqTmGUU
 
-[ici](r04) le plan de la rencontre 4.
+Le plan de la rencontre 4 est disponible [ici](r04).
