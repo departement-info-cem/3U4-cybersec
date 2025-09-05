@@ -16,4 +16,6 @@ Chaque équipe doit compléter les quatre ateliers.
 
 :::
 
+Vous pourrez regarder la video suivante pour qu'on puisse en discuter  https://www.youtube.com/watch?v=XJCQBqTmGUU
+
 [ici](r04) le plan de la rencontre 4.
