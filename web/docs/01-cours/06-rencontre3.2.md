@@ -1,7 +1,7 @@
 ---
 id: r06
-title: Rencontre 6 - Accès physique
-sidebar_label: R06 - Accès physique
+title: Rencontre 6 - Ingénierie sociale
+sidebar_label: R06 - Ingénierie sociale
 draft: false
 hide_table_of_contents: false
 ---
@@ -15,25 +15,9 @@ import TabItem from '@theme/TabItem';
 
 <TabItem value="deroulement" label="👨‍🏫 Déroulement">
 
-1. Démonstration BadUSB
-1. Vol de données sur un disque dur
-1. Utilitaire de boot externe
-1. Exercices
-1. Travail sur le TP
-
-</TabItem>
-
-<TabItem value="documents" label="📚 Documents">
-
-- [Vidéo à visionner pour le prochain cours](https://www.youtube.com/watch?v=XJCQBqTmGUU)
-
-</TabItem>
-
-<TabItem value="outils" label="🛠 Outils">
-
-- [Hiren's BootCD PE](https://www.hirensbootcd.org/)
-- [Flipper Zero Bad USB](https://docs.flipper.net/bad-usb)
-  - [Script utilisé pour la démo](https://raw.githubusercontent.com/departement-info-cem/3U4-cybersec/main/stock/demoBadUSB/demo3u4.txt)
+1. Retour sur les ateliers
+2. Discussion sur l'ingénierie sociale et le phishing
+3. Travail sur le TP
 
 </TabItem>
 
@@ -42,81 +26,168 @@ import TabItem from '@theme/TabItem';
 :::
 
 
-## Démonstration: BadUSB
+## Retour sur les ateliers
 
-Le prof fera une démonstration d'une attaque de type BadUSB à l'aide de l'outil Flipper Zero.
+Vous avez pu expérimenter avec quatre outils permettant de réaliser divers types d'attaques. Discutons-en ensemble.
 
+#### Qu'est-ce que le <u>keylogger</u> permet de faire? 
+  - Quels sont les branchements à effectuer?
+  - Mais est-ce que ça fonctionne bien? 
+  - La ou lesquelles des composantes CID sont en jeu?
+  - Quels sont les défis à surmonter pour mener une telle attaque?
+  - Comment pouvez-vous prévenir cette attaque?
 
-## Accéder à un fichier physique
+#### Que permet de faire la <u>clé USB bootable Hiren's</u>
+  - Sur quelle touche fallait-il appuyer au démarrage pour charger Hiren? Est-ce toujours la même sur tous les modèles de PC?
+  - Quels sont les défis à surmonter pour mener une telle attaque?
+  - Que pourriez-vous mettre en place pour empêcher une telle attaque?
+  - Dans un environnement réel, la clé USB bootable est-elle une réelle menace?
 
-Nous allons voir comment formuler en faille exploit et correctif les 3 attaques suivantes pour accéder
-à un fichier sur le poste d'un utilisateur:
-1. attaque avec un keylogger physique
-2. attaque avec un boot sur clé externe
-3. attaque avec un accès physique au disque dur
+#### Comment le <u>Flipper Zero</u> arrive-t-il à contrôler le projecteur?
+  - Quels sont les défis auxquels le hacker devrait faire face pour mener cette attaque dans un environnement réel?
+  - Comment pourriez-vous empêcher une telle attaque?
 
+#### Comment le <u>Rubber Ducky</u> arrive-t-il à "lancer" un script sur l'ordinateur cible?
+  - Comment le rubber ducky pourrait il être utilisé pour mener une attaque, et quels sont les défis?
+  - Comment pourriez-vous prévenir une telle attaque?
+  - Un antivirus pourrait-il bloquer cette attaque?
 
-### Rappel
+#### En quoi l'attaque du <u>Rubber Ducky</u> et du <u>Flipper Zero</u> se ressemblent? 
+  - Le Flipper permet-il de réaliser la même attaque que le Ducky?  
+  - Pouvez-vous identifier un avantage de chacun?
 
-Formuler en faille, exploit et correctif l'attaque par keylogger physique (5 minutes)
+#### Dans [la vidéo](https://www.youtube.com/watch?v=XJCQBqTmGUU) que vous avez visionnée:
+  - À quel atelier cela s'apparente?
+  - Quelle est la différence entre les clés actives et les clés passives?
+  - Quel est l'avantage de chacune?
 
-### Accès physique au disque dur
-
-Faille: un disque dur est protégé en accès par le système d'exploitation qui a démarré sur le poste. 
-Si on retire le disque dur et qu'on le branche sur un autre ordinateur auquel on a accès, le système d'exploitation 
-ne peut plus contrôler l'accès aux données.
-
-Exploit:
-- un attaquant prépare un tournevis, un ordinateur portable et un adapteur USB-SATA et USB-M.2
-- il éteint l'ordinateur de la victime en appuyant sur le bouton "Power" pendant 5 secondes
-- il ouvre le boitier (à l'aide d'un tournevis si nécessaire)
-- il débranche et retire le disque dur du boitier (à l'aide d'un tournevis si nécessaire)
-- il connecte le disque sur son ordinateur portable à l'aide de l'adapteur
-- il monte le disque dur
-- il trouve les fichiers souhaités et les copie sur le disque de son portable
-- il débranche le disque de l'adapteur, le rebranche dans l'ordinateur et referme le boitier
-
-Exercice: formuler vos idées sur le ou les correctifs à apporter pour contrer cette attaque.
-
-
-### Boot sur une clé externe pour voler les données
-
-Faille: un disque dur est protégé en accès par le système d'exploitation qui a démarré sur le poste.
-Si un autre OS démarre sur la machine, rien ne lui interdit d'accès à un disque ou une partition.
-
-Exploit: 
-- un attaquant prépare une clé USB ou un disque externe avec un OS bootable
-- il insère la clé dans le poste de la victime
-- il redémarre la machine
-- si son OS est prioritaire dans l'ordre de boot, il a réussi
-- sinon il redémarre l'ordinateur et entre dans le BIOS pour changer l'ordre de boot
-- il redémarre et embarque sur son OS
-- il monte le disque dur déjà présent dans la machine
-- il trouve les fichiers souhaités et les copie sur un support externe
-
-Exercice: formuler vos idées sur le ou les correctifs à apporter pour contrer cette attaque.
-
-## Démonstration: 
-- Boot sur clé externe et accès à un fichier
-- Boot sur une clé externe pour accéder au système
-
-## Quelques questions / réflexions (10 minutes)
-
-Par groupe de 4, préparez des réponses aux questions suivantes:
-- pourquoi certains systèmes n'ont aucun connexion internet? Centrales nucléaires, barrages, raffineries ...
-- Pourquoi on met un cadenas sur les boitiers?
-- Pourquoi un met un mot de passe sur le BIOS?
-- Pourquoi on met un cadenas / carte d'accès sur les salles des serveurs?
-
-## Vidéo à visionner pour le prochain cours
-
-Regardez cette vidéo portant sur les clés USB abandonnées, les clés passives et les clés actives. Nous en discutons au prochain cours.
-
-Regarder la video suivante en préparation: https://www.youtube.com/watch?v=XJCQBqTmGUU
+#### Contre quelle(s) attaque(s) se protège-t-on si:
+  - On active le chiffrement intégral du disque dur de son ordinateur?
+  - On choisit un mot de passe très long
+  - On choisit un mot de passe compliqué (par exemple `A3#s%*6x`)
 
 
+## L'ingénierie sociale
+
+L'humain est souvent l'élément le plus vulnérable d'un système. On appelle ingénierie sociale les diverses techniques permettant d'exploiter la vulnérabilité humaine. Les attaques d'ingénierie sociale impliquent généralement des techniques psychologiques de manipulation, d'influence sociale ou d'exploitation de la confiance. 
 
 
+### Le hameçonnage (*phishing*)
+
+Le hameçonnage, ou *phishing*, est une catégorie d'attaque d'ingénierie sociale, c'est-à-dire que la vulnérabilité principale qu'il exploite sont celle de l'humain. 
+
+Une attaque de phishing consiste à envoyer un message que la victime croit légitime, afin de la manipuler pour la conduire à poser une action désirée par l'attaquant. Habituellement, cette action a pour effet de communiquer 
+- de l'information confidentielle, 
+- modifier une donnée 
+- exécuter du code malicieux tel qu'un virus ou un rançongiciel. 
+
+Les messages de hameçonnage passent généralement par courriel, mais peuvent aussi être véhiculés sous la forme de texto (*smishing*) ou de message vocal (*vishing*).
+
+L'attaquant peut choisir ses victimes de plusieurs manières possibles:
 
 
+### Le *phishing* de masse
+
+C'est la forme la plus répendue de hameçonnage. Elle consiste à envoyer des messages massivement à un très grand nombre de personnes, à la manière des pourriels (*spams*). Sous cette forme, le hameçonnage n'est pas ciblé envers un individu précis, mais le succès de l'attaque repose sur le fait qu'un petit pourcentage des victimes potentielles se fait avoir. L'objectif de ces attaques est généralement de voler ou extorquer de l'argent aux victimes.
+
+```
+De: roger1284@protonmail.com
+À: paul.meilleur@macompagnie.com
+Sujet: urgent
+
+
+A transaction of $3867.22 have been registered in your bank account. If you 
+thing this is an error, please log in to:
+
+https://bank-web-access.info/login?id=8fd8a9e387ab1d83
+
+```
+
+
+### Le *spear phishing*
+
+C'est un type de hameçonnage ciblé. Son nom découle de l'analogie qui oppose la pêche à la ligne, où on attend que n'importe quel poisson morde, et la pêche au harpon qui vise un poisson spécifique. Le *spear phishing* cible un groupe de personne spécifiques, comme les employés d'une entreprise ou d'un département. Typiquement, cela peut prendre la forme d'un courriel provenant soi-disant d'une figure d'autorité et demandant à la victime de poser une action rapidement pour répondre à une urgence. La particularité de ce type d'hameçonnage est qu'il est personnalisé car il vise une personne ou un groupe de personnes en particulier. L'attaquant qui perpètre ce type d'attaque souhaite généralement viser une entreprise en particulier, ou encore tente de rehausser la crédibilité de son attaque.
+
+```
+De: Service de la paie <service-paie@paie-cegepmontpetit.ca>
+À: paul.meilleur@cegepmontpetit.ca
+Sujet: URGENT - Tentative d'intrusion
+
+
+ATTENTION - URGENT
+
+Bonjour Paul,
+
+Nous avons détecté une modification de votre compte bancaire pour le versement 
+de votre paie. Le compte est situé au Liechtenstein. Nous pensons qu'il s'agit 
+d'une tentative de fraude. Pour éviter de perdre votre paie, SVP veuillez 
+configurer vos informations bancaires dans notre système de paie LE PLUS 
+RAPIDEMENT POSSIBLE: https://paie-cegepmontpetit.ca/login?id=8fd8a9e387ab1d83.
+
+Cordialement,
+
+--
+Service de la Paie - CÉGEP Édouard-Montpetit
+
+```
+
+
+### Le *whaling*
+
+Le *whaling* est un type particulier de hameçonnage visant spécifiquement les très gros poissons (PDG, vice-président, ministre). Typiquement, le récit de l'attaquant vise à mettre pression sur la victime en brandissant de lourdes conséquences légales ou financières concernant l'organisation dont elle est imputable.
+
+
+```
+De: Autorité des marchés financiers <info@autorite-marches-financiers-qc-ca.ru>
+À: yvon.bosse@grossecompagnie.com
+Sujet: URGENT - Violation de la loi A-33.2
+Pièce jointe: [poursuite-grossecompagnie.pdf.exe]
+
+Bonjour M. Bossé,
+
+Nous nous adressons à vous en votre qualité de PDG de Grosse Compagnie Inc. Nos
+enquêteurs ont décelé d'importantes incohérences dans vos états financiers, 
+qui nous laisse croire que votre entreprise a recours à des stratagèmes 
+financiers illégaux. Ceci est très sérieux et pourrait mener à des accusations 
+criminelles à votre encontre.
+
+SVP, prenez connaissance du document suivant en pièce jointe et relayez 
+l'information à vos services juridiques. Un enquêteur se présentera au siège 
+social de votre société demain matin à 9h00 avec un mandat de perquisition
+en main.
+
+Cordialement
+
+--
+Agnès Toutant, CPA
+Conseillère principale | Service prévention des fraudes
+Autorité des marchés financiers
+T: (514) 555-0199
+
+```
+
+### Moyens de défense
+
+Il existe plusieurs moyens de défense pour prévenir le phishing, ou du moins limiter son impact.
+
+#### Éducation et sensibilisation
+
+Il est essentiel de former les utilisateurs à reconnaître les tentatives de phishing et à ne pas cliquer sur les liens suspects. Pour ce faire, de nombreuses entreprises ont recours à des formations obligatoires pour sensibiliser les employés. Souvent, les entreprises envoient également de fausses tentatives de *phishing* aux employés afin de collecter des statistiques sur le succès de la formation.
+
+
+#### Filtres anti-spam
+
+Ces filtres peuvent aider à bloquer les emails de *phishing* avant qu'ils n'atteignent les utilisateurs, par l'analyse de mots-clés dans le message ou des métadonnées du courriel. Ils peuvent toutefois laisser passer une petite quantité de courriels malveillants (faux-négatifs), ou encore bloquer des courriels légitimes (faux-positifs). Certains filtres peuvent dynamiquement modifier les liens dans un courriel pour les faire passer par un service de vérification, ou ajouter des message d'avertissement dans le corps du message pour mettre en garde contre un lien ou une provenance externe, etc.
+
+#### Antivirus
+
+Si la charge utile du courriel de phishing comprend un fichier malveillant (soit en pièce jointe ou en lien de téléchargement), un antivirus peut être utile pour détruire le fichier dès qu'il entre sur l'ordinateur de la victime, avant qu'il n'ait eu le temps de faire du dommage.
+
+#### Authentification à deux facteurs (2FA)
+
+Si le courriel de *phishing* a pour but d'intercepter l'identifiant et le mot de passe de la victime, l'authentification à deux facteurs peut empêcher l'attaquant de les utiliser.
+
+#### Principe du plus bas privilège
+
+Les politiques de sécurité strictes peuvent aider à minimiser l'étendue des dégâts causés par un *phishing* réussi, en faisant en sorte que la victime ait accès au moins de données possibles.
 
