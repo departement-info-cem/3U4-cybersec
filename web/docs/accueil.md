@@ -19,9 +19,9 @@ Dans ce cours, nous allons aborder la cybersécurité en 3 morceaux:
 | [R04 → Ateliers...](cours/r04)                             | 20%                             |
 | [R05 → Ateliers (suite)](cours/r05)                        | 30%                             |
 | [R06 → Ingénierie sociale](cours/r06)                      | 50%                             |
-| [R07 → Récapitulation](cours/r07)                          | 60%                             |
-| [R08 → TP1 / oral](cours/r08)                              | 80%                             |
-| [R09 → Examen formatif #1](cours/r09)                      | 100% remise du TP1              |
+| [R07 → Récapitulation](cours/r07)                          | 70%                             |
+| [R08 → TP1 / oral](cours/r08)                              | 100% remise du TP1              |
+| [R09 → Examen formatif #1](cours/r09)                      | --                              |
 | [R10 → **Examen #1**](cours/r10)                           | --                              |
 | [R11 → HTTPS, VPN et cookies](cours/r11)                   | --                              |
 | [R12 → Droits et privilèges](cours/r12)                    | TP2 : Protéger les équipements  |
