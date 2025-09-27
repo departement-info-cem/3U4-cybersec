@@ -74,24 +74,21 @@ HTTPS est un méta-protocole qui utilise HTTP au-dessus de TLS (Transport Layer 
 
 ## Si je parle avec un serveur web en HTTPS, je peux être sûr que c’est bien le bon ?
 
-**Questions associées :**
-- desjardins.com c’est bien ma banque et pas un pirate ?
+desjardins.com c’est bien ma banque et pas un pirate ?
 
-
-### Schéma : Chaîne de confiance des certificats HTTPS
+### Chaîne de confiance des certificats HTTPS
 
 ```mermaid
 flowchart LR
     RootCA([Root CA]) --> Interm([Certificat intermédiaire])
-    Interm --> Site([Certificat du site web])
-
-    
+    Interm --> Site([Certificat du site web])    
 ```
-
 
 **Élément de réponse :**
 - HTTPS utilise des certificats numériques pour authentifier les serveurs.
 - Si le cadenas est affiché et le certificat valide, vous parlez bien au serveur officiel (ex : desjardins.com).
+
+---
 
 ## C'est quoi le danger si mon certificat est autosigné ou invalide ?
 
@@ -197,7 +194,10 @@ Un mode privé ou secret dans un navigateur va habituellement:
 - ne pas stocker les pages visitées dans l'historique
 - ne pas envoyer les cookies précédemment existant (mais il va accumuler les cookies de la session privée)
 - parfois certains navigateurs vont restreindre l'envoi des cookies de traçage
-
+- ça change
+  - ce qui reste sur ton ordinateur
+  - ça bloque certains envois de requêtes ou de cookies dans des requêtes
+  - ça ne change rien sur ce que le FAI voit / ne voit pas
 - En exercice, démarre une session en navigation privée dans Chrome. Lis la description fournie et vois si tu comprends tout ce qui est écrit après le cours d'aujourd'hui.
 
 ---
