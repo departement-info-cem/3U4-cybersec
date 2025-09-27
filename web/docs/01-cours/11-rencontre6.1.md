@@ -12,7 +12,7 @@ Dans cette séance, nous allons répondre aux questions suivantes :
 - Que voient les fournisseurs d’accès internet (Bell, Vidéotron, Fizz…) ?
 - Si HTTPS chiffre tout, comment l’internet livre mes requêtes ?
 - Puis-je être certain de l’identité d’un site web en HTTPS (ex : desjardins.com) ?
-- C'est grave un certificat est autosigné ou invalide ?
+- C'est grave si un certificat est autosigné ou invalide ?
 - Cookie de traçage ?
 - Des cookies de traçage créés par des pirates, ça existe ?
 - Navigation privée, mode incognito, ça sert à quoi ?
@@ -44,7 +44,7 @@ HTTPS est un méta-protocole qui utilise HTTP au-dessus de TLS (Transport Layer 
 
 ## Si HTTPS encrypte tout, comment l’internet livre mes requêtes ?
 
-**Élément de réponse :**
+**Éléments de réponse :**
 - Le chiffrement HTTPS ne concerne que le contenu de la communication (données applicatives).
 - Les informations réseau (adresses IP source et destination, ports) restent visibles pour permettre l’acheminement.
 - Les routeurs utilisent ces informations pour transmettre les paquets, sans jamais voir le contenu chiffré.
@@ -84,7 +84,7 @@ flowchart LR
     Interm --> Site([Certificat du site web])    
 ```
 
-**Élément de réponse :**
+**Éléments de réponse :**
 - HTTPS utilise des certificats numériques pour authentifier les serveurs.
 - Si le cadenas est affiché et le certificat valide, vous parlez bien au serveur officiel (ex : desjardins.com).
 
@@ -98,7 +98,7 @@ flowchart LR
 - Le navigateur vérifie toute la chaîne jusqu'à la racine pour s'assurer de l'authenticité du site.
 - Pendant le processus d'émission du certificat, l'autorité de certification vérifie que le demandeur contrôle bien le domaine (ex : desjardins.com)
   - souvent on demande de créer une entrée DNS ou un fichier sur le site web
-  - cela peut aller juste jusqu'à vérifier l'identité de la personne ou de l'entreprise
+  - cela peut aller jusqu'à vérifier l'identité de la personne ou de l'entreprise
   - on peut même avoir une visite physique dans les cas de certificats EV (Extended Validation)
 
 ### Man in the middle : une famille d'attaques
@@ -148,7 +148,7 @@ Tu vas maintenant explorer un peu les requêtes / cookies:
 - recharge la page, tu devrais voir
     1. une ligne du temps qui représente les différentes requêtes réseau
     2. une liste en dessous avec chaque requête
-- dans le champs **filter** on va taper d'abord
+- dans le champ **filter** on va taper d'abord
     - **google.com** pour voir si des requêtes sont partis chez Google
     - **facebook** pour voir si des requêtes sont allées chez Facebook
 - explore les requêtes trouvées
@@ -172,10 +172,10 @@ Nous allons discuter ensemble sur les questions suivantes:
 1. Pourquoi le site que j'explore envoie autant de requêtes à autant d'autres sites
 2. Par exemple, pourquoi un site envoie des requêtes à Google ou Facebook
 
-**Élément de réponse :**
+**Éléments de réponse :**
 - Un cookie de traçage est un petit fichier stocké par le navigateur, 
 - Il est envoyé avec chaque requête envoyée au domaine associé (*.google.com par exemple)
-- Si un site (lapresse.ca) provoque une requête sur sa page à *.google.com alors google sait que vous avez visité la page.
+- Si un site (lapresse.ca) provoque une requête sur sa page à *.google.com alors Google sait que vous avez visité la page.
 - Google et Facebook (régies publicitaires) ont presque tout votre historique Internet.
 
 ---
@@ -203,7 +203,7 @@ Un mode privé ou secret dans un navigateur va habituellement:
 
 ## Un VPN protège des virus ?
 
-**Élément de réponse :**
+**Éléments de réponse :**
 - Un VPN ne voit pas le contenu du trafic (HTTPS).
   - seul le client HTTP (application ou navigateur : **Chrome***)
   - et le serveur HTTP (site web) voient le conten
@@ -218,7 +218,7 @@ Un mode privé ou secret dans un navigateur va habituellement:
 
 ## Un VPN ça va plus vite que ma connexion internet ?
 
-**Élément de réponse :**
+**Éléments de réponse :**
 - Non, un VPN ajoute généralement de la latence et peut réduire la vitesse, car le trafic fait un détour par le serveur VPN et subit un chiffrement/déchiffrement.
 - La vitesse dépend de la qualité du VPN, de la distance et de la charge du serveur.
 - Au mieux ça va aussi vite que la connexion.
@@ -227,7 +227,7 @@ Un mode privé ou secret dans un navigateur va habituellement:
 
 ## Un VPN ça encrypte tellement fort ?
 
-**Élément de réponse :**
+**Éléments de réponse :**
 - Oui, la plupart des VPN utilisent des protocoles de chiffrement robustes (ex : AES-256).
 - Mais ... 
   - uniquement jusqu'au serveur VPN, 
@@ -242,8 +242,8 @@ Un mode privé ou secret dans un navigateur va habituellement:
 
 ## Un VPN ça protège contre les sites malveillants ?
 
-**Élément de réponse :**
-- C'est possible mais pas en se basant sur les adresses URL car elles sont le plus souvent encryptées (HTTPS).
+**Éléments de réponse :**
+- C'est possible, mais pas en se basant sur les adresses URL car elles sont le plus souvent encryptées (HTTPS).
 - Si un VPN filtre les sites, c'est en se basant sur les adresses IP. 
 - C'est le même mécanisme que les pare-feux.
 ---
