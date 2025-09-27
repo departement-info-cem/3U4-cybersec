@@ -5,6 +5,7 @@
 - https://ctfd.io/
 - https://fr.wikipedia.org/wiki/Common_Vulnerability_Scoring_System
 - https://github.com/hash3liZer/evilginx2
+- https://www.hackthebox.com/
 
 ## Axes pour construire le cours
 - répondre aux questions populaires
