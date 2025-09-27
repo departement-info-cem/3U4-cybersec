@@ -15,7 +15,7 @@ Essaie avec tes souvenirs et tes notes de répondre aux questions suivantes:
 > Si un fournisseur de VPN te vend une connexion hyper rapide, qu'est-ce que ça signifie?
 >
 > **Question 2:** <br/>
-> Si tu te connectes à un site en https, quels sont les éléments qui sont cryptés parmi: l'adresse IP, le contenu de la page, l'URL, les cookies?
+> Si tu te connectes à un site en https, quels sont les éléments qui sont cryptés parmi: l'adresse IP, le contenu de la page, l'URL, les cookies, les ports TCP?
 >
 > **Question 3:** <br/>
 > Qu'est-ce qu'un cookie "traqueur"? En quoi est-ce différent d'un cookie habituel? 

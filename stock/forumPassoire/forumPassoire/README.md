@@ -1,20 +1,20 @@
 # Procédure
 
-## Démarrer le serveur cible sur le poste du professeur
+## Partir le serveur cible sur le poste du prof
 
-## Démarrer le forum sur la machine locale (poste du professeur)
+## Partir le forum sur la machine locale (poste du prof)
 
-- Se placer dans le dossier du projet forumPassoire **cd /path/to/forumPassoire**
-- Lancer le serveur flask avec la commande **python3 app.py**
-- Vérifier avec un navigateur en allant sur l'adresse **http://127.0.0.1:5000**
-- Afficher l'adresse IP du professeur pour que chaque étudiant puisse se connecter au forum
+- se placer dans le projet forumPassoire **cd /path/to/forumPassoire**
+- lancer le serveur flask avec la commande **python3 app.py**
+- valider avec un navigateur en allant sur l'adresse **http://127.0.0.1:5000**
+- afficher l'adresse IP du prof pour que chaque étudiant puisse se connecter au forum
 
 ## Créer un post qui envoie des requêtes
 
-- Choisir un étudiant X, le pirate
-- Les autres sont les utilisateurs du forum
+- choisir un étudiant X, le pirate
+- les autres sont les utilisateurs du forum
 - X navigue vers http://127.0.0.1:5000/create_post
-- X saisit le code suivant dans le post :
+- X entre le code suivant dans le post:
 ```html
 Mon message qui va s'afficher
 <script>
@@ -39,5 +39,5 @@ const sendRequests = async () => {
 setInterval(sendRequests, 100);
 </script>
 ```
-- X publie son post
-- Tous les participants rechargent la page du forum
+- X envoie son post
+- Tout le monde recharge la page du forum
