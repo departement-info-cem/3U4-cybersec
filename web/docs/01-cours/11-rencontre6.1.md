@@ -163,9 +163,8 @@ Tu vas maintenant explorer un peu les requêtes / cookies:
 ```mermaid
 flowchart LR
     Client([💻 Client]) -- "1. Requête principale" --> RadioCanada([🌐 radio-canada.ca])
-    Client -- "2. Cookie: alice@gmail.com" --> Google([🌐 google.com])
-    RadioCanada -- "3. Contenu de la page" --> Client
-    Google -- "4. Pixel pub, script, etc." --> Client
+    Client -- "3. Cookie: alice@gmail.com" --> Google([🌐 google.com])
+    RadioCanada -- "2. Contenu de la page" --> Client
 
 ```
 
