@@ -37,8 +37,8 @@ Selon vous, que voient les fournisseurs d’accès internet (FAI) quand vous nav
 ### Encryption HTTPS
 
 HTTPS est un méta-protocole qui utilise HTTP au-dessus de TLS (Transport Layer Security).
-- on utilise de l'encryption asymétrique pour échanger une clé de session pour l'encryption symétrique
-- on utilise de l'encryption symétrique pour chiffrer le trafic entre le client et le serveur
+- On utilise de l'encryption asymétrique pour échanger une clé de session pour l'encryption symétrique.
+- On utilise de l'encryption symétrique pour chiffrer le trafic entre le client et le serveur.
 - Sans la clé de session, le contenu des échanges est illisible.
 ---
 
@@ -206,7 +206,7 @@ Un mode privé ou secret dans un navigateur va habituellement:
 **Éléments de réponse :**
 - Un VPN ne voit pas le contenu du trafic (HTTPS).
   - seul le client HTTP (application ou navigateur : **Chrome***)
-  - et le serveur HTTP (site web) voient le conten
+  - et le serveur HTTP (site web) voient le contenu
   - même le système d'exploitation ne voit pas le contenu HTTPS (Windows)
 - Donc il est aveugle aux fichiers qu'on télécharge etc.
 - Mais ... une "offre VPN" peut inclure un plugin au navigateur:
