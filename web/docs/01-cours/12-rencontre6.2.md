@@ -46,7 +46,7 @@ On vient de mettre le doigt sur un des problèmes classiques de la cybersécurit
 - L'informatique ça marche jamais et c'est dur de savoir pourquoi ça marche pas
 - Dans le processus pour arriver à un système fonctionnel, on peut ouvrir beaucoup trop de droits
 - Quand le système marche, on est fatigués, le client nous a payé
-- Et si je change quelque chose, peut-être que ça ne marchera plus **si c'est pas brisé, n'y touche pas**
+- Et si je change quelque chose, peut-être que ça ne marchera plus. **si c'est pas brisé, n'y touche pas**
 
 Avance rapide 6 mois plus tard, on se rend compte que le stagiaire de DEC qu'on a pris pour l'été
 a eu accès aux comptes de campagne de notre parti et tout s'est retrouvé dans les medias.
@@ -65,9 +65,85 @@ On va donc voir ça sous l'angle vulnérabilité / exploit / correctif:
   en s'assurant que l'exploit ne marche plus.
 
 
-### Travail pratique Linux
 
-Il y a dans le travail pratique Linux un problème qui est dû à des permissions trop larges.
+## EXERCICE: Optimisation des droits dans Apache
+
+Sous Linux, chaque fichier et dossier possède des permissions pour trois entités: l'**utilisateur propriétaire**, le **groupe propriétaire** et **tous les autres**.
+
+Démarrez la VM et ouvrez un terminal. Pour connaître l'adresse IP de votre VM, démarrez une session avec Alice (mot de passe `Alice!`) et faites la commande `ip a` pour voir l'adresse IP. Elle devrait commencer par `192.168.`. Sur votre machine hôte, démarrez un navigateur Web et entrez `http://` suivi de l'adresse IP du serveur. Vous devriez voir un beau chat noir. C'est le chat de Vincent, un prof au département. **Il est très beau** (notez bien ceci pour l'examen).
+
+Dans un terminal sur la VM, naviguez dans le répertoire `/var/www/html` avec la commande `cd`. Puis faites `ls -l` pour voir la liste de permissions des fichiers.
+
+Quelles sont les **permissions minimum** à donner au contenu de ce répertoire? Déjà on peut imaginer que Apache n'a pas besoin de droits en modification, puisqu'aucune modification n'est faite. On va donc essayer avec des permissions lecture et exécution.
+
+Avec la commande `chmod`, essayez plusieurs combinaisons en utilisant `index.html` pour tester. Après chaque tentative, tentez de rafraîchir la page.
+- `sudo chmod 500 index.html` *(rwx --- ---)*
+- `sudo chmod 050 index.html` *(--- rwx ---)*
+- `sudo chmod 005 index.html` *(--- --- rwx)*
+
+Ok! Donc pour que ça fonctionne, il faut que les **autres utilisateurs** aient accès. Mais pourquoi les autres? N'y a-t-il pas un seul utilisateur à qui donner les droits?
+
+Sous Linux, tous les services, dont le serveur web Apache, doivent avoir un compte utilisateur valide pour opérer. Quel est ce compte?
+
+Déjà on sait qu'Apache n'opère pas avec le compte de Root. Autrement, la permission `500` lui aurait donné des droits, puisque Root est le propriétaire du fichier. Même chose pour `070`, on sait que l'utilisateur d'Apache n'est pas dans le groupe de Root. Quels autres comptes existent sur cette machine? Alice, Bob, et Carol? Essayez de changer le propriétaire et donner tous les droits à Alice.
+
+```bash
+sudo chown alice index.html         # Change le propriétaire pour "alice"
+sudo chmod 500 index.html           # Change les permissions pour r-x --- ---
+```
+
+Ça fonctionne maintenant? Toujours pas... Alors, à qui donner les droits?
+
+Apache opère avec un **pseudoutilisateur**. Les pseudoutilisateurs (*pseudouser*), appelés aussi **comptes de service**, sont créés pour donner des permissions minimales à un service.
+
+Comment identifier le pseudoutilisateur de Apache? La plus simple est d'aller voir dans le fichier `/etc/apache2/envvars`. Vous pouvez utiliser la commande suivante.
+
+```bash
+cat /etc/apache2/envvars | grep APACHE_RUN_USER
+```
+
+Puis changez le propriétaire du fichier.
+
+```bash
+sudo chown www-data index.html      # Change le propriétaire pour "www-data"
+sudo chmod 500 index.html           # Change les permissions pour r-x --- ---
+```
+
+Bon ça va bien maintenant, Apache a désormais les droits en lecture et exécution, et la page Web peut être affichée. Mais il y a un problème... plus personne ne peut modifier le fichier! Et on ne voudrait surtout pas donner accès en modification aux autres utilisateurs! Alors on fait quoi?
+
+Sous Linux, il y a 2 propriétaires: un utilisateur et un groupe. Alors on peut créer un groupe qui contiendra les comptes utilisateurs qui auront des droits en écriture.
+
+Premièrement, créez un nouveau groupe pour les développeurs et ajoutez les utilisateurs qui devront mettre à jour le site (par exemple, bob et carol sont les développeurs).
+
+```bash
+sudo groupadd webdevs               # Crée un nouveau groupe
+sudo usermod -a -G webdevs bob      # Ajoute (-a) "bob" au Groupe (-G) "webdevs"
+sudo usermod -a -G webdevs bob      # Ajoute (-a) "carol" au Groupe (-G) "webdevs"
+cat /etc/group | grep webdevs       # Affiche les membres du groupe
+```
+
+Ensuite on ajoute ce groupe comme groupe propriétaire et on lui donne des droits complets.
+
+```bash
+sudo chown www-data:webdevs index.html        # Affecte la paire propriétaire/groupe propriétaire
+sudo chmod 570 index.html                     # Change les permissions pour r-x rwx ---
+```
+
+Finalement, vous avez trouvé la formule gagnante, vous pouvez modifier les permissions du reste du site Web en suivant la même logique.
+
+```bash
+sudo chown -R www-data:webdevs /var/www/html/*
+sudo chmod -R 570 /var/www/html/*
+```
+
+Sachez que ceci est un exemple simple, mais il existe plusieurs autres manières d'optimiser les permissions sur un serveur Web.
+
+Question: Le chat de Vincent est-il beau?
+
+
+## Travail pratique Linux
+
+Il y a dans le TP2 un problème qui est dû à des permissions trop larges.
 
 Vous devrez valider avec le prof que vous avez bien identifié le problème et fournir un correctif.
 
@@ -135,7 +211,7 @@ drwxrwxr-x  1 bob  bob   176 Oct 11  2023 mondossier
 │└┬┘└┬┘└┬┘   └─┬─┘└─┬─┘
 │ │  │  │      │    │
 │ │  │  │      │    └── Groupe propriétaire (g)
-│ │  │  │      └─────── Utilisateur propriétaire (o)
+│ │  │  │      └─────── Utilisateur propriétaire (u)
 │ │  │  │               ┌──────────────────────┐
 │ │  │  │            ┌──│ TABLE DE PERMISSIONS │────────────────────────────┐
 │ │  │  │            │  └──────────────────────┘                            │
@@ -373,7 +449,7 @@ Lorsqu'une permission est héritée d'un dossier parent
 Les permissions de base sont en fait un ensemble de permissions plus granulaires. On n'entrera pas dans les détails dans ce cours, mais voici, pour référence, un tableau qui indique de quelles petites permissions sont composées les permissions de base:
 
 | Autorisation                                | Contrôle total | Modification | Lecture / exécution | Afficher le contenu du dossier | Lecture | Écriture |
-| ------------------------------------------- | :------------: | :----------: | :-----------------: | :----------------------------: | :-----: | :------: |
+| :------------------------------------------ | :------------: | :----------: | :-----------------: | :----------------------------: | :-----: | :------: |
 | Parcourir le dossier / exécuter le fichier  |       X        |      X       |          X          |               X                |         |          |
 | Afficher le dossier / lire le fichier       |       X        |      X       |          X          |               X                |    X    |          |
 | Lire les attributs                          |       X        |      X       |          X          |               X                |    X    |          |
