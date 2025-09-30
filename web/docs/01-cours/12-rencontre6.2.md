@@ -68,6 +68,19 @@ On va donc voir ça sous l'angle vulnérabilité / exploit / correctif:
 
 ## EXERCICE: Optimisation des droits dans Apache
 
+:::info Préparation
+Avant de commencer cet exercice, allez sur **\\\\ed5depinfo\\Logiciels\\_Cours\\3U4** et téléchargez le fichier **VM-Ubuntu-R12.7z**. Extrayez-le dans le répertoire **C:\VM\VMware** et double-cliquez sur le fichier **.vmx** pour l'ouvrir dans VMware Workstation. Démarrez ensuite la VM.
+
+Sur la VM, il y a 3 comptes:
+
+| Nom d'utilisateur | Mot de passe | Sudo? |
+| -- | -- | -- |
+| alice | Alice! | Oui |
+| bob | Bob! | Non |
+| carol | Carol! | Non |
+
+:::
+
 Sous Linux, chaque fichier et dossier possède des permissions pour trois entités: l'**utilisateur propriétaire**, le **groupe propriétaire** et **tous les autres**.
 
 Démarrez la VM et ouvrez un terminal. Pour connaître l'adresse IP de votre VM, démarrez une session avec Alice (mot de passe `Alice!`) et faites la commande `ip a` pour voir l'adresse IP. Elle devrait commencer par `192.168.`. Sur votre machine hôte, démarrez un navigateur Web et entrez `http://` suivi de l'adresse IP du serveur. Vous devriez voir un beau chat noir. C'est le chat de Vincent, un prof au département. **Il est très beau** (notez bien ceci pour l'examen).
