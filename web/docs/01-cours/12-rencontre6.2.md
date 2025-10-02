@@ -91,8 +91,8 @@ Quelles sont les **permissions minimum** à donner au contenu de ce répertoire?
 
 Avec la commande `chmod`, essayez plusieurs combinaisons en utilisant `index.html` pour tester. Après chaque tentative, tentez de rafraîchir la page.
 - `sudo chmod 700 index.html` *(rwx --- ---)*
-- `sudo chmod 050 index.html` *(--- rwx ---)*
-- `sudo chmod 005 index.html` *(--- --- rwx)*
+- `sudo chmod 070 index.html` *(--- rwx ---)*
+- `sudo chmod 007 index.html` *(--- --- rwx)*
 
 Ok! Donc pour que ça fonctionne, il faut que les **autres utilisateurs** aient accès. Mais pourquoi les autres? N'y a-t-il pas un seul utilisateur à qui donner les droits?
 
