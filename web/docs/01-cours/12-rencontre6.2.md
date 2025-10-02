@@ -83,22 +83,22 @@ Sur la VM, il y a 3 comptes:
 
 Sous Linux, chaque fichier et dossier possède des permissions pour trois entités: l'**utilisateur propriétaire**, le **groupe propriétaire** et **tous les autres**.
 
-Démarrez la VM et ouvrez un terminal. Pour connaître l'adresse IP de votre VM, démarrez une session avec Alice (mot de passe `Alice!`) et faites la commande `ip a` pour voir l'adresse IP. Elle devrait commencer par `192.168.`. Sur votre machine hôte, démarrez un navigateur Web et entrez `http://` suivi de l'adresse IP du serveur. Vous devriez voir un beau chat noir. C'est le chat de Vincent, un prof au département. **Il est très beau** (notez bien ceci pour l'examen).
+Démarrez la VM et ouvrez un terminal. Pour connaître l'adresse IP de votre VM, démarrez une session avec Alice (mot de passe `Alice!`) et faites la commande `ip a` pour voir l'adresse IP. Elle devrait commencer par `192.168.`. Cette VM héberge un site Web à l'aide du logiciel Apache. Sur votre machine hôte, démarrez un navigateur Web et entrez `http://` suivi de l'adresse IP du serveur. Vous devriez voir un beau chat noir. C'est le chat de Vincent, un prof au département. **Il est très beau** (notez bien ceci pour l'examen).
 
 Dans un terminal sur la VM, naviguez dans le répertoire `/var/www/html` avec la commande `cd`. Puis faites `ls -l` pour voir la liste de permissions des fichiers.
 
 Quelles sont les **permissions minimum** à donner au contenu de ce répertoire? Déjà on peut imaginer que Apache n'a pas besoin de droits en modification, puisqu'aucune modification n'est faite. On va donc essayer avec des permissions lecture et exécution.
 
 Avec la commande `chmod`, essayez plusieurs combinaisons en utilisant `index.html` pour tester. Après chaque tentative, tentez de rafraîchir la page.
-- `sudo chmod 700 index.html` *(rwx --- ---)*
-- `sudo chmod 070 index.html` *(--- rwx ---)*
-- `sudo chmod 007 index.html` *(--- --- rwx)*
+- `sudo chmod 500 index.html` *(r-x --- ---)*
+- `sudo chmod 050 index.html` *(--- r-x ---)*
+- `sudo chmod 005 index.html` *(--- --- r-x)*
 
 Ok! Donc pour que ça fonctionne, il faut que les **autres utilisateurs** aient accès. Mais pourquoi les autres? N'y a-t-il pas un seul utilisateur à qui donner les droits?
 
 Sous Linux, tous les services, dont le serveur web Apache, doivent avoir un compte utilisateur valide pour opérer. Quel est ce compte?
 
-Déjà on sait qu'Apache n'opère pas avec le compte de Root. Autrement, la permission `500` lui aurait donné des droits, puisque Root est le propriétaire du fichier. Même chose pour `070`, on sait que l'utilisateur d'Apache n'est pas dans le groupe de Root. Quels autres comptes existent sur cette machine? Alice, Bob, et Carol? Essayez de changer le propriétaire et donner tous les droits à Alice.
+Déjà on sait qu'Apache n'opère pas avec le compte de Root. Autrement, la permission `500` lui aurait donné des droits, puisque Root est le propriétaire du fichier. Même chose pour `050`, on sait que l'utilisateur d'Apache n'est pas dans le groupe de Root. Quels autres comptes existent sur cette machine? Alice, Bob, et Carol? Essayez de changer le propriétaire et donner tous les droits à Alice.
 
 ```bash
 sudo chown alice index.html         # Change le propriétaire pour "alice"
