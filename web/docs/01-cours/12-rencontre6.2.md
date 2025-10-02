@@ -90,7 +90,7 @@ Dans un terminal sur la VM, naviguez dans le répertoire `/var/www/html` avec la
 Quelles sont les **permissions minimum** à donner au contenu de ce répertoire? Déjà on peut imaginer que Apache n'a pas besoin de droits en modification, puisqu'aucune modification n'est faite. On va donc essayer avec des permissions lecture et exécution.
 
 Avec la commande `chmod`, essayez plusieurs combinaisons en utilisant `index.html` pour tester. Après chaque tentative, tentez de rafraîchir la page.
-- `sudo chmod 500 index.html` *(rwx --- ---)*
+- `sudo chmod 700 index.html` *(rwx --- ---)*
 - `sudo chmod 050 index.html` *(--- rwx ---)*
 - `sudo chmod 005 index.html` *(--- --- rwx)*
 
@@ -131,7 +131,7 @@ Premièrement, créez un nouveau groupe pour les développeurs et ajoutez les ut
 ```bash
 sudo groupadd webdevs               # Crée un nouveau groupe
 sudo usermod -a -G webdevs bob      # Ajoute (-a) "bob" au Groupe (-G) "webdevs"
-sudo usermod -a -G webdevs bob      # Ajoute (-a) "carol" au Groupe (-G) "webdevs"
+sudo usermod -a -G webdevs carol      # Ajoute (-a) "carol" au Groupe (-G) "webdevs"
 cat /etc/group | grep webdevs       # Affiche les membres du groupe
 ```
 
