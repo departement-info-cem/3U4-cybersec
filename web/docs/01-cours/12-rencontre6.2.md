@@ -109,13 +109,21 @@ sudo chmod 400 index.html           # Change les permissions pour r-x --- ---
 
 Apache opère avec un **pseudoutilisateur**. Les pseudoutilisateurs (*pseudouser*), appelés aussi **comptes de service**, sont créés pour donner des permissions minimales à un service.
 
-Comment identifier le pseudoutilisateur de Apache? La plus simple est d'aller voir dans le fichier `/etc/apache2/envvars`. Vous pouvez utiliser la commande suivante.
+Comment identifier le pseudoutilisateur de Apache? La plus simple est d'aller voir dans le fichier de configuration `/etc/apache2/envvars`. Vous pouvez utiliser la commande suivante.
 
 ```bash
 cat /etc/apache2/envvars | grep APACHE_RUN_USER
 ```
 
-Puis changez le propriétaire du fichier.
+Cette technique ne fonctionne que pour Apache; les autres applications ont des fichiers de configuration différents. Une autre option, plus générale, serait de regarder quel utilisateur est propriétaire du processus apache2.
+
+```bash
+ps aux | grep apache2
+```
+
+Vous constaterez qu'il y a plusieurs processus: un opère en tant que `root` alors que d'autres opèrent en tant que `www-data`. Un peu de recherche dans la documentation d'Apache, et on apprend que c'est `www-data` qui est responsable de lire le contenu du site Web afin de l'envoyer en réponse aux requêtes des internautes.
+
+Bref, vous savez maintenant que c'est l'utilisateur `www-data` qui a besoin de droits sur les fichiers du site. Et désignant ce pseudoutilisateur comme propriétaire, vous pouvez donner les droit à lui et seulement à lui.
 
 ```bash
 sudo chown www-data index.html      # Change le propriétaire pour "www-data"
