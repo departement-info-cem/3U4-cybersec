@@ -102,7 +102,7 @@ Déjà on sait qu'Apache n'opère pas avec le compte de Root. Autrement, la perm
 
 ```bash
 sudo chown alice index.html         # Change le propriétaire pour "alice"
-sudo chmod 400 index.html           # Change les permissions pour r-x --- ---
+sudo chmod 400 index.html           # Change les permissions pour r-- --- ---
 ```
 
 Ça fonctionne maintenant? Toujours pas... Alors, à qui donner les droits?
@@ -127,7 +127,7 @@ Bref, vous savez maintenant que c'est l'utilisateur `www-data` qui a besoin de d
 
 ```bash
 sudo chown www-data index.html      # Change le propriétaire pour "www-data"
-sudo chmod 400 index.html           # Change les permissions pour r-x --- ---
+sudo chmod 400 index.html           # Change les permissions pour r-- --- ---
 ```
 
 Bon ça va bien maintenant, Apache a désormais les droits en lecture, et la page Web peut être affichée. Mais il y a un problème... plus personne ne peut modifier le fichier! Et on ne voudrait surtout pas donner accès en modification aux autres utilisateurs! Alors on fait quoi?
