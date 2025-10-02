@@ -87,22 +87,22 @@ Démarrez la VM et ouvrez un terminal. Pour connaître l'adresse IP de votre VM,
 
 Dans un terminal sur la VM, naviguez dans le répertoire `/var/www/html` avec la commande `cd`. Puis faites `ls -l` pour voir la liste de permissions des fichiers.
 
-Quelles sont les **permissions minimum** à donner au contenu de ce répertoire? Déjà on peut imaginer que Apache n'a pas besoin de droits en modification, puisqu'aucune modification n'est faite. On va donc essayer avec des permissions lecture et exécution.
+Quelles sont les **permissions minimum** à donner au contenu de ce répertoire? Déjà on peut imaginer que Apache n'a pas besoin de droits en modification, puisqu'aucune modification n'est faite par le serveur Web. On va donc essayer avec des permissions lecture seule.
 
 Avec la commande `chmod`, essayez plusieurs combinaisons en utilisant `index.html` pour tester. Après chaque tentative, tentez de rafraîchir la page.
-- `sudo chmod 500 index.html` *(r-x --- ---)*
-- `sudo chmod 050 index.html` *(--- r-x ---)*
-- `sudo chmod 005 index.html` *(--- --- r-x)*
+- `sudo chmod 400 index.html` *(r-- --- ---)*
+- `sudo chmod 040 index.html` *(--- r-- ---)*
+- `sudo chmod 004 index.html` *(--- --- r--)*
 
 Ok! Donc pour que ça fonctionne, il faut que les **autres utilisateurs** aient accès. Mais pourquoi les autres? N'y a-t-il pas un seul utilisateur à qui donner les droits?
 
 Sous Linux, tous les services, dont le serveur web Apache, doivent avoir un compte utilisateur valide pour opérer. Quel est ce compte?
 
-Déjà on sait qu'Apache n'opère pas avec le compte de Root. Autrement, la permission `500` lui aurait donné des droits, puisque Root est le propriétaire du fichier. Même chose pour `050`, on sait que l'utilisateur d'Apache n'est pas dans le groupe de Root. Quels autres comptes existent sur cette machine? Alice, Bob, et Carol? Essayez de changer le propriétaire et donner tous les droits à Alice.
+Déjà on sait qu'Apache n'opère pas avec le compte de Root. Autrement, la permission `400` lui aurait donné des droits, puisque Root est le propriétaire du fichier. Même chose pour `040`, on sait que l'utilisateur d'Apache n'est pas dans le groupe de Root. Quels autres comptes existent sur cette machine? Alice, Bob, et Carol? Essayez de changer le propriétaire et donner tous les droits à Alice.
 
 ```bash
 sudo chown alice index.html         # Change le propriétaire pour "alice"
-sudo chmod 500 index.html           # Change les permissions pour r-x --- ---
+sudo chmod 400 index.html           # Change les permissions pour r-x --- ---
 ```
 
 Ça fonctionne maintenant? Toujours pas... Alors, à qui donner les droits?
@@ -119,10 +119,10 @@ Puis changez le propriétaire du fichier.
 
 ```bash
 sudo chown www-data index.html      # Change le propriétaire pour "www-data"
-sudo chmod 500 index.html           # Change les permissions pour r-x --- ---
+sudo chmod 400 index.html           # Change les permissions pour r-x --- ---
 ```
 
-Bon ça va bien maintenant, Apache a désormais les droits en lecture et exécution, et la page Web peut être affichée. Mais il y a un problème... plus personne ne peut modifier le fichier! Et on ne voudrait surtout pas donner accès en modification aux autres utilisateurs! Alors on fait quoi?
+Bon ça va bien maintenant, Apache a désormais les droits en lecture, et la page Web peut être affichée. Mais il y a un problème... plus personne ne peut modifier le fichier! Et on ne voudrait surtout pas donner accès en modification aux autres utilisateurs! Alors on fait quoi?
 
 Sous Linux, il y a 2 propriétaires: un utilisateur et un groupe. Alors on peut créer un groupe qui contiendra les comptes utilisateurs qui auront des droits en écriture.
 
@@ -131,22 +131,22 @@ Premièrement, créez un nouveau groupe pour les développeurs et ajoutez les ut
 ```bash
 sudo groupadd webdevs               # Crée un nouveau groupe
 sudo usermod -a -G webdevs bob      # Ajoute (-a) "bob" au Groupe (-G) "webdevs"
-sudo usermod -a -G webdevs carol      # Ajoute (-a) "carol" au Groupe (-G) "webdevs"
+sudo usermod -a -G webdevs carol    # Ajoute (-a) "carol" au Groupe (-G) "webdevs"
 cat /etc/group | grep webdevs       # Affiche les membres du groupe
 ```
 
-Ensuite on ajoute ce groupe comme groupe propriétaire et on lui donne des droits complets.
+Ensuite on ajoute ce groupe comme groupe propriétaire et on lui donne des droits en lecture et écriture.
 
 ```bash
 sudo chown www-data:webdevs index.html        # Affecte la paire propriétaire/groupe propriétaire
-sudo chmod 570 index.html                     # Change les permissions pour r-x rwx ---
+sudo chmod 460 index.html                     # Change les permissions pour r-- rw- ---
 ```
 
 Finalement, vous avez trouvé la formule gagnante, vous pouvez modifier les permissions du reste du site Web en suivant la même logique.
 
 ```bash
 sudo chown -R www-data:webdevs /var/www/html/*
-sudo chmod -R 570 /var/www/html/*
+sudo chmod -R 460 /var/www/html/*
 ```
 
 Sachez que ceci est un exemple simple, mais il existe plusieurs autres manières d'optimiser les permissions sur un serveur Web.
