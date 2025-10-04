@@ -67,6 +67,76 @@ Selon vous, quelle taille peut-on atteindre avec un système à bande?
 :::
 
 
+## Exercice de sauvegarde simple avec **rsync** 
+
+### rsync c'est quoi?
+C'est un outil en ligne de commande qui permet de copier et synchroniser des fichiers et dossiers entre deux emplacements. Ces copies peux être faites sur une même machine, entre une machine et un disque externe ou même via une connexion SSH. Très pratique pour faire des sauvegardes! 
+
+Dans cet exercice nous allons utiliser rsync à partir du compte d'Alice pour faire une sauvegarde des données du compte de Bob. Puisqu'Alice a les privilèges sudo, nous allons l'utiliser pour faire cette sauvegarde. Enfin, nous allons stocker les données de Bob dans le répertoire **/var/backups**.   
+
+:::info Préparation
+Avant de commencer cet exercice, allez sur **\\\\ed5depinfo\\Logiciels\\_Cours\\3U4** et téléchargez le fichier **VM-Ubuntu-R13.7z**. Extrayez-le dans le répertoire **C:\VM\VMware** et double-cliquez sur le fichier **.vmx** pour l'ouvrir dans VMware Workstation. Démarrez ensuite la VM.
+
+Sur la VM, il y a 3 comptes:
+
+| Nom d'utilisateur | Mot de passe | Sudo? |
+| -- | -- | -- |
+| alice | Alice! | Oui |
+| bob | Bob! | Non |
+| carol | Carol! | Non |
+
+:::
+
+Connectez-vous sur le compte d'Alice.
+
+Ouvrez un terminal et tapez la commande suivante qui permettra de faire une copie du répertoire de Bob. 
+
+```bash
+sudo rsync -a --delete /home/bob/ /var/backups/bob_backup/
+```
+Détail de la commande
+
+| Option / chemin | Description |
+| -- | -- |
+| -a | Active plusieurs options en même temps qui permettent, entre autres, de préserver les permissions, les propriétaires, etc. | 
+| --delete | Supprime du répertoire de destination les éléments qui n’existent plus dans le répertoire source. |
+| /home/bob/ | Répertoire source |
+| /var/backups/bob_backup/ | Répertoire de destination. Crée le répertoire bob_backup s'il n'existe pas. |
+
+**Note** : rsync peut s'utiliser avec de nombreuses options, donc n'hésitez pas à regarder la documentation pour en apprendre davantage.
+
+Tentez d'accéder au contenu de **bob_backup**. Vous ne pouvez pas... Pourquoi? 
+
+Faites la commande suivante : 
+
+```bash
+ls -la
+```
+Remarquez que le propriétaire du répertoire est **bob** et le groupe est aussi **bob**. Lorsque vous avez fait la commande **rsync** avec **l'option -a**, les permissions d'origine qui étaient présentes sur le répertoire de bob (drwxr-x---) ont été conservées. Donc, Alice ne peut accéder au contenu. 
+
+Connectez-vous maintenant avec le compte de **bob** et accédez au répertoire **bob_backup** pour constater que les fichiers ont bien été copiés.
+
+Toujours dans le compte de bob, supprimez le fichier **Document_1** sur le **Bureau** et modifiez le contenu du fichier dans le répertoire **Téléchargements**
+
+Si vous exécutez à nouveau la commande rsync à partir du compte d'Alice, elle mettra à jour seulement **les éléments qui ont été modifiés**, ceci s'appelle une **sauvegarde incrémentielle**. 
+
+### Si le compte de bob est attaqué par un rançongiciel qui encrypte ses données, est-ce que le répertoire bob_backup est protégé?
+
+En supposant que le rançongiciel possède les mêmes droits que bob. En parcourant tous les fichiers à partir de la racine, il finirait par tomber sur bob_backup. Sur ce répertoire bob a les permissions suivante (drwxr-x---). Le rançongiciel aurait donc lui aussi tous les droits sur ce répertoire et pourrait encrypter les données. 
+
+À partir du compte d'Alice, changez les permissions pour que tout le contenu soit en lecture seul. À partir du répertoire **backups**, faite la commande suivante pour retirer tous les droits d'écriture. 
+
+```bash
+sudo chmod -R a-w bob_Backup
+```
+En modifiant les droits pour qu'ils soient en lecture seule, le rançongiciel ne pourrait plus encrypter le contenu du répertoire bob_backup.  
+
+### Notes importantes
+Sachez qu'une sauvegarde locale comme ceci n'est pas suffisante pour protéger complètement nos données. Il est donc préférable d'avoir d'autres types sauvegardes comme sur un disque externe et/ou sur un serveur externe. 
+
+Dans cet exercice nous avons fait une sauvegarde manuelle, mais il est également possible d'automatiser une sauvegarde en configurant le système pour qu’il exécute une commande de sauvegarde sans intervention manuelle à intervalles réguliers (chaque jour, semaine, etc.). Sous Linux, il est possible de faire ceci avec le planificateur de tâches cron.
+
+
 ## Emplacement du stockage de sauvegarde
 
 Lorsqu'on élabore une stratégie de sauvegarde, on doit déterminer si les données sauvegardées seront sur le même site physique ou sur un site éloigné. Si les sauvegardes se font sur site, elles sont très rapides à récupérer en cas de panne, et ça coûte moins cher à maintenir car on garde tout chez nous. Cependant, si un incident touche le site (incendie, inondation, etc.) on peut facilement perdre à la fois les données principales et leur sauvegarde. 
