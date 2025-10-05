@@ -75,7 +75,7 @@ C'est un outil en ligne de commande qui permet de copier et synchroniser des fic
 Dans cet exercice nous allons utiliser rsync à partir du compte d'Alice pour faire une sauvegarde des données du compte de Bob. Puisqu'Alice a les privilèges sudo, nous allons l'utiliser pour faire cette sauvegarde. Enfin, nous allons stocker les données de Bob dans le répertoire **/var/backups**.   
 
 :::info Préparation
-Avant de commencer cet exercice, allez sur **\\\\ed5depinfo\\Logiciels\\_Cours\\3U4** et téléchargez le fichier **VM-Ubuntu-R13.7z**. Extrayez-le dans le répertoire **C:\VM\VMware** et double-cliquez sur le fichier **.vmx** pour l'ouvrir dans VMware Workstation. Démarrez ensuite la VM.
+Avant de commencer cet exercice, allez sur **\\\\ed5depinfo\\Logiciels\\_Cours\\3U4** et téléchargez le fichier **VM-Ubuntu-R12.7z** (le même que la séance précédente). Extrayez-le dans le répertoire **C:\VM\VMware** et double-cliquez sur le fichier **.vmx** pour l'ouvrir dans VMware Workstation. Démarrez ensuite la VM.
 
 Sur la VM, il y a 3 comptes:
 
@@ -87,7 +87,12 @@ Sur la VM, il y a 3 comptes:
 
 :::
 
-Connectez-vous sur le compte d'Alice.
+Connectez-vous sur le compte de Bob et créez les deux fichiers texte suivants (avec l'éditeur de texte ou Nano par exemple).
+
+- Document_1 sur le bureau de Bob (~/Bureau). 
+- Document_2 dans les téléchargements de Bob (~/Téléchargements) et ajoutez un peu de contenu textuel 
+
+Connectez-vous maintenant sur le compte d'Alice.
 
 Ouvrez un terminal et tapez la commande suivante qui permettra de faire une copie du répertoire de Bob. 
 
