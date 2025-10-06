@@ -42,8 +42,7 @@ Quelle stratégie adopter pour sa sauvegarde (quoi? fréquence? où?)
 ### Scénario 3: L'admin et son site web
 
 John Jean est administrateur d'un site web tout petit qui change jamais. Il a passé un peu de temps
-à faire la configuration de Apache. Le contenu du site a été fait par un jeune génie mais on ne sait plus
-trop où il est est John Jean bah il comprend rien en HTML.
+à faire la configuration de Apache. Le contenu du site a été fait par un jeune génie, mais on ne sait plus trop où il est, et John Jean, lui, ne comprend rien au HTML.
 
 Quelle stratégie adopter pour sa sauvegarde (quoi? fréquence? où?)
 
