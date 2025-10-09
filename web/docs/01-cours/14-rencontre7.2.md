@@ -201,39 +201,79 @@ Nous allons accéder le serveur http://perdus.com qui est plus simple parce qu'i
 
 ## Exercices
 
-### Exercice 1: Fermeture de ports entrant
+### Exercice 1 : Fermeture de ports entrants
 
-Le prof va partir un script qui teste l'ouverture d'un port sur tous les postes du local.
+Dans cet exercice, nous allons fermer un port spécifique pour bloquer le trafic entrant sur ta machine.
 
-De ton côté, tu vas devoir fermer le port 445 (trafic entrant). Ce port correspond au protocole SMB (partage de fichiers Windows) sur ta machine.
-
-Tu peux démarrer la console du pare-feu de Windows avec la commande `wf.msc` lancée à partir d'une invite de commande ou du menu Démarrer.
-
-
-### Exercice 2: Fermeture de ports sortant
+1. Ouvre la console du pare-feu Windows en lançant la commande `wf.msc` depuis l'invite de commande ou le menu Démarrer.
+2. Crée une règle pour **bloquer le port 445** en entrée.  
+💡 Le port 445 correspond au protocole SMB (partage de fichiers Windows).
+3. Le professeur exécutera un script pour tester l'ouverture de ce port sur tous les postes du local. Vérifie que le port est bien fermé.
 
 :::caution
-Tu ne pourras plus accéder à la plupart des sites pendant que la règles sera active, y compris OneDrive. Sauvegarde tes données avant de continuer.
+Tu ne pourras plus accéder à la plupart des sites pendant que la règle sera active, y compris OneDrive. Sauvegarde tes données avant de continuer.
 :::
 
-Tu dois ajouter une règle dans le pare-feu de Windows pour bloquer le port **443** (HTTPS) en sortie. 
+---
 
-Tu devrais être capable de naviguer sur des sites en HTTP mais pas en HTTPS. Pour tester un site en HTTP, tu peux utiliser http://perdus.com/.
+### Exercice 2 : Fermeture de ports sortants
 
-Quand tu as fini, tu peux simplement désactiver la règle ou la supprimer pour restaurer la connectivité.
+1. Ouvre à nouveau la console du pare-feu Windows.
+2. Crée une règle pour **bloquer le port 443** (HTTPS) en sortie.  
+💡 Tu devrais toujours pouvoir naviguer sur des sites en HTTP, mais pas en HTTPS.
+3. Pour tester un site en HTTP, utilise le site **[suivant](http://perdus.com/)**.
+4. Une fois l’exercice terminé, tu peux simplement **désactiver ou supprimer la règle** pour restaurer la connectivité.
 
+---
 
-### Exercice 3: Interdire l'accès à un site Web
+### Exercice 3 : Interdire l'accès à un site Web
 
-Dans cet exercice, on veut interdire l'accès à un site Web spécifique, sans bloquer l'ensemble d'Internet.
+Dans cet exercice, nous voulons interdire l'accès à un site Web spécifique, sans bloquer l'ensemble d'Internet.
 
-1. En utiliant la commande `nslookup`, trouve les adresses IP pour l'hôte **info.cegepmontpetit.ca**.
-2. Ne garde que les adresses **IPv4**.
-3. Crée une règle dans ton pare-feu pour bloquer ces adresses IP en sortant sur le port **443**, ça te prend une règle **personnalisée**.
+1. En utilisant la commande `ping`, trouve l'adresse IP de l'hôte **[suivant](https://cat-bounce.com/)**.
+2. Crée une règle dans ton pare-feu pour bloquer cette adresse IP en sortie. Il te faut une règle **personnalisée**.  
+💡 Essaie de naviguer dans l'interface du pare-feu pour créer la règle. L'interface est relativement intuitive, mais si tu bloques quelque part, tu peux demander l'aide de ton professeur.
+3. Essaie d'accéder au **[site](https://cat-bounce.com/)** depuis ton navigateur.
 
-Essaie de naviguer dans l'interface du pare-feu et de trouver comment créer la règle. L'interface est relativement intuitive, mais si tu bloques quelque part, tu peux demander l'aide de ton prof.
+:::caution
+Si le site a déjà été visité récemment, il est possible qu’il soit stocké dans le cache du navigateur et directement accessible, même s’il est bloqué. Pour éviter ce problème, effectue un **hard refresh**, ce qui oblige le navigateur à retélécharger toutes les données de la page, y compris les images et fichiers, au lieu d’utiliser les versions stockées en cache localement.  
+Pour ce faire, appuie sur les touches `Ctrl + Shift + R`.
+:::
 
+:::info
+Pour effectuer la commande `ping`, il faut s'assurer d'avoir **enlevé l'en-tête http / https**.  
+Exemples :  
+- `ping https://info.cegepmontpetit.ca` ❌  
+- `ping info.cegepmontpetit.ca` ✅
+:::
 
+---
 
+### Exercice 4 : Plusieurs adresses IP pour un même nom DNS
 
+Certains sites Web utilisent plusieurs serveurs pour répartir la charge ou assurer la redondance. Cela signifie qu’un même nom DNS peut correspondre à plusieurs adresses IP.
 
+1. En utilisant la commande `ping`, trouve l'adresse IP de l'hôte **[suivant](https://theuselessweb.com/)**.
+2. Crée une règle dans ton pare-feu pour bloquer cette adresse IP en sortie.
+3. Essaie d'accéder au **[site](https://theuselessweb.com/)** depuis ton navigateur.  
+
+**Que remarques-tu ?**
+
+4. Utilise maintenant la commande `nslookup` pour le même hôte.
+5. Crée une règle dans ton pare-feu pour bloquer toutes les adresses IP de l'hôte en sortie.
+
+---
+
+### Exercice 5 : Plusieurs noms DNS pour une même adresse IP
+
+Certains serveurs Web peuvent héberger plusieurs sites avec la **même adresse IP** (hébergement mutualisé). Cela signifie qu'une même adresse IP peut correspondre à plusieurs noms DNS.
+
+1. En utilisant la commande `nslookup`, trouve l'adresse IP de l'hôte **[Wiktionary](https://www.wiktionary.org/)**.  
+💡 Le site Wiktionary est un dictionnaire libre et gratuit que tout le monde peut améliorer.
+2. Crée une règle dans ton pare-feu pour bloquer **cette adresse IP** en sortie.
+3. Essaie d'accéder à **[Wikipedia](https://www.wikipedia.org/)** depuis ton navigateur.  
+
+**Que remarques-tu ?**
+
+4. Identifie maintenant d'autres noms DNS qui pointent vers la même adresse IP en utilisant la commande `nslookup`.
+5. Essaie d'accéder aux sites trouvés par la commande depuis ton navigateur. Enlève des sections du lien jusqu'à obtenir un résultat.
