@@ -18,11 +18,13 @@ Le serveur doit donc être accessible sur le réseau. Les clients le contactent 
 
 ### Identifier les ports ouverts
 
+#### Netstat
+
 Normalement, un système d'exploitation ouvre un port d'écoute à la demande d'un programme (ou service) qui s'exécute en arrière-plan.
 
-On peut utiliser la commande `netstat -a` sous Linux et Windows afin d'obtenir la liste de tous les ports ouvert en écoute (en mode *LISTENING*).
+On peut utiliser la commande `netstat -a` sous Linux et Windows afin d'obtenir des informations sur les connexions réseau, les ports utilisés et les statistiques des interfaces **sur son ordinateur**.
 
-```
+```bash
 C:\> netstat -a
 
 Connexions actives
@@ -40,7 +42,24 @@ Connexions actives
   TCP    0.0.0.0:7680           MABELLEMACHINE:0       LISTENING
   ...    ...                    ...                    ...
 ```
+#### Nmap
 
+Contrairement à `netstat`, `nmap` agit plutôt comme un outil de cartographie réseau. Bien qu’il existe certaines similarités entre les deux outils, `nmap` est principalement utilisé pour analyser le réseau et découvrir les ports et services ouverts **d’autres machines sur le réseau**. Voici un exemple de commande `nmap` sous Linux :
+
+```bash
+nmap www.siteexemplaire.com
+
+Starting Nmap 7.93 ( https://nmap.org ) at 2025-10-08 19:05
+Nmap scan report for www.siteexemplaire.com (203.0.113.42)
+Host is up (0.12s latency).
+
+PORT     STATE         SERVICE
+25/tcp   open          smtp
+80/tcp   open          http
+53/udp   open          domain
+
+Nmap done: 1 IP address (1 host up) scanned in 3.21 seconds
+```
 
 ### Quelques ports bien connus
 
