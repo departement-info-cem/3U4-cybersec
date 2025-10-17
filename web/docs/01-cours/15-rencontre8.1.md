@@ -41,44 +41,99 @@ On va distinguer:
 :::info Comment reconnaître une adresse privée?
 Les adresses IPv4 privées sont des plages d'adresses IP réservées pour une utilisation au sein de réseaux privés. Elles ne sont pas routables sur l'Internet public. Voici les plages d'adresses IPv4 privées définies par le [RFC 1918](https://tools.ietf.org/html/rfc1918):
 
-| Classe | Adresse réseau   | Plage d'adresses                       |
-| ------ | ---------------- | -------------------------------------- |
-| A      | `10.0.0.0/8`     | `10.0.0.0` &rarr; `10.255.255.255`     |
-| B      | `172.16.0.0/12`  | `172.16.0.0` &rarr; `172.31.255.255`   |
-| C      | `192.168.0.0/24` | `192.168.0.0` &rarr; `192.168.255.255` |
+| Classe | Adresse réseau   | De:           | À :               |
+| :----- | :--------------- | :------------ | :---------------- |
+| A      | `10.0.0.0/8`     | `10.0.0.0`    | `10.255.255.255`  |
+| B      | `172.16.0.0/12`  | `172.16.0.0`  | `172.31.255.255`  |
+| C      | `192.168.0.0/24` | `192.168.0.0` | `192.168.255.255` |
 
-Par ailleurs, la plage 169.254.0.0/16 (169.254.0.0 à 169.254.255.255) est également non routable sur l'Internet public, mais ne doit pas être utilisée pour des réseaux privés. Elle sert principalement à permettre l'établissement de réseaux *ad hoc* lorsqu'il n'y a pas de serveur DHCP accessible par les clients. Cette norme est définie dans le [RFC 3927](https://tools.ietf.org/html/rfc3927).
+Par ailleurs, il existe d'autres plages d'adresses IP qui ne sont pas routables sur Internet mais qui ne doivent pas non plus être utilisées dans des réseaux privés, sauf dans quelques cas spécifiques:
+- La plage `169.254.0.0/16` (169.254.0.0 à 169.254.255.255), appelée APIPA, sert à permettre l'établissement de réseaux *ad hoc* lorsqu'il n'y a pas de serveur DHCP accessible par les clients. Cette norme est définie dans le [RFC 3927](https://tools.ietf.org/html/rfc3927). 
+- La plage `224.0.0.0/4` (224.0.0.0 à 239.255.255.255), appelée Classe D, est réservée à des usages de multidiffusion (multicast), et la plage `240.0.0.0/4` (240.0.0.0 à 255.255.255.255), appelée Classe E, est réservée à des usages expérimentaux. Aucune de ces adresses n'est autorisée sur Internet et dans des des réseaux privés routés.
 :::
 
-Si on reprend une requête qui part 
-- vers un serveur avec l'IP `45.45.45.45` en https donc sur le port `443` 
-- depuis la machine avec l'IP `192.168.0.110`
-- via le routeur de la maison auquel mon fournisseur a attribuê l'adresse `40.40.40.121`
+---
 
-Les étapes suivantes se passent:
-- le paquet arrive au routeur:
-  - port de destination = `443`
-  - port de retour = `4545`
-  - ip de destination = `45.45.45.45`
-  - ip de retour = `192.168.0.110`
-- le routeur voit que le paquet s'en va hors du réseau et il va faire la traduction suivante
-  - l'adresse de retour (privée = `192.168.0.110`) va être remplacée par la sienne (publique = `40.40.40.121`)
-  - le port de retour va être remplacé par une valeur au hasard disponible dans la table de NAT (par exemple, `1023`)
-  - il crée une entrée dans sa table NAT avec 
-    - le port de retour original (`4545`)
-    - le port de retour modifié (`1023`)
-    - l'adresse IP locale (`192.168.0.110`)
-- les routeurs IP de l'Internet acheminent les paquets à la machine du serveur
-- le serveur recoit la requête avec le bon port toutes les informations et la traite
-- le serveur produit une réponse avec le numéro de port de retour (`1023`) et l'adresse IP source `40.40.40.121`
-- les routeurs IP de l'internet acheminent les paquets au routeur de la maison `40.40.40.121`
-- le routeur de la maison effectue les étapes suivantes:
-  - il regarde le port de retour soit `1023`
-  - il regarde dans la table de NAT, s'il y a une entrée
-  - si c'est le cas comme dans l'exemple il envoie un paquet modifié avec
-    - IP destination `192.168.0.110`
-    - port `4545`
-  - s'il ne trouve rien, le paquet est ignoré, rien n'est envoyé sur le réseau local
+### Exemple
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+
+<TabItem value="scenario" label="Scénario">
+
+![Schema réseau](r15a.png)
+
+À partir de votre ordinateur à la maison, vous ouvrez un navigateur pour consulter votre site Web préféré:
+
+- L'adresse IP privée de votre ordinateur (la **source**) est `192.168.0.110`, son masque est `255.255.255.0` et sa passerelle par défaut est `192.168.0.1`.
+- Le "routeur" (**NAT**) à la maison possède deux adresses IP: 
+  - Son adresse interne (**LAN**) est `192.168.0.1`. Elle concorde avec l'adresse de la passerelle par défaut de l'ordinateur. 
+  - Son adresse externe (**WAN**) est `40.40.40.121`. Elle lui a été attribuée par le fournisseur d'accès Internet (FAI).
+- Le serveur Web qui héberge le site Web (la **destination**) possède l'adresse IP `45.45.45.45` et répond au protocole HTTPS, sur le port `443/tcp`.
+
+Voici, étape par étape, ce qui se passe. Bien sûr, ce processus est simplifié pour faciliter la compréhension. 
+
+</TabItem>
+
+
+<TabItem value="etape1" label="Étape 1">
+
+![Étape 1](r15-ex1.png)
+
+Ton ordinateur crée une requête Web vers le serveur. Il ouvre un port temporaire au hasard pour lui permettre de recevoir la réponse. Il crée un paquet à envoyer au serveur.
+- Source: `192.168.0.110` port `4545`
+- Destination: `45.45.45.45` port `443`
+
+Puisque l'adresse de destination est dans un réseau différent, le paquet est acheminé à la passerelle par défaut.
+
+</TabItem>
+
+<TabItem value="etape2" label="Étape 2">
+
+![Étape 2](r15-ex2.png)
+
+La passerelle par défaut (le *routeur*) ne peut pas acheminer tel quel le paquet, puisque l'adresse de source fait partie des plages d'adresses privées, interdites sur Internet. Autrement dit, il est impossible que le serveur Web lui réponde. Il doit effectuer une **traduction NAT**.
+
+- L'adresse de source privée (`192.168.0.110`) va être remplacée par la sienne, qui est publique (`40.40.40.121`).
+- Le port de source va être remplacé par un port au hasard disponible dans la table de NAT (par exemple, `10003`)
+- Il crée une entrée dans sa table NAT, pour se rappeler à quel ordinateur, dans le réseau privé, acheminer la réponse du serveur.
+  - L'adresse IP locale (`192.168.0.110`)
+  - Le port de retour original (`4545`)
+  - Le port de retour modifié (`10003`)
+
+Puis il envoie le paquet modifié au routeur du fournisseur d'accès Internet. Les routeurs IP de l'Internet acheminent les paquets à la machine du serveur.
+
+</TabItem>
+
+<TabItem value="etape3" label="Étape 3">
+
+![Étape 3](r15-ex3.png)
+
+Le serveur reçoit la requête et produit une réponse. Il la met dans un paquet IP à retourner au client:
+- Source = `45.45.45.45` port `443`
+- Destination = `40.40.40.121` port `10003` (l'adresse et le port de la partie publique du routeur)
+
+Les routeurs IP de l'internet acheminent les paquets au routeur de la maison, à l'adresse `40.40.40.121`.
+
+</TabItem>
+
+<TabItem value="etape4" label="Étape 4">
+
+![Étape 4](r15-ex4.png)
+
+Le routeur de la maison reçoit le paquet en provenance de `45.45.45.45` sur son port `10003`. Il consulte sa table de NATtage pour savoir quelle machine interne a initié cette communication. 
+
+Puisqu'il y a une entrée correspondant au port `10003`, il construit un nouveau paquet avec comme destination l'adresse interne inscrite dans cette entrée de la table, `192.168.0.110` et le port `4545`.
+
+Si aucune entrée correspondant au port `10003` n'avait été trouvé dans la table, le routeur n'aurait pas été capable d'acheminer cette communication dans le réseau interne. Il aurait donc ignoré le paquet, causant sa destruction immédiate.
+
+</TabItem>
+
+</Tabs>
+
+---
 
 Quelques observations:
 - il y a une modification d'adresse IP et port à l'aller et au retour
@@ -86,6 +141,61 @@ Quelques observations:
 - s'il n'y a pas de paquet qui est sorti du réseau local, un paquet ne peut pas arriver au routeur et être envoyé à une machine avec adresse privée
 
 ![Principe de fonctionnement d'un NAT](nat.png)
+
+
+### Exercice 1
+
+Dans la situation suivante:
+- mon adresse IP privée est **192.168.0.111**
+- j'envoie une requête HTTPS au serveur cegepmontpetit.ca (adresse IP est **35.203.2.187**)
+- le port source a été fixé à **6054**
+- mon routeur à la maison applique un NAT dynamique son adresse IP publique est **77.88.99.11**
+- après le passage de la requête la table NAT contient une entrée
+  - IP **192.168.0.111**
+  - port source original **6054**
+  - port source traduit **6754**
+
+📝 Remplissez les en-têtes IP et TCP demandées pour la requête reçue par le serveur:
+```
+IP destination:............. ___.___.___.___
+IP source:.................. ___.___.___.___
+TCP port destination:....... _____
+TCP port source:............ _____
+HTTPS:...................... Encrypté
+```
+
+### Exercice 2
+
+La requête locale:
+
+```
+IP destination:............. 66.147.239.61
+IP source:.................. 192.168.1.45
+TCP port destination:....... 443
+TCP port source:............ 9876
+HTTPS:...................... Encrypté
+```
+
+a été traduite par NAT dans la requête:
+
+```
+IP destination:............. 66.147.239.61
+IP source:.................. 192.222.150.48
+TCP port destination:....... 443
+TCP port source:............ 5675
+HTTPS:...................... Encrypté
+```
+
+📝 Quelle entrée a été ajoutée dans la table NAT?
+```markdown
+
+```
+
+📝 Quelle est l'adresse IP **publique** du routeur NAT?
+```markdown
+
+```
+
 
 
 ### Questions / discussions
@@ -110,7 +220,7 @@ Autrement dit, les appareils derrière un NAT ne peuvent recevoir du trafic que 
 
 ### Redirection de port
 
-Pour permettre à du trafic initié à l'extérieur du réseau local d'être acheminé à une machine du réseau privé, on peut configurer la passerelle NAT pour ouvrir un port d'écoute et le rediriger vers une machine du réseau interne, en effectuant la traduction dans l'autre sens. Ce procédé s'appelle la redirection de port.
+Pour permettre à du trafic initié à l'extérieur du réseau local d'être acheminé à une machine du réseau privé, on peut configurer la passerelle NAT pour ouvrir un port d'écoute et le rediriger vers une machine du réseau interne, en effectuant la traduction dans l'autre sens. Ce procédé s'appelle la **redirection de port**.
 
 Par exemple, un serveur Web situé dans le réseau local (par exemple, 192.168.0.105) écoute sur le port 443 (https). Un client sur Internet accède au serveur avec l'adresse du NAT (40.40.40.121) sur son port 443. Elle redirige les requêtes entrantes sur ce port au serveur du réseau interne et réachemine les réponses aux clients en ayant fait la demande. Dans la perspective du client, le serveur Web est la passerelle NAT.
 
