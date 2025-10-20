@@ -10,9 +10,8 @@ toc_max_heading_level: 3
 Discutons de l'adressage IP...
 
 - Est-il **possible** que deux ordinateurs aient **la même adresse IP**?
-- **Ouvrez un terminal** sur votre ordinateur et faites la commande **`ipconfig`**. Trouvez l'adresse IP de votre carte réseau connectée au réseau du CÉGEP, celle par laquelle vous sortez sur Internet. Elle devrait commencer à *192.168*. 
+- **Ouvrez un terminal** sur votre ordinateur et faites la commande **`ipconfig`**. Trouvez l'adresse IP de votre carte réseau connectée au réseau du CÉGEP, celle par laquelle vous sortez sur Internet. Elle devrait commencer par *10.*.
 - **Comparez votre adresse** avec celle de la personne assise à côté de vous. **Que remarquez-vous?**
-- Avez-vous déjà vu des **adresses IP semblables**? À la maison peut-être?
 - Ouvrez ensuite **un navigateur** et allez sur le site **https://whatismyipaddress.com/**. Comment se fait-il que cette adresse est différente de celle donnée par `ipconfig`?
 - **Comparez votre adresse IP** avec celle de la personne assise à côté de vous. **Que remarquez-vous?**
 
@@ -58,7 +57,7 @@ Les adresses IPv4 privées sont des plages d'adresses IP réservées pour une ut
 | C      | `192.168.0.0/24` | `192.168.0.0` | `192.168.255.255` |
 
 Par ailleurs, il existe d'autres plages d'adresses IP qui ne sont pas routables sur Internet mais qui ne doivent pas non plus être utilisées dans des réseaux privés, sauf dans quelques cas spécifiques:
-- La plage `169.254.0.0/16` (169.254.0.0 à 169.254.255.255), appelée APIPA, sert à permettre l'établissement de réseaux *ad hoc* lorsqu'il n'y a pas de serveur DHCP accessible par les clients. Cette norme est définie dans le [RFC 3927](https://tools.ietf.org/html/rfc3927). 
+- La plage `169.254.0.0/16` (169.254.0.0 à 169.254.255.255), appelée APIPA, sert à permettre l'établissement de réseaux *ad hoc* lorsqu'il n'y a pas de serveur DHCP accessible par les clients. 
 - La plage `224.0.0.0/4` (224.0.0.0 à 239.255.255.255), appelée Classe D, est réservée à des usages de multidiffusion (multicast), et la plage `240.0.0.0/4` (240.0.0.0 à 255.255.255.255), appelée Classe E, est réservée à des usages expérimentaux. Aucune de ces adresses n'est autorisée sur Internet et dans des des réseaux privés routés.
 :::
 
