@@ -1,149 +1,207 @@
 ---
 id: r17
-title: Rencontre 17 - Évaluation de l'inventaire
-sidebar_label: R17 - Évaluation de l'inventaire
+title: Rencontre 17 - Logiciels malveillants
+sidebar_label: R17 - Logiciels malveillants
 draft: false
 hide_table_of_contents: false
 ---
 
 
-Pour sécuriser un réseau d'ordinateurs, il est important de bien faire l'inventaire de ce qui s'y trouve. On doit bien connaître autant les appareils connectés à notre réseau ainsi que les logiciels installés dans ces appareils.
+## Les logiciels malveillants (*malware*)
 
-## Inventaire matériel
+Parfois appelés &laquo;&nbsp;virus&nbsp;&raquo; par abus de langage, les logiciels malveillants, ou *malware*, désignent tout logiciel ou programme informatique qui, lorsqu'on l'exécute sur un ordinateur, effectue des actions qui ne sont pas consenties par l'utilisateur du système et qui ne sont pas dans son avantage. Il en existe plusieurs types, mais tous ont en commun d'être du **code exécutable**.
 
-Il importe de connaître les appareils qui sont connectés à notre réseau local car:
-- ils pourraient s'y trouver à notre insu et constituer une menace
-- ils pourraient être vulnérables et permettre à un attaquant d'atteindre notre réseau privé
+Voici les principaux types de *malware*:
 
 
-### Identifier les appareils connectés au réseau
+- **Les virus :**
+Un virus est un programme qui s'attache à un logiciel ou un fichier légitime et se propage lorsque ce logiciel est exécuté ou ce fichier est lu. Son mode de propagation passe par un fichier. De nos jours, les réels virus ne sont plus très répendus, mais le terme &laquo;&nbsp;virus&nbsp;&raquo; est utilisé pour désigner d'autres types de logiciels malveillants.
 
-Dans un réseau domestique, plusieurs appareils se connectent au réseau local, souvent par WiFi, afin d'accéder à Internet.
-- ordinateur, laptop
-- passerelle NAT
-- téléphone, tablette
-- console de jeu vidéo
-- électroménagers
-- éclairage
-- thermostats
-- climatiseurs et thermopompes
-- contrôleurs de pompe de piscine
-- etc.
+- **Les vers (*worms*) :**
+Un ver informatique est un logiciel malveillant, sous la forme d'un programme exécutable ou d'un script, qui se propage en se répliquant sur un réseau. Leur code comprend généralement deux parties distinctes:
+  - La **charge utile**, ou *payload*. Cette partie détermine ce que fait le ver: endommager des fichiers, voler des données, envoyer un DDoS, etc.
+  - Le mécanisme de **réplication**, qui scanne le réseau à la recherche d'autres hôtes vulnérables afin de se répliquer
 
-Tous ces appareils sont susceptiples de se connecter sur Internet et sont donc potentiellement vulnérables.
+- **Les chevaux de Troie (*trojan*) :**
+Un cheval de Troie est un type de *malware* qui se présente comme un logiciel légitime. Il tente d'être perçu par les utilisateurs comme attrayant, les incitant à l'exécuter. Une fois lancé, le programme déballe sa charge utile, qui généralement permet à l'attaquant d'accéder au système à distance.
 
+- **Les logiciels espions (*spyware*) :**
+Un *spyware* collecte des informations sur l'utilisateur à son insu, comme les mots de passe, les informations de paiement ou l'activité en ligne. 
 
-### Outils d'identification
+- **Les publiciels (*adware*) :**
+Un *adware* sert à afficher des publicités indésirables à l'utilisateur. Il peut suivre les activités de navigation et même modifier le comportement des navigateurs. Le but premier de ce type de logiciel malveillant est de faire des revenus publicitaires.
 
-Pour connaître la liste des ordinateurs qui sont connectés à votre environnement réseau, vous pouvez avoir recours à certains outils.
+- **Les rançongiciels (*ransomware*) :**
+Un *ransomware* est un code exécutable qui, lorsqu'il est lancé, chiffre le maximum de données appartenant à la victime, les rendant inaccessibles. Il demande ensuite une rançon à la victime avec promesse de restituer ses données. Même après paiement de la rançon, il n'y a aucune garantie que les données seront récupérées.
 
-La manière la plus simple est d'accéder à l'interface de gestion de votre point d'accès WiFi. Souvent, il s'agit d'ouvrir une page Web à l'adresse de votre passerelle par défaut (par exemple, `https:\\192.168.0.1\`) ou encore en utilisant une application sur un téléphone ou une tablette. Cet appareil contrôle généralement qui est connecté sur le réseau et possèdent un serveur DHCP qui assigne les adresses IP des clients.
+- **Les *keyloggers* :**
+Un *keylogger* est un logiciel qui enregistre les frappes de touches clavier pour voler des informations sensibles comme des mots de passe et des NIP de carte bancaire.
 
-Si vous n'êtes pas en mesure d'accéder à cette interface, vous pouvez toujours utiliser un outil pour scanner votre réseau, comme NMAP. Bien sûr, ce n'est pas parfait
+- **Les *botnets* et les *zombies* :**
+Le *botnet* est un réseau de machines infectées par un logiciel malveillant pouvant être contrôlées à distance par un attaquant. La machine infectée est parfois appelée un &laquo;&nbsp;*zombie*&nbsp;&raquo;. Le programme de botnet est souvent très petit et peu intrusif, se contentant de faire des requêtes de temps à autres sur un serveur contrôlé par l'attaquant; c'est par là que ce dernier peut passer des commandes. L'usage le plus fréquent d'un botnet est l'attaque par déni de service distribué (DDoS).
 
-:::caution
-Les outils de scannage de ports comme NMAP devraient seulement être utilisés dans un réseau qui vous appartient. Effectuer un scan de ports ou de vulnérabilités dans un réseau sans autorisation est illégal. Certains systèmes de détection d'intrusion sont capables de détecter ces outils.
-:::
-
-:::info À faire à la maison
-Essayez de faire l'inventaire de votre réseau domestique. **N'utilisez pas d'outils de scan sur un réseau qui ne vous appartient pas!!**
-:::
+- **Les *rootkits* :**
+Un *rootkit* est un logiciel installé à très bas niveau et est activé très tôt dans le processus de démarrage de l'ordinateur. Il permet d'influencer le chargement du système d'exploitation en vue de modifier son fonctionnement, de façon à obtenir des privilèges d'administration ou de masquer d'autres *malwares*.
 
 
-## Inventaire logiciel
+## Comment se protéger
 
-Sous Windows, lorsqu'on "installe" un logiciel, qu'est-ce qui se passe? Vous avez sans doute vu en *Systèmes d'exploitation* que lorsqu'on installe une application sous Windows (avec un fichier MSI ou un installateur de type *setup.exe*), celle-ci est visible dans le panneau de configuration des applis.
+### La vigilance
 
-Il y a en fait trois types d'applications sous Windows:
-- Les applications classiques (MSI, setup.exe, etc.)
-- Les applications universelles (MSIX, APPX, StoreApp)
-- Les applications portables (aucune installation requise)
+La règle d'or est la vigilance. 
 
-
-### Les applications classiques
-
-Si vous installez une application en utilisant un installateur de type *.MSI* ou *setup.exe*, il s'agit probablement d'une application classique.
-
-Typiquement, vous exécutez l'installateur en tant qu'administrateur du système et vous répondez à des questions afin de dicter comment l'application s'installera, avec quelles composantes, etc. Puis, l'installateur extrait les fichiers contenus dans l'installateur, généralement dans le répertoire `C:\Program Files\` (ou `C:\Program Files(x86)\` dans le cas d'une application compilée pour l'architecture x86 à 32 bits). Puis, l'installateur crée un raccourci dans le menu Démarrer et/ou sur le bureau, qui pointe vers le fichier .EXE principal de l'application.
-
-Certaines applications classiques, plus rares, sont capables de s'installer même lorsqu'on n'est pas administrateur de la machine. Comme les utilisateurs non-admin du système ne possèdent pas de privilège d'écriture dans `C:\Program Files`, l'installateur vise plutôt le profil de l'utilisateur (`C:\Users\Nomdutilisateur\AppData\Local\`).
-
-Windows connaît ses applications installées car l'installateur enregistre cette dernière dans une liste qu'on appelle ARP (pour *Add or Remove Programs*). C'est un ensemble de clés dans le registre de Windows qui contiennent la liste des applications installées. Lorsqu'on ouvre l'outil `appwiz.cpl`, on peut obtenir cette liste.
-
-Alternativement, on peut afficher plus de détails des applications installées à l'aide d'un outil spécialisé, comme l'outil [UninstallView de NirSoft](https://www.nirsoft.net/utils/uninstall_view.html).
-
-Les informations concernant les applications installées se trouvent dans la base de registre, dans l'une des clés suivantes (accessible par l'éditeur de registre, `regedit.exe`):
-```
-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall
-HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall
-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall
-HKEY_CURRENT_USER\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall
-```
-![ARP Registry](r17-01-arpregisry.png)
-
-:::caution
-Windows reconnait les applications installées uniquement grâce au registre ARP. Pour "masquer" une application de l'inventaire tout en la gardant installée, il suffit d'effacer son entrée au registre. Autrement dit, ce n'est pas parce qu'une application n'apparaît pas dans la liste des applis installées que cela signifie qu'elle n'est plus présente sur le système.
-:::
+- Ne cliquez pas sur des liens en lesquels vous n'avez pas confiance.
+- Ne téléchargez pas de fichiers sans en être certain de la provenance, en particulier les fichiers exécutables et les scripts.
+- Si vous téléchargez un fichier exécutable, ne l'exécutez pas.
+- N'insérez pas d'appareils comme une clé USB, qui pourraient contenir du code malicieux.
 
 
-### Les applications universelles (UWP)
+### Les antivirus 
 
-Les applications universelles (en abrégé UWP pour Universal Windows Platform) sont un autre type d'application disponible sous Windows. Elles doivent généralement être enregistrées pour être utilisées. On les installe en lançant un paquet de type *.msix*, *.appx*, *.msixbundle* ou *.appxbundle*, mais la plupart du temps, elles sont installées à travers le *Microsoft Store*. C'est pourquoi on les appelle souvent des *store apps*.
-
-On peut obtenir la liste des applications universelles installées à travers les paramètres de Windows, dans la section Applis, mais cette liste mélange les applications UWP et classiques. Pour obtenir la liste des applications UWP seulement, on peut lancer la commande suivante à partir d'une invite PowerShell:
-
-```powershell
-Get-AppxPackage | select Name, Version, InstallLocation
-```
-
-Ou encore, l'outil [InstallAppView de NirSoft](https://www.nirsoft.net/utils/installed_app_view.html) montre la liste des applications universelles installées dans une interface graphique.
+Un antivirus est un logiciel conçu pour détecter, prévenir et supprimer les logiciels malveillants (*malware*) sur un ordinateur ou un réseau. 
 
 
-### Les applications portables
+#### Comment ils détectent les malwares?
 
-On désigne sous le nom d'application portable tout programme (des fichiers *.exe* notamment) qui peut être utilisé sans avoir besoin d'installation. Ces applications sont très difficiles à inventorier car ce ne sont que des fichiers aucunement enregistrés dans le système. On doit alors faire une recherche de tous les fichiers EXE.
+Un logiciel antivirus utilise plusieurs procédés pour détecter les logiciels malveillants.
+
+Il compare les fichiers et les programmes sur l'ordinateur avec une base de données de **signatures** de malwares connus. Chaque antivirus possède sa manière de calculer la signature, en analysant des fragments de code, des motifs récurrents ou des séquences uniques. L'antivirus peut scanner l'entièreté du système (scan complet) ou un fichier spécifique à la demande. On peut configurer l'antivirus pour effectuer des scans périodiques à l'intervalle et au moment voulu. La majorité des antivirus vont aussi effectuer des analyses **en temps réel** dès qu'un fichier arrive sur l'ordinateur.
+
+L'antivirus tente aussi d'identifier les menaces en utilisant des méthodes d'**analyse heuristique**. Plutôt que de rechercher des similitudes dans le contenu des fichiers, il analyse le comportement des programmes pour détecter des activités suspectes ou malveillantes. Ce type d'analyse permet d'intercepter des logiciels malveillants même si ceux-ci sont totalement inédits et ne sont pas encore répertoriés dans la base de données de signatures.
+
+Si l'antivirus identifie un fichier comme un *malware*, celui-ci peut prendre action immédiatement, en supprimant le fichier ou en le plaçant en **quarantaine** (le fichier est toujours là, mais le système d'exploitation interdit son exécution).
 
 
-:::info Gestionnaires de paquets sous Windows
-Bien que ce soit moins répandu, il existe aussi des gestionnaires de paquets sous Windows, à l'instar de *apt*, *yum* et *snap* sous Linux. Les plus populaires sont:
-- [WinGet](https://learn.microsoft.com/en-us/windows/package-manager/winget/) (inclus dans Windows mais peu connu)
-- [Chocolatey](https://chocolatey.org/)
-- [Scoop](https://scoop.sh/)
+#### Comment les maintenir?
+
+Les logiciels malveillants évoluent rapidement, donc les antivirus doivent suivre la cadence. 
+
+Il ne suffit pas d'installer ou d'activer un antivirus, il faut le mettre à jour régulièrement. Les mises à jour apportent de nouvelles signatures reconnaissables et de nouvelles méthodes de détection heuristique.
+
+
+#### Lequel choisir?
+
+Il y a un grand nombre de logiciels antivirus sur le marché. 
+
+Pour comparer adéquament les antivirus, on peut rechercher les caractéristiques suivantes:
+- Un haut taux de détection de vrais malwares
+- Un faible taux de faux positifs (un fichier légitime qui est considéré à tort comme un virus)
+- Une faible empreinte sur les ressources du système (il ne ralentit pas les ordinateurs)
+- La mise à jour régulière et fréquente des signatures
+- Un lien de confiance élevé (par exemple, l'antivirus russe Kaspersky est-il digne de confiance?)
+- Des capacités d'administration centralisée (pour les admins d'entreprises)
+
+Sous Windows 10 et 11 ainsi que les éditions serveur, l'antivirus **Windows Defender** est intégré au système d'exploitation. Il offre une protection de base contre les malware. Contrairement à la croyance populaire, il est assez performant et fiable et offre une protection en temps réel. Il utilise une protection basée sur le Cloud pour analyser les menaces en temps réel. Il fait partie de la solution Windows Defender qui incorpore aussi des protections contre le *phishing* et un service de pare-feu.
+
+Cependant, certains antivirus commerciaux offrent typiquement des taux de détection légèrement supérieurs ainsi que des fonctionnalités supplémentaires afin d'offrir une plus-value. Par exemple, la suite **Norton 360** offre une solution VPN intégrée, un gestionnaire de mots de passe et une surveillance du dark web. La suite **McAfee** offre des outils de nettoyage et une protection Web avancée. Il s'agit d'arguments de vente, bien sûr.
+
+Des antivirus gratuits existent aussi, mais ont perdu en popularité depuis que Windows incorpore le sien. Les principaux sont **Avast**, **AVG** et **Avira** et offrent tout de même des niveaux de protection et une performance comparables aux antivirus commerciaux.
+
+Le site [av-test.org](https://www.av-test.org/fr/antivirus/) répertorie une analyse détaillée des principaux antivirus sur le marché.
+
+Lien: https://www.av-test.org/fr/antivirus/
+
+
+:::caution Les faux antivirus
+Il faut faire attention aux faux antivirus qui nous sont offerts dans des annonces publicitaires. On voit à l'occasion des faux messages indiquant qu'un virus a été détecté, en vous proposant un lien vers un antivirus capable de vous protéger. Ne vous laissez pas berner!
 :::
 
 
-### Exercice sur l'inventaire matériel
+#### Mythe ou réalité?
 
-Tout d'abord, téléchargez et installez l'application WinMerge (https://winmerge.org/downloads/) puis installez-la.
-
-Lancez la commande `appwiz.cpl` et constatez que WinMerge s'y trouve.
-
-Ensuite, téléchargez le programme portable [UninstallView de NirSoft](https://www.nirsoft.net/utils/uninstall_view.html). Choisissez la version **64-bit**. Il s'agit d'un fichier ZIP, donc extrayez-le quelque part sur votre disque dur et lancez l'exécutable.
-
-Vous devriez voir l'application WinMerge dans la liste, ainsi que plus de détails sur l'enregistrement de l'application sur le système.
-
-Maintenant, **sans désinstaller l'application**, faites en sorte qu'elle n'apparaisse plus dans l'inventaire. L'application doit toujours être fonctionnelle mais ne doit plus être détectée par UninstallView.
+On nous a toujours dit que les antivirus ne sont utiles que sous Windows, car il n'existe pas de logiciels malveillants sur Mac, Linux ou Android. Est-ce vrai?
 
 
-## Les inventaires en entreprise
+### Et si mon antivirus ne détecte rien?
 
-Les organisations (comme la DISTI) utilisent des outils plus avancés de gestion de leur inventaire. Elles peuvent se le permettre car elles ont le contrôle de son réseau. En contrôlant la configuration des ordinateurs qui font partie du réseau, elles peuvent installer des outils capables de lire des informations d'inventaire en utilisant des protocoles d'accès distant comme SSH, RPC, WinRM, etc. Les admins peuvent aussi déployer des agents résidents sur les postes de travail et les serveurs pour collecter des informations de configuration, comme le nom de l'utilisateur, la quantité d'espace disponible, les applications installées, et bien d'autres informations. 
+Même le meilleur antivirus pourrait passer à côté d'un logiciel malveillant. Il arrive qu'on doive se débarasser d'un *malware* par nous-mêmes. Sous Windows, certains outils peuvent nous aider à les identifier et les éliminer.
 
-Les données d'inventaire sont très utiles pour avoir une bonne compréhension de ce qui se trouve dans notre réseau. Les admins s'en servent notamment pour:
-- S'assurer que les applications et les systèmes d'exploitation sont à jour
-- S'assurer que les logiciels installés sont autorisés
-- Se conformer aux conditions d'utilisation des logiciels (par exemple, payer les licences logicielles)
-- Éviter que des appareils qui présentent des vulnérabilités mettent en péril la sécurité et la stabilité du réseau
-- Prévoir divers problèmes opérationnels ou de sécurité avant qu'il ne soit trop tard
 
-Ces outils et techniques dépassent le cadre de ce cours; ils sont vus plus en détails dans les cours spécifiques au profil Réseautique.
+#### Le gestionnaire de tâches
+
+Le gestionnaire de tâches permet de voir tous les processus en cours d'exécution sur le système. 
+
+![Gestionnaire de tâches](taskmgr.png)
+
+On y accède de plusieurs manières:
+- La séquence de touches `Ctrl` + `Maj` + `Esc`
+- Clic-droit sur la barre de tâches, cliquer sur Gestionnaire de tâches
+- Clic-droit sur le menu Démarrer, cliquer sur Gestionnaire de tâches
+- Séquence de touches `Ctrl` + `Alt` + `Suppr.`, cliquer sur Gestionnaire de tâches
+- La commande `taskmgr`
+
+Il faut aller dans l'**onglet Détails** pour voir l'ensemble des processus. 
+
+Lorsque vous identifiez un fichier exécutable qui vous semble suspect ou anormal, vous pouvez cliquer-droit et:
+- ouvrir les propriétés pour voir certains détails de ce fichier ainsi que son emplacement
+- effectuer une recherche en ligne
+- terminer l'exécution du fichier
+- ouvrir l'emplacement du fichier dans l'explorateur
+
+
+#### Scan de virus à la demande
+
+Si vous avez un fichier exécutable mais n'êtes pas certain(e) de sa légitimité, vous pouvez scanner ce fichier à l'aide de votre antivirus. Souvent, cela peut se faire directement à partir du menu contextuel. Référez-vous à la documentation de votre antivirus.
+
+![Scan à la demande](ondemandscan.png)
+
+
+#### Virustotal.com
+
+Pour des résultats plus détaillés, vous pouvez téléverser votre fichier suspect chez [VirusTotal](https://www.virustotal.com/) pour qu'il soit tester avec le maximum d'antivirus sur le marché. VirusTotal fait une analyse à la demande auprès de plusieurs dizaine de logiciels et vous indique quels sont ceux qui y ont trouvé une menace. Plus la proportion d'antivirus trouvant une menace est élevée, plus grandes sont les chances que le fichier soit effectivement malicieux.
+
+Lien: https://www.virustotal.com/
+
+![VirusTotal.com](virustotal.png)
+
+:::info Process Explorer
+L'outil [Process Explorer](https://learn.microsoft.com/fr-ca/sysinternals/downloads/process-explorer) de Microsoft est une sorte de gestionnaire de tâches mais avec plusieurs fonctionnalités avancées. Entre autres, il permet d'analyser automatiquement les processus en cours d'exécution avec VirusTotal.
+
+![Process Explorer et Virus Total](procexp.png)
+
+Téléchargement: https://learn.microsoft.com/fr-ca/sysinternals/downloads/process-explorer
+:::
+
+
+#### Autoruns
+
+Souvent, un logiciel malveillant est un programme qui s'exécute en arrière-plan du système. Sous Windows, il existe plusieurs manières d'exécuter un programme automatiquement au démarrage de l'ordinateur ou de la session utilisateur:
+
+- Dans le planificateur de tâches
+- Comme service
+- Dans le répertoire Startup du menu Démarrer
+- Dans la clé Run de la base de registre
+- Etc.
+
+Les programmeurs de malware peuvent parfois être très créatifs dans leur manière de lancer leur programme automatiquement.
+
+L'outils [Autoruns](https://learn.microsoft.com/fr-ca/sysinternals/downloads/autoruns) dresse la liste des programmes qui démarrent automatiquement. Si vous vous demandez pourquoi un programme est lancé automatiquement à chaque démarrage, vous risquez de le trouver là.
+
+![Autoruns](autoruns.png)
+
+Téléchargement: https://learn.microsoft.com/fr-ca/sysinternals/downloads/autoruns
+
+
+## Exercice sur les *malwares*
+
+Vous aurez besoin d'une machine virtuelle pour faire cet exercice.
+
+- Téléchargez le fichier suivant `\\ed5depinfo\Logiciels\_Cours\3U4\Win10_RickRollVM.7z`
+- Extrayez la VM sous `C:\VM\VMware`
+- Double-cliquez sur le fichier `.VMX`
+- Dans VMWare Workstation Pro, démarrez la machine virtuelle
+- Loggez-vous avec le compte d'Alice
+  - Nom d'utilisateur: `alice`
+  - Mot de passe: `Passw0rd`
+
+Vous remarquerez sans doute que cette VM vous *rickroll* continuellement. Il semble qu'un programme malveillant a réussi à passer sans être détecté par l'antivirus.
+
+Utilisez les outils présentés précédemment pour détecter et éliminer le logiciel malveillant. N'hésitez pas à demander l'aide du prof si vous êtes bloqué.
 
 
 ## DÉFI VIRUS!!!
 
-Le professeur a entendu dire que vous avez trouvé l'exercice précédent trop facile. Il a donc amélioré son "virus". Saurez-vous éliminer le virus cette fois-ci?
-
-Attention, ce virus est beaucoup plus violent que la version précédente!
+Si vous avez trouvé l'exercice précédent trop facile, le professeur a développé une version plus violente de son "virus". Saurez-vous l'éliminer?
 
 - Téléchargez le fichier suivant `\\ed5depinfo\Logiciels\_Cours\3U4\Win10_RickBombVM.7z`
 - Extrayez la VM sous `C:\VM\VMware`
@@ -154,4 +212,6 @@ Attention, ce virus est beaucoup plus violent que la version précédente!
   - Mot de passe: `Passw0rd`
 
 Vous pouvez demander l'aide du prof si vous êtes bloqué.
+
+
 
