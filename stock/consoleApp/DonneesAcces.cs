@@ -24,7 +24,7 @@ namespace consoleApp
             }
             catch (Exception)
             {
-                // create the folder ".\data\data\data"
+                // crée le dossier "..\data\data"
                 var path = Path.Combine("..", "data", "data");
                 System.IO.Directory.CreateDirectory(path);
                 var databasePath = Path.Combine(path, "cyber.db");
@@ -45,7 +45,7 @@ namespace consoleApp
 
             sqlite_cmd = sqlite_conn.CreateCommand();
             sqlite_cmd.CommandText = Createsql;
-            // create a second table MAnneeRevenu with the user name, the year and the income
+            // crée une seconde table MAnneeRevenu avec le nom d'utilisateur, l'année et le revenu
             string Createsql1 = "CREATE TABLE IF NOT EXISTS MAnneeRevenu" +
                                 " (nom VARCHAR(200)," +
                                 " annee INT," +
@@ -135,7 +135,7 @@ namespace consoleApp
 
             sqlite_datareader = sqlite_cmd.ExecuteReader();
             DonneesUtilisateur compte = new DonneesUtilisateur();
-            // get the user from the database
+            // récupère l'utilisateur depuis la base de données
             while (sqlite_datareader.Read())
             {
                 compte.Nom = sqlite_datareader.GetString(0);
@@ -149,13 +149,13 @@ namespace consoleApp
 
         public static void BDEffacerTout()
         {
-            // delete all the users
+            // supprime tous les utilisateurs
             sqlite_conn.Open();
             SqliteCommand sqlite_cmd;
             sqlite_cmd = sqlite_conn.CreateCommand();
             sqlite_cmd.CommandText = "DELETE FROM MUtilisateur";
             sqlite_cmd.ExecuteNonQuery();
-            // make a second command to erase the other table
+            // prépare une seconde commande pour effacer l'autre table
             sqlite_cmd.CommandText = "DELETE FROM MAnneeRevenu";
             sqlite_cmd.ExecuteNonQuery();
             sqlite_conn.Close();
@@ -167,7 +167,7 @@ namespace consoleApp
             sqlite_conn.Open();
             SqliteCommand sqlite_cmd = sqlite_conn.CreateCommand();
 
-            // Check if the entry for the specified user and year already exists
+            // Vérifie si l'entrée pour l'utilisateur et l'année spécifiés existe déjà
             sqlite_cmd.CommandText = "SELECT COUNT(*) FROM MAnneeRevenu WHERE nom = @nom AND annee = @annee";
             sqlite_cmd.Parameters.AddWithValue("@nom", utilisateurConnecte);
             sqlite_cmd.Parameters.AddWithValue("@annee", annee);
@@ -175,12 +175,12 @@ namespace consoleApp
 
             if (count > 0)
             {
-                // Update the existing entry
+                // Met à jour l'entrée existante
                 sqlite_cmd.CommandText = "UPDATE MAnneeRevenu SET revenu = @revenu WHERE nom = @nom AND annee = @annee";
             }
             else
             {
-                // Insert a new entry
+                // Insère une nouvelle entrée
                 sqlite_cmd.CommandText = "INSERT INTO MAnneeRevenu (nom, annee, revenu) VALUES(@nom, @annee, @revenu)";
             }
 

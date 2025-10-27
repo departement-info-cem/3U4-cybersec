@@ -32,18 +32,18 @@ namespace consoleApp
         // fonctions permettant le hachage des mots de passe
         public static string HacherLeMotDePasse(string input)
         {
-            // Use input string to calculate MD5 hash
+            // Utilise la chaîne d'entrée pour calculer le hachage MD5
             using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
             {
                 byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
                 byte[] hashBytes = md5.ComputeHash(inputBytes);
-                return Convert.ToHexString(hashBytes); // .NET 5 +
+                return Convert.ToHexString(hashBytes); // Requiert .NET 5+
             }
         }
         
         public static bool VerifierLeMotDePasse(string motDePasse, string hache)
         {
-            // Use input string to calculate MD5 hash
+            // Calcule le hachage MD5 du mot de passe fourni et le compare avec le haché stocké
             return hache == DonneesSecurite.HacherLeMotDePasse(motDePasse);
         }
         

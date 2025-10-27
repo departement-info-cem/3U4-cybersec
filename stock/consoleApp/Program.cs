@@ -13,7 +13,7 @@ using Sharprompt;
 // Commande pout generer le .exe stantalone
 // dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
 
-// https://github.com/shibayan/Sharprompt for the win
+// https://github.com/shibayan/Sharprompt — pratique pour créer des prompts en console
 namespace consoleApp;
 
 class Program
@@ -28,11 +28,11 @@ class Program
         bool quit = false;
         do
         {
-            quit = MainMenu();
+            quit = MenuPrincipal();
         } while (!quit);
     }
 
-    public static bool MainMenu() {
+    public static bool MenuPrincipal() {
         var choix = Prompt.Select("Quelle action veux-tu effectuer ? " + utilisateurConnecte, 
             new[] { 
                 "(De)Connexion",
@@ -155,40 +155,11 @@ class Program
 
     private static void PremiersMinistres()
     {
-        Formulaires.FormulaireNouveauCompte justin = new Formulaires.FormulaireNouveauCompte();
-        justin.MotDePasse = "Passw0rd1!";
-        justin.MotDePasseConfirmation = "Passw0rd1!";
-        justin.NAS = "111111111";
-        justin.Nom = "Justin Trudeau";
-        DonneesAcces.BDCreerUtilisateur(justin);
-
-        Formulaires.FormulaireNouveauCompte stephen = new Formulaires.FormulaireNouveauCompte();
-        stephen.MotDePasse = "StephDaBest";
-        stephen.MotDePasseConfirmation = "StephDaBest";
-        stephen.NAS = "123456123";
-        stephen.Nom = "Stephen Harper";
-        DonneesAcces.BDCreerUtilisateur(stephen);
-
-        Formulaires.FormulaireNouveauCompte paul = new Formulaires.FormulaireNouveauCompte();
-        paul.MotDePasse = "Ministre 1!";
-        paul.MotDePasseConfirmation = "Ministre 1!";
-        paul.NAS = "456456465";
-        paul.Nom = "Paul Martin";
-        DonneesAcces.BDCreerUtilisateur(paul);
-
-        Formulaires.FormulaireNouveauCompte jean = new Formulaires.FormulaireNouveauCompte();
-        jean.MotDePasse = "shawinigan";
-        jean.MotDePasseConfirmation = "shawinigan";
-        jean.NAS = "987987987";
-        jean.Nom = "Jean Chrétien";
-        DonneesAcces.BDCreerUtilisateur(jean);
-
-        Formulaires.FormulaireNouveauCompte kim = new Formulaires.FormulaireNouveauCompte();
-        kim.MotDePasse = "GirlPower";
-        kim.MotDePasseConfirmation = "GirlPower";
-        kim.NAS = "123123123";
-        kim.Nom = "Kim Campbell";
-        DonneesAcces.BDCreerUtilisateur(kim);
+        var list = RessourcesChargement.ChargerPremiersDepuisRessource();
+        foreach (var form in list)
+        {
+            DonneesAcces.BDCreerUtilisateur(form);
+        }
     }
 
     public static void CreerCompte()
