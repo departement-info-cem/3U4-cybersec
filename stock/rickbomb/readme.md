@@ -165,3 +165,8 @@ $RegValSplat = @{
 }
 New-ItemProperty @RegValSplat -Force
 ```
+
+
+## Références
+
+L'animation de Rick Astley a été empruntée de cette page: https://www.ascii.co.uk/animated-art/rickroll-animated-ascii-art.html
