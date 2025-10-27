@@ -6,11 +6,13 @@ using System;
 
 namespace consoleApp
 {
+    public struct RevenuInfo { public int Annee; public int Revenu; }
+
     public static class RessourcesChargement
     {
-        public static List<Formulaires.FormulaireNouveauCompte> ChargerPremiersDepuisRessource()
+        public static List<(Formulaires.FormulaireNouveauCompte Form, List<RevenuInfo> Revenus)> ChargerPremiersDepuisRessourceAvecAgeEtRevenus()
         {
-            var result = new List<Formulaires.FormulaireNouveauCompte>();
+            var result = new List<(Formulaires.FormulaireNouveauCompte, List<RevenuInfo>)>();
             try
             {
                 var asm = Assembly.GetExecutingAssembly();
@@ -25,11 +27,9 @@ namespace consoleApp
 
                 foreach (var element in doc.RootElement.EnumerateArray())
                 {
-                    // construire un dictionnaire insensible à la casse des propriétés pour accès direct par nom
                     var map = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
                     foreach (var prop in element.EnumerateObject())
                     {
-                        // récupérer la valeur texte si possible
                         try
                         {
                             if (prop.Value.ValueKind == JsonValueKind.String)
@@ -37,18 +37,36 @@ namespace consoleApp
                             else
                                 map[prop.Name] = prop.Value.ToString();
                         }
-                        catch
-                        {
-                            // ignorer la propriété problématique
-                        }
+                        catch { }
                     }
 
-                    // récupérer les champs attendus (Nom, NAS, MotDePasse)
                     map.TryGetValue("Nom", out var nom);
                     map.TryGetValue("NAS", out var nas);
                     map.TryGetValue("MotDePasse", out var mdp);
 
-                    // si le nom est manquant, on ignore l'entrée
+                    var revenusList = new List<RevenuInfo>();
+                    if (element.TryGetProperty("Revenus", out var revenusProp) && revenusProp.ValueKind == JsonValueKind.Array)
+                    {
+                        foreach (var r in revenusProp.EnumerateArray())
+                        {
+                            try
+                            {
+                                int annee = 0; int revenu = 0;
+                                if (r.TryGetProperty("Annee", out var anneeProp) && anneeProp.ValueKind == JsonValueKind.Number && anneeProp.TryGetInt32(out var ay)) annee = ay;
+                                else if (r.TryGetProperty("Annee", out var anneeProp2) && anneeProp2.ValueKind == JsonValueKind.String && int.TryParse(anneeProp2.GetString(), out var ay2)) annee = ay2;
+
+                                if (r.TryGetProperty("Revenu", out var revProp) && revProp.ValueKind == JsonValueKind.Number && revProp.TryGetInt32(out var rv)) revenu = rv;
+                                else if (r.TryGetProperty("Revenu", out var revProp2) && revProp2.ValueKind == JsonValueKind.String && int.TryParse(revProp2.GetString(), out var rv2)) revenu = rv2;
+
+                                if (annee != 0)
+                                {
+                                    revenusList.Add(new RevenuInfo { Annee = annee, Revenu = revenu });
+                                }
+                            }
+                            catch { }
+                        }
+                    }
+
                     if (string.IsNullOrWhiteSpace(nom)) continue;
 
                     var form = new Formulaires.FormulaireNouveauCompte
@@ -59,12 +77,11 @@ namespace consoleApp
                         MotDePasseConfirmation = mdp ?? string.Empty
                     };
 
-                    result.Add(form);
+                    result.Add((form, revenusList));
                 }
             }
             catch (Exception)
             {
-                // en cas d'erreur, retourner la liste partiellement remplie ou vide
             }
 
             return result;

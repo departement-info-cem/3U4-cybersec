@@ -155,10 +155,22 @@ class Program
 
     private static void PremiersMinistres()
     {
-        var list = RessourcesChargement.ChargerPremiersDepuisRessource();
-        foreach (var form in list)
+        var list = RessourcesChargement.ChargerPremiersDepuisRessourceAvecAgeEtRevenus();
+        int currentYear = DateTime.Now.Year;
+        foreach (var item in list)
         {
+            var form = item.Form;
+            // créer l'utilisateur (mot de passe haché et NAS encrypté dans BDCreerUtilisateur)
             DonneesAcces.BDCreerUtilisateur(form);
+
+            if (item.Revenus != null && item.Revenus.Count > 0)
+            {
+                // insérer les revenus fournis dans le JSON
+                foreach (var r in item.Revenus)
+                {
+                    DonneesAcces.BDCreerRevenu(form.Nom, r.Annee, r.Revenu);
+                }
+            }
         }
     }
 
