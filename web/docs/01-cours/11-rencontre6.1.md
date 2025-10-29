@@ -11,14 +11,14 @@ hide_table_of_contents: false
 Dans cette séance, nous allons répondre aux questions suivantes :
 - Que voient les fournisseurs d’accès internet (Bell, Vidéotron, Fizz…) ?
 - Si HTTPS chiffre tout, comment l’internet livre mes requêtes ?
-- Puis-je être certain de l’identité d’un site web en HTTPS (ex : desjardins.com) ?
+- Puis-je être certain de l'identité d'un site web en HTTPS (ex : desjardins.com) ?
 - C'est grave si un certificat est autosigné ou invalide ?
 - Cookie de traçage ?
 - Des cookies de traçage créés par des pirates, ça existe ?
 - Navigation privée, mode incognito, ça sert à quoi ?
 - Un VPN ça protège contre les virus ?
-- Un VPN ça permet d’aller plus vite sur internet ?
-- Un VPN ça encrypte vraiment très fort ?
+- Un VPN ça permet d'aller plus vite sur internet ?
+- Un VPN ça chiffre vraiment très fort ?
 - Un VPN ça protège contre les sites malveillants ?
 
 
@@ -34,11 +34,11 @@ Selon vous, que voient les fournisseurs d’accès internet (FAI) quand vous nav
 - Peuvent-ils voir le contenu de la page ?
 
 
-### Encryption HTTPS
+### Chiffrement HTTPS
 
 HTTPS est un méta-protocole qui utilise HTTP au-dessus de TLS (Transport Layer Security).
-- On utilise de l'encryption asymétrique pour échanger une clé de session pour l'encryption symétrique.
-- On utilise de l'encryption symétrique pour chiffrer le trafic entre le client et le serveur.
+- On utilise du chiffrement asymétrique pour échanger une clé de session pour le chiffrement symétrique.
+- On utilise du chiffrement symétrique pour chiffrer le trafic entre le client et le serveur.
 - Sans la clé de session, le contenu des échanges est illisible.
 ---
 
@@ -51,13 +51,13 @@ HTTPS est un méta-protocole qui utilise HTTP au-dessus de TLS (Transport Layer 
 
 ### Rappel, protocoles et couches
 
-- Les fournisseurs d’accès voient l’adresse **IP** du serveur auquel vous vous connectez (ex : 142.250.190.78 pour Google).
+- Les fournisseurs d'accès voient l'adresse **IP** du serveur auquel vous vous connectez (ex : 142.250.190.78 pour Google).
 - Si le site utilise HTTPS, ils ne voient aucun en-tête HTTP ou le corps de la requête / réponse
-  - l’URL complète est un en-tête HTTP ENCRYPTÉ
-  - les cookies incluant ceux qui servent à identifier votre compte ENCRYPTÉS
-  - l'entête Referer qui indique la page d'origine ENCRYPTÉ
-  - le contenu de la page ENCRYPTÉ: tout ce qui est après le nom de domaine est chiffré.
-- Les adresses IP et les ports sont dans l’en-tête TCP/IP, non chiffrés.
+  - l'URL complète est un en-tête HTTP CHIFFRÉ
+  - les cookies incluant ceux qui servent à identifier votre compte CHIFFRÉS
+  - l'en-tête Referer qui indique la page d'origine CHIFFRÉ
+  - le contenu de la page CHIFFRÉ: tout ce qui est après le nom de domaine est chiffré.
+- Les adresses IP et les ports sont dans l'en-tête TCP/IP, non chiffrés.
   - IP permettent aux routeurs d'acheminer les paquets et d'indiquer l'adresse de retour
   - TCP permettent au NAT de modifier les ports pour retracer les différents clients (dans un prochain cours)
 - Ils savent donc à quels serveurs vous parlez, mais pas ce que vous faites sur ces serveurs (ni les pages consultées, ni les données échangées).
@@ -129,32 +129,32 @@ Dans ce scénario, l'attaquant intercepte la connexion:
 
 On va inscrire vos réponses au tableau pour comparer après l'exercice.
 
-- Choisis un site d'information que tu aimes bien
-- Quand tu visites la page d'accueil, combien de requêtes HTTP selon toi:
+- Choisissez un site d'information que vous aimez bien
+- Quand vous visitez la page d'accueil, combien de requêtes HTTP selon vous:
   - juste une
   - entre 2 et 10
   - entre 10 et 50
   - entre 50 et 100
   - plus de 100
-- Est-ce que toutes les requêtes vont au serveur du site que tu visites ? Oui / Non
+- Est-ce que toutes les requêtes vont au serveur du site que vous visitez ? Oui / Non
 
 ### Activité 5 minutes individuelle
-Tu vas maintenant explorer un peu les requêtes / cookies:
-- ouvre les outils de dev dans un navigateur Chrome (dans n'importe quelle page, clic droit > inspecter)
-- dans les outils de dev, tu trouveras plusieurs onglets (Elements, console, sources etc.)
+Vous allez maintenant explorer un peu les requêtes / cookies:
+- ouvrez les outils de dev dans un navigateur Chrome (dans n'importe quelle page, clic droit > inspecter)
+- dans les outils de dev, vous trouverez plusieurs onglets (Elements, console, sources etc.)
 - on va s'intéresser à **Network** et **Application**
-- ouvre d'abord le site d'information que tu as choisi
-- choisi l'onglet **Network** dans les outils
-- recharge la page, tu devrais voir
+- ouvrez d'abord le site d'information que vous avez choisi
+- choisissez l'onglet **Network** dans les outils
+- rechargez la page, vous devriez voir
     1. une ligne du temps qui représente les différentes requêtes réseau
     2. une liste en dessous avec chaque requête
 - dans le champ **filter** on va taper d'abord
-    - **google.com** pour voir si des requêtes sont partis chez Google
+    - **google.com** pour voir si des requêtes sont parties chez Google
     - **facebook** pour voir si des requêtes sont allées chez Facebook
-- explore les requêtes trouvées
+- explorez les requêtes trouvées
     - en regardant l'onglet Headers du détail,
-    - trouver l'URL demandée (Request URL) pour vérifier que la requête part bien chez Google ou Facebook
-- Copie l'url du site que tu demandée (pour moi lapresse.ca) et l'url envoyée à Google dans ton fichier de notes (MD)
+    - trouvez l'URL demandée (Request URL) pour vérifier que la requête part bien chez Google ou Facebook
+- Copiez l'url du site que vous avez demandé (par exemple lapresse.ca) et l'url envoyée à Google dans votre fichier de notes (MD)
 
 
 ### Retour en groupe (5 minutes)
@@ -205,13 +205,13 @@ Un mode privé ou secret dans un navigateur va habituellement:
 
 **Éléments de réponse :**
 - Un VPN ne voit pas le contenu du trafic (HTTPS).
-  - seul le client HTTP (application ou navigateur : **Chrome***)
+  - seul le client HTTP (application ou navigateur : **Chrome**)
   - et le serveur HTTP (site web) voient le contenu
   - même le système d'exploitation ne voit pas le contenu HTTPS (Windows)
 - Donc il est aveugle aux fichiers qu'on télécharge etc.
 - Mais ... une "offre VPN" peut inclure un plugin au navigateur:
-  - ce n'est pas vraiement le VPN qui a accès
-  - c'est le plugin dans le navigateur, il a accès au contenu HTTP sans encryption
+  - ce n'est pas vraiment le VPN qui a accès
+  - c'est le plugin dans le navigateur, il a accès au contenu HTTP sans chiffrement
   - dans ce cas, le plugin peut filtrer le trafic
 
 ---
@@ -225,7 +225,7 @@ Un mode privé ou secret dans un navigateur va habituellement:
 
 ---
 
-## Un VPN ça encrypte tellement fort ?
+## Un VPN ça chiffre tellement fort ?
 
 **Éléments de réponse :**
 - Oui, la plupart des VPN utilisent des protocoles de chiffrement robustes (ex : AES-256).
@@ -234,9 +234,23 @@ Un mode privé ou secret dans un navigateur va habituellement:
   - après le trafic circule habituellement du serveur VPN vers le site web.
   - utile si on utilise un Internet local censuré
 - Mais ... 
-  - le traffic HTTPS est déjà chiffré.
+  - le trafic HTTPS est déjà chiffré.
   - si on ne fait pas confiance à HTTPS, on n'a pas de société.
-  - ça ne sert pas à grand chose d'encrypté de l'encrypté
+  - ça ne sert pas à grand chose de chiffrer du chiffré
+
+```mermaid
+flowchart LR
+    Client([💻 Client]) -- "🔒 Tunnel VPN chiffré<br/>(HTTP ou HTTPS)" --> VPN([🔐 Serveur VPN])
+    VPN -- "HTTP en clair ⚠️<br/>ou<br/>HTTPS chiffré 🔒" --> Destination([🌐 Serveur de destination])
+    
+    style Client fill:#e1f5ff
+    style VPN fill:#fff4e1
+    style Destination fill:#e8f5e9
+```
+
+**Important :** Le VPN crée un tunnel chiffré entre votre appareil et le serveur VPN. Cependant, une fois que le trafic sort du serveur VPN vers sa destination finale :
+- Si vous utilisez **HTTP** (non chiffré), le trafic circule **en clair** et peut être intercepté.
+- Si vous utilisez **HTTPS**, le trafic reste chiffré de bout en bout, rendant le VPN redondant pour la confidentialité.
 
 ---
 

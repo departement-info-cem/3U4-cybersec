@@ -90,7 +90,7 @@ Les ports TCP et UDP utilisés par les différents protocoles sont établis par 
 
 ## Vulnérabilités
 
-Un port ouvert n'est pas forcément un problème, bien au contraire: les ports d'écoute sont un élément essentiel au fonctionnement d'Internet. Tous les serveurs Web doivent obligatoirement écouter sur le port 443 et les serveurs SSH doivent obligatoirement écouter sur le port 22. Toutefois, plus les ports ouverts en écoute sont nombreux, plus le serveur répond à une multitude de protocoles et plus les chances que l'un de ces protocoles (ou du logiciels logiciel qui l'implément) soit vulnérable. 
+Un port ouvert n'est pas forcément un problème, bien au contraire: les ports d'écoute sont un élément essentiel au fonctionnement d'Internet. Tous les serveurs Web doivent obligatoirement écouter sur le port 443 et les serveurs SSH doivent obligatoirement écouter sur le port 22. Toutefois, plus les ports ouverts en écoute sont nombreux, plus le serveur répond à une multitude de protocoles et plus les chances que l'un de ces protocoles (ou du logiciel qui l'implémente) soit vulnérable. 
 
 Par ailleurs, un port ouvert permet à une machine distante d'envoyer une requête au serveur, ce qui entraîne un traitement plus ou moins important, dépendant de la nature de la requête. Par exemple, une requête Web à un serveur déclenche une série d'actions sur le serveur: interprétation de la requête, validation de la session ou du cookie, formulation d'une requête à la base de données, interprétation du résultat, production dynamique de code HTML, renvoi de la réponse au client. Ce travail peut être exploité à des fins de déni de service distribué (DDoS), car ces attaques visent justement à surcharger les ressources computationnelles de l'ordinateur cible.
 
@@ -183,20 +183,20 @@ Sous Windows, on peut gérer le pare-feu par le panneau de configuration "Pare-f
 
 ### Pare-feu de Linux (Ubuntu)
 
-Voici un site qui explique le fonctionnement du pare-feu par défaut de Linux Ubuntu
+Voici un site qui explique le fonctionnement du pare-feu par défaut de Linux Ubuntu:
 
 https://documentation.ubuntu.com/server/how-to/security/firewalls/
 
 
 ## Démo: Capture de ports avec WireShark
 
-Nous allons accéder le serveur http://perdus.com qui est plus simple parce qu'il fonctionne en HTTP simple
-1. ouvrir chrome et taper http://perdus.com mais sans appuyer sur enter
-2. ouvrir firefox et taper http://perdus.com mais sans appuyer sur enter
-3. ouvrir Wireshark et démarrer la capture sur l'interface ethernet
-4. vite aller taper enter dans chrome et firefox
-5. arrêter la capture Wireshark le bouton carré rouge
-6. on va regarder les différentes requêtes HTTP qui ont été faites et en particulier les ports source / destination
+Nous allons accéder au serveur http://perdus.com qui est plus simple parce qu'il fonctionne en HTTP simple:
+1. ouvrez Chrome et tapez http://perdus.com mais sans appuyer sur Enter
+2. ouvrez Firefox et tapez http://perdus.com mais sans appuyer sur Enter
+3. ouvrez Wireshark et démarrez la capture sur l'interface ethernet
+4. rapidement, allez appuyer sur Enter dans Chrome et Firefox
+5. arrêtez la capture Wireshark avec le bouton carré rouge
+6. nous allons regarder les différentes requêtes HTTP qui ont été faites et en particulier les ports source / destination
 
 
 ## Exercices

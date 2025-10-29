@@ -6,16 +6,16 @@ draft: false
 hide_table_of_contents: false
 ---
 
-Nous fournissons un exemple d'examen pour que tu saches:
+Nous fournissons un exemple d'examen pour que vous sachiez:
 - quelle matière est couverte
 - le type de question / exercice auquel s'attendre
-- combien j'aurai de temps pour réaliser tout cela
+- combien vous aurez de temps pour réaliser tout cela
 
-Cela devrait t'aider à:
+Cela devrait vous aider à:
 1. ne pas être surpris / anxieux pour l'examen
-2. te guider pendant ta révision si tu révises
+2. vous guider pendant votre révision
 
-Puisqu'il s'agit d'un examen formatif, **le professeur pourra répondre à vos questions pendant l'examen**. Essayez toutefois de le faore par vous même car il ne pourra pas vous aider pendant l'examen sommatif. 
+Puisqu'il s'agit d'un examen formatif, **le professeur pourra répondre à vos questions pendant l'examen**. Essayez toutefois de le faire par vous-même car il ne pourra pas vous aider pendant l'examen sommatif. 
 
 À la fin de chaque exercice, vous pouvez demander à votre prof, une correction pour valider vos réponses.
 

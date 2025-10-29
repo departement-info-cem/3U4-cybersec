@@ -32,19 +32,19 @@ Par contre, quand la faille est là, il n'y a aucune limite au code qu'on peut e
 
 ## Activité / Exemple
 
-1. clone le repo du cours avec ton client git préféré
+1. clonez le repo du cours avec votre client git préféré
 2. dans le dossier stock
 3. dans le dossier escuelle
-4. tu trouveras un fichier sln pour une application
+4. vous trouverez un fichier sln pour une application
 5. il s'agit d'une application qui enregistre des comptes et leurs notes
-6. familiarise toi avec l'application en créant 2-3 comptes avec chacun 2-3 notes
-7. tu peux aussi regarder à quoi ressemble la BD avec DataGrip
+6. familiarisez-vous avec l'application en créant 2-3 comptes avec chacun 2-3 notes
+7. vous pouvez aussi regarder à quoi ressemble la BD avec DataGrip
 
-Une fois que tu as pris connaissance de l'application, passe à travers le fichier [injections](https://github.com/departement-info-cem/3U4-cybersec/blob/main/stock/esscuelle/injections.md)
+Une fois que vous avez pris connaissance de l'application, passez à travers le fichier [injections](https://github.com/departement-info-cem/3U4-cybersec/blob/main/stock/esscuelle/injections.md)
 
-N'hésite pas à poser des questions au prof.
+N'hésitez pas à poser des questions au prof.
 
 ## TP3
 
-En t'inspirant un peu / beaucoup de l'activité, tente de voir si tu peux trouver une attaque d'injection SQL sur l'application du TP3.
+En vous inspirant un peu / beaucoup de l'activité, tentez de voir si vous pouvez trouver une attaque d'injection SQL sur l'application du TP3.
 

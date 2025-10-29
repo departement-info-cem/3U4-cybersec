@@ -130,25 +130,25 @@ Nous allons simuler une attaque où on essaie de capter le mot de passe d'un enn
 1. Équipe jaune: installez le keylogger sur un de vos postes (toujours sur un port USB en avant).
 2. Équipe jaune: ouvrez un notepad et le laisser ouvert.
 3. Équipe verte: pendant que l'équipe jaune ne regarde pas, dans le notepad ouvert SUR LE CLAVIER EXTERNE:
-- tapez "mot de passe 1" puis un mot de passe de votre invention mais simple (que des minuscules)
-- tapez "mot de passe 2" puis un mot de passe de votre invention mais compliqué (minuscules, majuscules, chiffres et caractères spéciaux)
-- tapez "mot de passe 3" puis le mot de passe le plus compliqué, mais de moins de 20 caractères.
-- enregistrez le fichier sur le bureau sous "motsPasseVerts.txt" et fermer le notepad
-4. Équipe jaune: en utilisant uniquement les informations du keylogger, essayer de retrouver les mots de passe et sauvegarder dans "devineVerts.txt"
+- tapez « mot de passe 1 » puis un mot de passe de votre invention mais simple (que des minuscules)
+- tapez « mot de passe 2 » puis un mot de passe de votre invention mais compliqué (minuscules, majuscules, chiffres et caractères spéciaux)
+- tapez « mot de passe 3 » puis le mot de passe le plus compliqué, mais de moins de 20 caractères.
+- enregistrez le fichier sur le bureau sous « motsPasseVerts.txt » et fermez le notepad
+4. Équipe jaune: en utilisant uniquement les informations du keylogger, essayez de retrouver les mots de passe et sauvegardez dans « devineVerts.txt »
 
-Refaites l'activité en inversant les rôles pour avoir les fichier
-- "motsPasseJaunes.txt"
-- "devineJaunes.txt"
+Refaites l'activité en inversant les rôles pour avoir les fichiers
+- « motsPasseJaunes.txt »
+- « devineJaunes.txt »
 
 ### Synthèse ensemble
 
-1. Essayer de trouver une méthode infaillible pour retrouver un mot de passe à partir d'un LOG.TXT
-2. Consigner cette méthode dans un fichier texte que vous nommerez "recetteKeylogger.txt".
-3. Conserver tous les fichiers dans vos notes de cours.
+1. Essayez de trouver une méthode infaillible pour retrouver un mot de passe à partir d'un LOG.TXT
+2. Consignez cette méthode dans un fichier texte que vous nommerez « recetteKeylogger.txt ».
+3. Conservez tous les fichiers dans vos notes de cours.
 4. Bonus
-- Pouvez vous imaginer des moyens de se protéger contre ce type d'attaque?
+- Pouvez-vous imaginer des moyens de se protéger contre ce type d'attaque?
 - Un indice : le keylogger ne sait pas quelle fenêtre est active, il enregistre juste les frappes.
-- Proposez une solution casser votre méthode infaillible. Vous pouvez valider le tout avec votre prof.
+- Proposez une solution pour casser votre méthode infaillible. Vous pouvez valider le tout avec votre prof.
 
 
 ## Boot clé USB externe (environ 20 minutes par équipe)
@@ -182,22 +182,22 @@ Lorsque vous serez dans le **menu de démarrage du BIOS**, vous verrez une inter
 
 ![Image du menu du BIOS](../../static/img/Menu_BIOS.png)
 
-La section **UEFI BOOT** contient les différentes options de démarrage. Par défaut, c'est l'OS Windows (Windows Boot Manager) installé sur le portable qui démarre (premier sur la liste, mais cet ordre peut être modifié). Dans notre cas, nous voulons **démarrer le système d'exploitation externe Hiren** afin de pouvoir utiliser ses outils. **Notez que la version de Windows de la clé USB bootable n’est pas la même que celle installée sur l'ordinateur.**
+La section **UEFI BOOT** contient les différentes options de démarrage. Par défaut, c'est l'OS Windows (Windows Boot Manager) installé sur le portable qui démarre (premier sur la liste, mais cet ordre peut être modifié). Dans notre cas, nous voulons **démarrer le système d'exploitation externe Hiren** afin de pouvoir utiliser ses outils. **Notez que la version de Windows de la clé USB bootable n'est pas la même que celle installée sur l'ordinateur.**
 
-3. **Sélectionnez l'option de démarrage approprié**. Dans votre fichier, prenez en note l'option que vous avez selectionnée. 
+3. **Sélectionnez l'option de démarrage appropriée**. Dans votre fichier, prenez en note l'option que vous avez sélectionnée.
 
 **Note** : Lorsque vous utilisez un OS externe comme nous le faisons avec Hiren, ce n'est plus Windows qui est installé sur le disque C: (de l'ordinateur courant) qui est lancé. Par conséquent, **tous les processus et mesures de sécurité qui seraient normalement appliqués par Windows ne le sont plus**. Tous les fichiers du disque C: deviennent donc **accessibles**. 
 
 ### SECTION B : Trouvez une image douteuse sur le compte **etudiant** : 
 
- Une fois que le démarrage est complété, ouvrez **l'explorateur de fichier** et : 
+ Une fois que le démarrage est complété, ouvrez **l'explorateur de fichiers** et : 
  1. Accédez au contenu du disque local C: 
- 2. Trouvez l'image douteuse que l'etudiant conserve sur son compte, sur son bureau. 
- 3. Dans votre fichier, notez le chemin vers l'image en question et dites ce qu'il y a sur l'image. 
+ 2. Trouvez l'image douteuse que l'étudiant conserve sur son compte, sur son bureau. 
+ 3. Dans votre fichier, notez le chemin vers l'image en question et dites ce qui se trouve sur l'image. 
 
 ### SECTION C : Changer le mot de passe du compte **etudiant** 
 1. Utilisez le programme **NT Password Edit**  
-2. Une fois ouvert, vous verrez que celui-ci peut accéder à **C:\WINDOWS\SYSTEM32\CONFIG\SAM**. Le fichier SAM (Security Account Manager) est la base de données locale qui contient, entre autres, les identifiants et les Hashs. Si vous démarrez l'ordinateur normalement avec Windows, ce fichier est protégé et inaccessible. 
+2. Une fois ouvert, vous verrez que celui-ci peut accéder à **C:\WINDOWS\SYSTEM32\CONFIG\SAM**. Le fichier SAM (Security Account Manager) est la base de données locale qui contient, entre autres, les identifiants et les hachages. Si vous démarrez l'ordinateur normalement avec Windows, ce fichier est protégé et inaccessible. 
 3. **Ouvrez son contenu** (cliquez sur open) pour afficher les comptes utilisateurs et **modifiez le mot de passe du compte etudiant**. 
 4. Redémarrez l'ordinateur (sans accéder au BIOS) et **connectez-vous au compte etudiant** avec le mot de passe que vous avez créé. 
 

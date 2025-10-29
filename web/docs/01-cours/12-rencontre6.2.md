@@ -9,16 +9,16 @@ toc_max_heading_level: 4
 
 ## Retour sur la séance précédente
 
-Essaie avec tes souvenirs et tes notes de répondre aux questions suivantes:
+Essayez avec vos souvenirs et vos notes de répondre aux questions suivantes:
 
 > **Question 1:** <br/>
-> Si un fournisseur de VPN te vend une connexion hyper rapide, qu'est-ce que ça signifie?
+> Si un fournisseur de VPN vous vend une connexion hyper rapide, qu'est-ce que ça signifie?
 >
 > **Question 2:** <br/>
-> Si tu te connectes à un site en https, quels sont les éléments qui sont cryptés parmi: l'adresse IP, le contenu de la page, l'URL, les cookies, les ports TCP?
+> Si vous vous connectez à un site en HTTPS, quels sont les éléments qui sont chiffrés parmi: l'adresse IP, le contenu de la page, l'URL, les cookies, les ports TCP?
 >
 > **Question 3:** <br/>
-> Qu'est-ce qu'un cookie "traqueur"? En quoi est-ce différent d'un cookie habituel? 
+> Qu'est-ce qu'un cookie « traqueur »? En quoi est-ce différent d'un cookie habituel? 
 
 
 

@@ -30,7 +30,7 @@ IP destination:............. ___.___.___.___
 IP source:.................. ___.___.___.___
 TCP port destination:....... _____
 TCP port source:............ 63748
-HTTPS:...................... Encrypté
+HTTPS:...................... Chiffré
 ```
 
 📝 À quoi ressemble l'entrée correspondante dans la table de nattage de votre routeur?

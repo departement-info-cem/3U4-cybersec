@@ -26,10 +26,10 @@ Soyez à l'heure! Le professeur pourrait vous refuser l'accès si vous êtes en 
 
 ## Suggestions de révision
 
-Pour se mettre dedans:
+Pour vous préparer:
 1. Faire le formatif
-2. Repasse les exercices qui t'ont posé problème.
-3. Pareil pour le travail
+2. Repassez les exercices qui vous ont posé problème.
+3. Idem pour le TP
 
 
 

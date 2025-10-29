@@ -124,16 +124,16 @@ Toujours dans le compte de bob, supprimez le fichier **Document_1** sur le **Bur
 
 Si vous exécutez à nouveau la commande rsync à partir du compte d'Alice, elle mettra à jour seulement **les éléments qui ont été modifiés**, ceci s'appelle une **sauvegarde incrémentielle**. 
 
-### Si le compte de bob est attaqué par un rançongiciel qui encrypte ses données, est-ce que le répertoire bob_backup est protégé?
+### Si le compte de bob est attaqué par un rançongiciel qui chiffre ses données, est-ce que le répertoire bob_backup est protégé?
 
-En supposant que le rançongiciel possède les mêmes droits que bob. En parcourant tous les fichiers à partir de la racine, il finirait par tomber sur bob_backup. Sur ce répertoire bob a les permissions suivante (drwxr-x---). Le rançongiciel aurait donc lui aussi tous les droits sur ce répertoire et pourrait encrypter les données. 
+En supposant que le rançongiciel possède les mêmes droits que bob. En parcourant tous les fichiers à partir de la racine, il finirait par tomber sur bob_backup. Sur ce répertoire bob a les permissions suivantes (drwxr-x---). Le rançongiciel aurait donc lui aussi tous les droits sur ce répertoire et pourrait chiffrer les données. 
 
 À partir du compte d'Alice, changez les permissions pour que tout le contenu soit en lecture seul. À partir du répertoire **backups**, faite la commande suivante pour retirer tous les droits d'écriture. 
 
 ```bash
 sudo chmod -R a-w bob_Backup
 ```
-En modifiant les droits pour qu'ils soient en lecture seule, le rançongiciel ne pourrait plus encrypter le contenu du répertoire bob_backup.  
+En modifiant les droits pour qu'ils soient en lecture seule, le rançongiciel ne pourrait plus chiffrer le contenu du répertoire bob_backup.  
 
 ### Notes importantes
 Sachez qu'une sauvegarde locale comme ceci n'est pas suffisante pour protéger complètement nos données. Il est donc préférable d'avoir d'autres types sauvegardes comme sur un disque externe et/ou sur un serveur externe. 
@@ -147,7 +147,7 @@ Lorsqu'on élabore une stratégie de sauvegarde, on doit déterminer si les donn
 
 C'est pourquoi plusieurs entreprises choisissent de stocker leurs sauvegarde dans un lieu extérieur. Si les sauvegardes sont prises sur un médium physique (optique, bande magnétique, etc.), on peut les expédier dans une voute sécurisée à une bonne distance géographique. On peut aussi opter pour envoyer les sauvegardes par le réseau dans le *cloud* ou chez un fournisseur.
 
-Il arrive souvent qu'on veuille avoir le meilleur des deux mondes. Certains systèmes seront pris en sauvegarde au sein de la même machine avec des disques durs en miroir (une technologique qu'on nomme RAID), en plus d'être envoyé sur un autre serveur localement, en plus d'être pris sur des bandes en envoyé en voûte chez un fournisseur externe. On parlera alors de **redondance**.
+Il arrive souvent qu'on veuille avoir le meilleur des deux mondes. Certains systèmes seront pris en sauvegarde au sein de la même machine avec des disques durs en miroir (une technologie qu'on nomme RAID), en plus d'être envoyés sur un autre serveur localement, en plus d'être pris sur des bandes et envoyées en voûte chez un fournisseur externe. On parlera alors de **redondance**.
 
 
 ## Optimisation de l'espace

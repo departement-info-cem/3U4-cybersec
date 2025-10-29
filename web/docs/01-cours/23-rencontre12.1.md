@@ -38,20 +38,20 @@ L'algorithme le plus classique pour nous SHA256:
 
 ## Activité Attends une minute, c'est quoi l'avantage de SHA256 sur MD5
 
-- prends quelques mots de passe simples et produis les hashs avec MD5 et SHA256 (tu trouveras un site web pour le faire)
-- prends quelques mots de passe plus complexes et produit les hashs avec MD5 et SHA256
-- essaie ensuite de voir quels hashs tu peux retrouver avec crackstation
-- vois-tu une différence selon l'algorithme de hash?
-- si je devine le mot de passe comme pour bob dans le TP2, est-ce que l'algorithme de hash change quelque chose?
+- prenez quelques mots de passe simples et produisez les hachages avec MD5 et SHA256 (vous trouverez un site web pour le faire)
+- prenez quelques mots de passe plus complexes et produisez les hachages avec MD5 et SHA256
+- essayez ensuite de voir quels hachages vous pouvez retrouver avec crackstation
+- voyez-vous une différence selon l'algorithme de hachage?
+- si je devine le mot de passe comme pour bob dans le TP2, est-ce que l'algorithme de hachage change quelque chose?
 
 ### la grosse question, contre quelles attaques nous protège le changement de md5 vers SHA256
 
-- crackstation : nope, ils ont aussi les hashs pour tous les algos de hash classique, ça ne change rien
-- devine le mot de passe en connaissant des infos persos : non plus, le mot de passe reste le même, juste le hash qui change
+- crackstation : non, ils ont aussi les hachages pour tous les algos de hachage classique, ça ne change rien
+- deviner le mot de passe en connaissant des infos persos : non plus, le mot de passe reste le même, juste le hachage qui change
 
 Alors donc:
-- les hash sont plus longs donc la probabilité d'une collision (2 mots de passe qui donne le même hash est plus faible)
-- c'est pas tant différent
+- les hachages sont plus longs donc la probabilité d'une collision (2 mots de passe qui donnent le même hachage) est plus faible
+- ce n'est pas tant différent
 
 ## Est-ce qu'on veut saler notre mot de passe?
 
@@ -65,12 +65,12 @@ Pour rappel, saler un mot de passe c'est:
 
 - bcrypt ajoute un **salt** tout seul sur BlowFish 
   - PROTECTION CONTRE un mot de passe utilisateur simple
-- bcrypt s'adapte aux resources de calcul qui augmente et peut devenir de plus en plus dur à calculer
-  - PROTECTION CONTRE une attaque en force brute où on calcule plein de hash > ça devient impossiblement long
+- bcrypt s'adapte aux ressources de calcul qui augmentent et peut devenir de plus en plus difficile à calculer
+  - PROTECTION CONTRE une attaque en force brute où on calcule plein de hachages > ça devient impossiblement long
 
-Wow wow, comment ça il ajoute automatiquement un hash?
-- en fait on tire au hasard un salt, on calcule un hash
-- on stocke en clair le salt dans le résultat avec le hash
+Wow wow, comment ça il ajoute automatiquement un hachage?
+- en fait on tire au hasard un salt, on calcule un hachage
+- on stocke en clair le salt dans le résultat avec le hachage
 ```
 22 character salt (en clair) and 31 character hash
 ```
@@ -90,30 +90,30 @@ Travailler à implanter Bcrypt dans l'application fournie. Vous devrez sans dout
 Pour toutes ces étapes, essayez de le faire seul. Par contre, n'oubliez que le prof est toujours là pour
 débloquer les situations.
 
-## Aussi : utilisation de hash pour détecter une attaque
+## Aussi : utilisation de hachage pour détecter une attaque
 
 1. Bob qui développe une page web utilise un CDN pour charger jquery 1.8
-2. il ajoute donc une balise **<script src="https://supercdn.com/1.8/jquery.min.js" ></script>"
-3. il a un peu peur qu'un jour quelqu'un pirate le site supercdn.com et modifie le code de jquery.min.js pour faire des trucs
+2. il ajoute donc une balise **&lt;script src="https://supercdn.com/1.8/jquery.min.js" &gt;&lt;/script&gt;**
+3. il a un peu peur qu'un jour quelqu'un pirate le site supercdn.com et modifie le code de jquery.min.js pour faire des choses malveillantes
 4. arrive alors l'attribut integrity
-5. on y met le hash du code source correct
-6. si un jour le navigateur télécharge le fichier calcule le hash et voit qu'il ne correspond pas, il n'exécute pas le code
+5. on y met le hachage du code source correct
+6. si un jour le navigateur télécharge le fichier, calcule le hachage et voit qu'il ne correspond pas, il n'exécute pas le code
 
 Dans ce cas, une attaque devient beaucoup plus compliquée:
 1. le pirate doit prendre le contrôle du site supercdn
 2. le pirate doit effectuer une modification qui:
   - fait le truc méchant voulu en étant du javascript valide
-  - donne le même hash que le code d'origine
+  - donne le même hachage que le code d'origine
 
 **ici se trouve la grande fragilité de MD5**:
-- on n'a pas d'attaque de type préimage sur MD5, c'est à dire qu'on ne sait pas facilement trouver une string qui donne un hash donné
-- par contre, il y a des attaques qui permettent de padder un fichier pour qu'il donne le même hash donc:
+- on n'a pas d'attaque de type préimage sur MD5, c'est-à-dire qu'on ne sait pas facilement trouver une chaîne qui donne un hachage donné
+- par contre, il y a des attaques qui permettent de compléter un fichier pour qu'il donne le même hachage donc:
   - je peux modifier le fichier jquery.min.js pour faire un truc vraiment pas cool
-  - ajouter un début de commentaire puis créer une string dans le commentaire qui va faire que ça donnera le même hash
-  - le navigateur va télécharger le fichier, calculer le hash et voir que c'est bon
+  - ajouter un début de commentaire puis créer une chaîne dans le commentaire qui va faire que ça donnera le même hachage
+  - le navigateur va télécharger le fichier, calculer le hachage et voir que c'est bon
   - et le pirate a réussi à injecter un fichier js malicieux sans être détecté
 
-MORALITÉ: **ne jamais utiliser MD5 pour des hash de sécurité, ce qui s'est traduit par ne jamais utiliser MD5**
+MORALITÉ: **ne jamais utiliser MD5 pour des hachages de sécurité, ce qui s'est traduit par ne jamais utiliser MD5**
 
 
 

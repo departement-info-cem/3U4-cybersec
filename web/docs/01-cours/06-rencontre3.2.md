@@ -76,10 +76,10 @@ L'humain est souvent l'élément le plus vulnérable d'un système. On appelle *
 
 L’hameçonnage, ou *phishing*, est une catégorie d'attaque d'ingénierie sociale, c'est-à-dire que la vulnérabilité principale qu'il exploite est celle de l'humain. 
 
-Une attaque d’hameçonnage consiste à envoyer un message que la victime croit légitime, afin de la manipuler pour la conduire à poser une action désirée par l'attaquant. Habituellement, cette action a pour effet de communiquer: 
+Une attaque d'hameçonnage consiste à envoyer un message que la victime croit légitime, afin de la manipuler pour la conduire à poser une action désirée par l'attaquant. Habituellement, cette action a pour effet de communiquer: 
 - de l'information confidentielle, 
-- modifier une donnée 
-- exécuter du code malicieux tel qu'un virus ou un rançongiciel. 
+- de modifier une donnée 
+- ou d'exécuter du code malicieux tel qu'un virus ou un rançongiciel.
 
 Les messages d’hameçonnage passent généralement par courriel, mais peuvent aussi être véhiculés sous la forme de texto (*smishing*) ou de message vocal (*vishing*).
 
@@ -97,7 +97,7 @@ Sujet: urgent
 
 
 A transaction of $3867.22 have been registered in your bank account. If you 
-thing this is an error, please log in to:
+think this is an error, please log in to:
 
 https://bank-web-access.info/login?id=8fd8a9e387ab1d83
 

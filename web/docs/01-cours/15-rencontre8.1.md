@@ -91,7 +91,7 @@ Voici, étape par étape, ce qui se passe. Bien sûr, ce processus est simplifi�
 
 ![Étape 1](r15-ex1.png)
 
-Ton ordinateur crée une requête Web vers le serveur. Il ouvre un port temporaire au hasard pour lui permettre de recevoir la réponse. Il crée un paquet à envoyer au serveur.
+Votre ordinateur crée une requête Web vers le serveur. Il ouvre un port temporaire au hasard pour lui permettre de recevoir la réponse. Il crée un paquet à envoyer au serveur.
 - Source: `192.168.0.110` port `4545`
 - Destination: `45.45.45.45` port `443`
 
@@ -170,7 +170,7 @@ IP destination:............. ___.___.___.___
 IP source:.................. ___.___.___.___
 TCP port destination:....... _____
 TCP port source:............ _____
-HTTPS:...................... Encrypté
+HTTPS:...................... Chiffré
 ```
 
 ### Exercice 2
@@ -182,7 +182,7 @@ IP destination:............. 66.147.239.61
 IP source:.................. 192.168.1.45
 TCP port destination:....... 443
 TCP port source:............ 9876
-HTTPS:...................... Encrypté
+HTTPS:...................... Chiffré
 ```
 
 a été traduite par NAT dans la requête:
@@ -192,7 +192,7 @@ IP destination:............. 66.147.239.61
 IP source:.................. 192.222.150.48
 TCP port destination:....... 443
 TCP port source:............ 5675
-HTTPS:...................... Encrypté
+HTTPS:...................... Chiffré
 ```
 
 📝 Quelle entrée a été ajoutée dans la table NAT?
