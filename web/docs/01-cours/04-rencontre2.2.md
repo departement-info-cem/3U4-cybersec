@@ -36,7 +36,7 @@ Le matériel est limité. Pendant les temps morts, vous pourrez avancer votre TP
 ### Matériel:
 - 1 clé USB RubberDucky (voir avec le prof pour l'ordre pour les équipes)
 - vos postes de travail: les injections proposées par le prof ne font aucun dommage
-- si la clé USB a été modifiée, demande au prof de la restaurer
+- si la clé USB a été modifiée, demandez au prof de la restaurer
 
 ### Mise en contexte :
 Le RubberDucky ressemble à une clé USB ordinaire, mais permet en fait d'injecter un script sur sa victime. Une fois branchée dans un ordinateur, celle-ci sera détectée par l'ordinateur comme un clavier, permettant ainsi de forcer la victime à exécuter du code arbitraire.
@@ -107,16 +107,16 @@ Il est très important d'utiliser un des claviers supplémentaires fournis et de
 
 ### Découverte du fonctionnement
 1. Sur un poste,
-    - brancher le clavier extra dans le keylogger
-    - brancher le keylogger dans le poste dans le port USB à l'avant du poste
+    - branchez le clavier extra dans le keylogger
+    - branchez le keylogger dans le poste dans le port USB à l'avant du poste
 2. Tapez quelques touches sur le clavier
     - dans une fenêtre Notepad par exemple
-    - par exemple "Bonjour, je suis un keylogger 2!@#$%&*()_+"
+    - par exemple « Bonjour, je suis un keylogger 2!@#$%&*()_+ »
 3. Pour accéder au journal des frappes,
-    - appuyer et maintenir sur les lettres "k" "b" et "s" en même temps
-    - ouvrir l'explorateur de fichiers Windows
-    - le keylogger va se mettre en mode stockage ("storage") et apparaître comme une clé USB
-    - ouvrez le fichier "LOG.TXT" pour voir les frappes enregistrées
+    - appuyez et maintenez sur les lettres « k » « b » et « s » en même temps
+    - ouvrez l'explorateur de fichiers Windows
+    - le keylogger va se mettre en mode stockage (« storage ») et apparaître comme une clé USB
+    - ouvrez le fichier « LOG.TXT » pour voir les frappes enregistrées
 
 :::danger
 ATTENTION: en aucun cas vous ne toucherez aux autres fichiers du keylogger en mode clé USB.

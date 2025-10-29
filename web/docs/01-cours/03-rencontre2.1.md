@@ -37,8 +37,8 @@ import TabItem from '@theme/TabItem';
 | **Vulnérabilité**    | Une **faille ou faiblesse** dans un système pouvant être **exploitée**. Peut être de nature technologique ou humaine. |
 | **Menace**          | Événement potentiel qui pourrait **causer des dommages**. |
 | **Risque**          | Probabilité qu'une menace exploite une vulnérabilité et cause un impact. |
-| **Exploit (attaque)** | **Action visant à tirer profit d'une vulnérabilité**. L'exploit est souvent complexe et contient beaucoup d'étapes. Essentiellement, c'est une marche à suivre qu'une personne qualifiée peut appliquer pour mener à bien l'attaque en "exploitant" la vulnérabilité.|
-| **Correctif (fix)** | **Solution pour corriger la vulnérabilité et bloquer l'exploit**. On peut valider un correctif en s'assurant que l'exploit ne fonctionne plus|
+| **Exploit (attaque)** | **Action visant à tirer profit d'une vulnérabilité**. L'exploit est souvent complexe et contient beaucoup d'étapes. Essentiellement, c'est une marche à suivre qu'une personne qualifiée peut appliquer pour mener à bien l'attaque en « exploitant » la vulnérabilité.|
+| **Correctif (fix)** | **Solution pour corriger la vulnérabilité et bloquer l'exploit**. On peut valider un correctif en s'assurant que l'exploit ne fonctionne plus.|
 
 ### Exemple d'attaque avec exploit et correctif
 
@@ -159,7 +159,7 @@ Un de ces outils est le **[Common Vulnerability Scoring System (CVSS)](https://e
 
 Le **CVSS** est un système permettant d'**évaluer le niveau de criticité d'une vulnérabilité**. Il vise à nous aider à **prioriser** notre réponse à des vulnérabilités connues. En évaluant certaines métriques, le **CVSS produit un score: plus le score est élevé, plus la vulnérabilité est sérieuse et plus il est urgent de la sécuriser**. Vous pouvez utiliser [**cet outil**](https://www.first.org/cvss/calculator/3.1) pour calculer le score CVSS.
 
-Dans ce cours, **nous nous atterderons seulement aux métriques de base**.
+Dans ce cours, **nous nous attarderons seulement aux métriques de base**.
 
 ### AV: Vecteur d'attaque
 
@@ -182,7 +182,7 @@ La métrique de complexité décrit le niveau de difficulté de l'exploit. Il n'
 | Haut | AC:H | Le succès de l'attaque dépend de circonstances hors du contrôle de l'attaquant, qui devra investir des efforts considérables pour préparer son attaque. |
 
 
-### PR: Privilèges nécesaires
+### PR: Privilèges nécessaires
 
 La métrique de privilège décrit le niveau de privilège requis par un attaquant afin de réussir son exploit.
 
@@ -220,7 +220,7 @@ La métrique de confidentialité décrit si l'exploitation de la vulnérabilité
 | **Valeur** | **Code** | **Description** |
 | --- | -- | --- |
 | Aucune | C:N | Aucun impact sur la confidentialité. |
-| Faible | C:L | Il y a un impact sur le confidentialité, mais l'étendue de l'information compromise est partielle ou l'attaquant n'a pas de contrôle sur les données qu'il accède. |
+| Faible | C:L | Il y a un impact sur la confidentialité, mais l'étendue de l'information compromise est partielle ou l'attaquant n'a pas de contrôle sur les données qu'il accède. |
 | Élevée | C:H | Un attaquant peut avoir accès à l'entièreté des données du système, incluant des données sensibles. |
 
 

@@ -68,40 +68,40 @@ Pour les activités d'aujourd'hui, vous devrez inventer des mots de passe. **Ne 
 :::
 
 
-1. Va sur le site https://www.md5hashgenerator.com
-2. Entre un premier exemple de mot de passe, par exemple : **ceci est mon super mot de passe** et regarde le hash MD5
-3. Maintenant ajoute simplement un caractère à la fin (pour moi **ceci est mon super mot de passe!**) et regarde le hash
+1. Allez sur le site https://www.md5hashgenerator.com
+2. Entrez un premier exemple de mot de passe, par exemple : **ceci est mon super mot de passe** et regardez le hachage MD5
+3. Maintenant, ajoutez simplement un caractère à la fin (par exemple **ceci est mon super mot de passe!**) et regardez le hachage
    - les mots de passe sont similaires
-   - est-ce que les hash sont similaires?
-4. Fais-toi une liste de plusieurs mots de passe que tu penses faciles à craquer, d'autres moins simples et un ou 2 que tu penses vraiment hardcore. Note le mot de passe et le hash correspondant dans un fichier texte.
+   - est-ce que les hachages sont similaires?
+4. Faites-vous une liste de plusieurs mots de passe que vous pensez faciles à craquer, d'autres moins simples et un ou 2 que vous pensez vraiment difficiles. Notez le mot de passe et le hachage correspondant dans un fichier texte.
    - un nombre de 10 chiffres
    - un nombre de 20 chiffres
-   - essaie un mot de passe long mais simple comme **ceci est mon secret le plus secret ahah**
-   - essaie un mot de passe court (5-6 caractères) mais avec des trucs spéciaux **P%9Ab8$**
+   - essayez un mot de passe long mais simple comme **ceci est mon secret le plus secret ahah**
+   - essayez un mot de passe court (5-6 caractères) mais avec des caractères spéciaux **P%9Ab8$**
 
 
 #### Discussion
 
 Quelques questions qu'on discutera à la fin de l'activité:
 
-- Est-ce que tous les hashs ont **la même longueur?** (tu peux les aligner dans un éditeur de texte pour mieux voir le nombre de caractères de chacun)
-- Est-ce qu'il y a une limite dans le **nombre de hash possibles**? Si oui, combien?
+- Est-ce que tous les hachages ont **la même longueur?** (vous pouvez les aligner dans un éditeur de texte pour mieux voir le nombre de caractères de chacun)
+- Est-ce qu'il y a une limite dans le **nombre de hachages possibles**? Si oui, combien?
 - Est-ce que le nombre de **mots de passe possibles** est limité ou illimité?
-- Est-ce qu'il y a des mots de passe différents qui auraient **le même hash**?
-- Est-ce que c'est facile de **deviner** le mot de passe si je te donne le hash?
+- Est-ce qu'il y a des mots de passe différents qui auraient **le même hachage**?
+- Est-ce que c'est facile de **deviner** le mot de passe si je vous donne le hachage?
 
 ### Partie 2 : Craquer des mots de passe
 
-Une fonction de hachage est **unidirectionnelle** : il est impossible de faire l'opération inverse, c'est‑à‑dire convertir un hash pour retrouver le mot de passe qui l'a généré. Pour valider un mot de passe, on demande le mot de passe à l'utilisateur, on le hache, puis on compare le hash avec celui stocké dans la base de données. S'ils concordent, on suppose que le mot de passe est valide. Les chances qu'un autre mot de passe que le vôtre génère le même hash, avec l'algorithme MD5, sont de 2<sup>128</sup>, soit environ 340 sextillions. 
+Une fonction de hachage est **unidirectionnelle** : il est impossible de faire l'opération inverse, c'est‑à‑dire convertir un hachage pour retrouver le mot de passe qui l'a généré. Pour valider un mot de passe, on demande le mot de passe à l'utilisateur, on le hache, puis on compare le hachage avec celui stocké dans la base de données. S'ils concordent, on suppose que le mot de passe est valide. Les chances qu'un autre mot de passe que le vôtre génère le même hachage, avec l'algorithme MD5, sont de 2<sup>128</sup>, soit environ 340 sextillions. 
 
-Donc si un pirate s'introduit dans une base de données et vole les hash de mots de passe, il ne pourra pas directement trouver les mots de passe des utilisateurs. En théorie. Parce que comme vous allez le voir, certains mots de passe sont plus faciles à craquer que d'autres!
+Donc si un pirate s'introduit dans une base de données et vole les hachages de mots de passe, il ne pourra pas directement trouver les mots de passe des utilisateurs. En théorie. Parce que comme vous allez le voir, certains mots de passe sont plus faciles à craquer que d'autres!
 
 
 #### Exercice à réaliser
 
 On va utiliser le site [Crack Station](https://crackstation.net) pour cette activité:
 
-1. On va commencer en entrant les hash MD5 suivants dans le site:
+1. On va commencer en entrant les hachages MD5 suivants dans le site:
    ```text
    dc647eb65e6711e155375218212b3964
    eb61eead90e3b899c6bcbe27ac581660
@@ -111,8 +111,8 @@ On va utiliser le site [Crack Station](https://crackstation.net) pour cette acti
    031cbcccd3ba6bd4d1556330995b8d08
    b5af0b804ff7238bce48adef1e0c213f
    ```
-2. Tu devrais voir que certains mots de passe ont été craqués et d'autres non.
-3. Maintenant en prenant les md5 que tu as générés dans la première activité en les mettant dans le même format que le bloc de l'étape 1 regarde quels sont ceux qui ont été craqués ou pas.
+2. Vous devriez voir que certains mots de passe ont été craqués et d'autres non.
+3. Maintenant, en prenant les MD5 que vous avez générés dans la première activité en les mettant dans le même format que le bloc de l'étape 1, regardez quels sont ceux qui ont été craqués ou pas.
 
 #### Discussion
 
@@ -138,16 +138,16 @@ flowchart LR
 
 #### Exercices à réaliser
 
-1. Allez sur [ce générateur de hash MD5](https://webutility.io/md5-hash-generator-with-salt). Il permet de générer un *hash* salé avec un sel de votre choix.
+1. Allez sur [ce générateur de hachage MD5](https://webutility.io/md5-hash-generator-with-salt). Il permet de générer un *hachage* salé avec un sel de votre choix.
 2. Essayez d'entrer les mots de passe précédents qui ont été craqués avec succès (un à la fois).
-3. Prenez en note le hash puis essayez de les craquer de nouveau avec CrackStation
+3. Prenez en note le hachage puis essayez de les craquer de nouveau avec CrackStation
 
-Petit défi: Pouvez-vous faire un hash salé qui sera facilement craquable par CrackStation?
+Petit défi: Pouvez-vous faire un hachage salé qui sera facilement craquable par CrackStation?
 
 #### Discussions
 
 - Un mot de passe salé est-il toujours plus sécuritaire?
-- Pourquoi le site CrackStation a-t-il plus de difficulté à craquer les hash lorsqu'ils sont salés?
+- Pourquoi le site CrackStation a-t-il plus de difficulté à craquer les hachages lorsqu'ils sont salés?
 
 
 ## Présentation du TP1

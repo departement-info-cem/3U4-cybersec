@@ -51,7 +51,7 @@ Un mot de passe est souvent utilisé en guise de preuve d'identité, mais il ne 
 
 Augmenter la complexité du mot de passe est certes une bonne pratique, mais il y a des limites à son efficacité. Si le mot de passe est trop complexe, il risque d'être difficile à retenir. Si cette complexité est imposée à l'utilisateur, celui-ci risque d'être tenté d'écrire son mot de passe dans un fichier ou un post-it. Choisir un mot de passe long mais peu complexe, qu'on appelle parfois une *passphrase*, est plus difficile à craquer à partir du hash, mais plus facile à deviner par des humains (surtout s'il est composé de mots prévisibles, comme le nom de ses enfants).
 
-De toutes les manièers, s'il arrive que l'utilisateur n'est plus la seule personne au monde à connaître son mot de passe, alors celui-ci n'est plus une preuve valable de son identité. Alors comment protéger son mot de passe?
+De toutes les manières, s'il arrive que l'utilisateur n'est plus la seule personne au monde à connaître son mot de passe, alors celui-ci n'est plus une preuve valable de son identité. Alors comment protéger son mot de passe?
 
 
 ## Avez-vous été *pwned*?
@@ -94,7 +94,7 @@ Et même si le mot de passe n'est pas tapé sur le clavier, qu'on préfère le c
 
 ### Voler les mots de passe ailleurs
 
-Plusieurs personnes utilisent le même mot de passe pour plusieurs applications. C'est une mauvaise pratique, puisque si l'une de ces applications est compromise, l'attaquant peut deviner votre mot de passe et usurper votre identité sur toutes les autres. C'est particulièrement danregeux si, en plus, votre nom d'utlisateur est aussi le même.
+Plusieurs personnes utilisent le même mot de passe pour plusieurs applications. C'est une mauvaise pratique, puisque si l'une de ces applications est compromise, l'attaquant peut deviner votre mot de passe et usurper votre identité sur toutes les autres. C'est particulièrement dangereux si, en plus, votre nom d'utilisateur est aussi le même.
 
 Le site [Have I Been Pwned](https://haveibeenpwned.com/) peut vous aider à identifier le risque que l'un de vos mots de passe soit compromis. Entrez votre identifiant ou votre adresse courriel et l'application vous dira s'il se trouve dans une liste de comptes qui ont fuité. Le cas échéant, il pourrait être judicieux de modifier votre mot de passe, sur cette application mais aussi sur les autres.
 
