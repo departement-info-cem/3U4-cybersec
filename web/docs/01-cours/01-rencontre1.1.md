@@ -19,7 +19,7 @@ Vous pouvez récupérer votre plan de cours dans Léa.
 
 ## Qu'est-ce que la cybersécurité?
 
-La **sécurité** est une situation dans laquelle quelque chose n'est exposée à aucun danger ni aucun risque de vol ou de détérioration (définition tirée du dictionnaire Larousse). C'est en quelque sorte l'absence ou la limitation des risques dans un domaine précis. On cherche à se prémunir contre diverses menaces tant naturelles qu'humaines. Par exemple, un verrou sur une porte, un système d'alarme, un détecteur de fumée et une caméra de surveillance contribuent à rehausser le niveau de sécurité.
+La **sécurité** est une situation dans laquelle quelque chose n'est exposé à aucun danger ni aucun risque de vol ou de détérioration (définition tirée du dictionnaire Larousse). C'est en quelque sorte l'absence ou la limitation des risques dans un domaine précis. On cherche à se prémunir contre diverses menaces tant naturelles qu'humaines. Par exemple, un verrou sur une porte, un système d'alarme, un détecteur de fumée et une caméra de surveillance contribuent à rehausser le niveau de sécurité.
 
 La **cybersécurité**, c'est la protection des informations, des systèmes et des services informatiques contre des menaces telles que des désastres naturels, des erreurs, des fraudes, etc. Elle a pour objectif de réduire la probabilité et l'impact de ces incidents au minimum.
 
@@ -50,9 +50,9 @@ Soyez **responsables** et utilisez vos connaissances de manière **éthique** et
 
 ### Partie 1: Hacher des mots de passe
 
-On va y revenir plus tard, mais les mots de passe sont rarement stockés en texte clair dans les bases de données des applications. Avant de le stocker, il faut le hacher, c'est-à-dire le passer dans un algorithme qui va le convertir en quelque chose d'illisible. [Voir cet article sur Wikipédia.](https://fr.wikipedia.org/wiki/Fonction_de_hachage_cryptographique)
+Nous y reviendrons plus tard, mais les mots de passe sont rarement stockés en texte clair dans les bases de données des applications. Avant de le stocker, il faut le hacher, c'est-à-dire le passer dans un algorithme qui va le convertir en quelque chose d'illisible. [Voir cet article sur Wikipédia.](https://fr.wikipedia.org/wiki/Fonction_de_hachage_cryptographique)
 
-Il existe plusieurs algorithmes de hachage. Aujourd'hui on va utiliser l'algorithme **MD5**. Une opération de hachage effectue un calcul mathématique sur chaque caractère de la chaîne. Le hash est le résultat de ce calcul. 
+Il existe plusieurs algorithmes de hachage. Aujourd'hui, nous allons utiliser l'algorithme **MD5**. Une opération de hachage effectue un calcul mathématique sur chaque caractère de la chaîne. Le hachage est le résultat de ce calcul. 
 
 ```mermaid
 flowchart LR
@@ -92,7 +92,7 @@ Quelques questions qu'on discutera à la fin de l'activité:
 
 ### Partie 2 : Craquer des mots de passe
 
-Une fonction de hachage est **unidirectiomnelle**: il est impossible de faire l'opération inverse, soit se convertir un hash pour en retrouver le mot de passe qui a permis de le créer. Donc pour valider un mot de passe, il faut le demander à l'utilisateur, le hacher, puis comparer le hash avec celui stocké dans la base de données. S'ils concordent, alors on assume que le mot de passe est valide. Les chances qu'un autre mot de passe que le votre génère le même hash, avec l'algorithme MD5, sont de 2<sup>128</sup>, soit environ 340 sextillions. 
+Une fonction de hachage est **unidirectionnelle** : il est impossible de faire l'opération inverse, c'est‑à‑dire convertir un hash pour retrouver le mot de passe qui l'a généré. Pour valider un mot de passe, on demande le mot de passe à l'utilisateur, on le hache, puis on compare le hash avec celui stocké dans la base de données. S'ils concordent, on suppose que le mot de passe est valide. Les chances qu'un autre mot de passe que le vôtre génère le même hash, avec l'algorithme MD5, sont de 2<sup>128</sup>, soit environ 340 sextillions. 
 
 Donc si un pirate s'introduit dans une base de données et vole les hash de mots de passe, il ne pourra pas directement trouver les mots de passe des utilisateurs. En théorie. Parce que comme vous allez le voir, certains mots de passe sont plus faciles à craquer que d'autres!
 
@@ -153,4 +153,3 @@ Petit défi: Pouvez-vous faire un hash salé qui sera facilement craquable par C
 ## Présentation du TP1
 
 À la fin du cours, votre professeur vous a présenté le premier travail pratique de la session. Il se fera en équipe de 2. Consultez [l'énoncé du TP](/tp/tp1) pour plus de détails.
-
