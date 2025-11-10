@@ -1,7 +1,7 @@
 ---
 id: r03
-title: Rencontre 3 - Faille/exploit/fix - CID - CVSS 
-sidebar_label: R03 - Faille/exploit/fix - CID - CVSS 
+title: Rencontre 3 - Concepts et classification 
+sidebar_label: R03 - Concepts et classification 
 draft: false
 hide_table_of_contents: false
 toc_max_heading_level: 4
