@@ -72,7 +72,7 @@ Vous pouvez prendre en notes vos manipulations pour les inclure dans votre rappo
 
 ## Activité: sortir les hachages
 
-Vous allez trouver dans le dossier stock du repo un fichier appelé **leaked.db**.
+Vous allez trouver dans le dossier stock du repo un fichier appelé **[leaked.db](https://github.com/departement-info-cem/3U4-cybersec/raw/refs/heads/main/stock/leaked.db)**.
 
 En utilisant une application pour ouvrir la BD, vous pouvez l'ouvrir et la parcourir.
 
