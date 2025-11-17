@@ -24,16 +24,20 @@ Après avoir lancé l'application:
 
 :::tip Quelques stratégies pour localiser un fichier
 
-L'application du TP maintient une base de données localement sur l'ordinateur. Bien sûr, vous ne savez pas où cette base de données se trouve sur le disque dur. Il existe diverses techniques pour connaître l'emplacement d'un fichier maintenu par une application. C'est un autre aspect de l'ingénierie inverse: plutôt que de comprendre l'application par son code, on va plutôt comprendre l'application en observant les détails de son fonctionnement.
+L'application du TP maintient une base de données localement sur l'ordinateur. Bien sûr, vous ne savez pas où cette base de données se trouve sur le disque dur. Il existe diverses techniques pour connaître l'emplacement d'un fichier maintenu par une application. C'est un autre aspect de l'ingénierie inverse: plutôt que de comprendre l'application par son code, on va tenter de la comprendre en observant les détails de son fonctionnement.
 
-**System Informer**
+
+### Outil: System Informer
 
 [System Informer](https://sourceforge.net/projects/systeminformer/) est une sorte de gestionnaire de tâches mais beaucoup plus puissant. Il permet d'accéder à de l'information système sur un programme en cours d'exécution, comme le contenu de sa mémoire et tous les objets système dont il dépend. Par exemple, vous pouvez obtenir la liste de tous les fichiers ouverts par l'application (dans les propriétés du processus, onglet *Handles*).
 
 ![System Informer: fichiers ouverts](systeminformer2.png)
 
+> *Note: On peut faire la même chose avec [Process Explorer de Sysinternals](https://learn.microsoft.com/en-us/sysinternals/downloads/process-explorer). Ces deux outils offrent des fonctionnalités similaires.* 
 
-**Process Monitor**
+---
+
+### Outil: Process Monitor
 
 Au lieu d'analyser le code d'un programme, [Process Monitor de Sysinternals](https://learn.microsoft.com/en-us/sysinternals/downloads/procmon) surveille l'activité d'un processus sur le système d'exploitation: tous les accès au registre, au système de fichiers, au réseau... Si l'application lit ou écrit un fichier et que vous vous demandez son emplacement (par exemple, un fichier de configuration, une BD locale, un fichier log...), démarrez Procmon, lancez l'application puis terminez la trace. C'est un outil assez complexe à maîtriser mais très puissant.
 
