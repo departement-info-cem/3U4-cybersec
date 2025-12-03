@@ -32,15 +32,13 @@ Par contre, quand la faille est là, il n'y a aucune limite au code qu'on peut e
 
 ## Activité / Exemple
 
-1. clonez le repo du cours avec votre client git préféré
-2. dans le dossier stock
-3. dans le dossier escuelle
-4. vous trouverez un fichier sln pour une application
-5. il s'agit d'une application qui enregistre des comptes et leurs notes
-6. familiarisez-vous avec l'application en créant 2-3 comptes avec chacun 2-3 notes
-7. vous pouvez aussi regarder à quoi ressemble la BD avec DataGrip
+1. Clonez ce repo avec votre client git préféré: https://github.com/departement-info-cem/escuelle 
+2. vous trouverez un fichier sln pour une application
+3. il s'agit d'une application qui enregistre des comptes et leurs notes
+4. familiarisez-vous avec l'application en créant 2-3 comptes avec chacun 2-3 notes
+5. vous pouvez aussi regarder à quoi ressemble la BD avec DataGrip
 
-Une fois que vous avez pris connaissance de l'application, passez à travers le fichier [injections](https://github.com/departement-info-cem/3U4-cybersec/blob/main/stock/esscuelle/injections.md)
+Une fois que vous avez pris connaissance de l'application, passez à travers le fichier [injections.md](https://github.com/departement-info-cem/escuelle/blob/main/injections.md)
 
 N'hésitez pas à poser des questions au prof.
 
