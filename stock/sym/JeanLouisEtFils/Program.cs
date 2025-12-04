@@ -1,5 +1,4 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using Encryption.Blowfish;
 using System.Security.Cryptography;
 
 
@@ -13,7 +12,7 @@ class Program
     static void Main(string[] args)
     {
         Console.WriteLine("Bienvenue dans l'gestionnaire de passwords à Jean-Louis!");
-        Console.WriteLine("Top secure, nous on encrypte");
+        Console.WriteLine("Top secure, nous on encrypte avec AES-256!");
         bool quit = false;
         do
         {
@@ -56,9 +55,9 @@ class Program
             Console.WriteLine("Désolé, les mots de passe ne correspondent pas");
             return;
         }
-        // encrypter le mot de passe avec BlowFish
-        BlowFishCrypto bfc = new BlowFishCrypto();
-        string encrypted = bfc.Encrypt(result.MotDePasse);
+        // encrypter le mot de passe avec AES
+        AesCrypto aes = new AesCrypto();
+        string encrypted = aes.Encrypt(result.MotDePasse);
         // ajouter le mot de passe encrypté dans le fichier encrypted-passwords.txt avec le site sur la même ligne apres un @
         System.IO.File.AppendAllText(filePath, encrypted + " @ " + result.Site + Environment.NewLine);
         Console.Clear();
