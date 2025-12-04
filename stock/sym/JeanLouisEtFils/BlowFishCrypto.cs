@@ -19,13 +19,4 @@ public class BlowFishCrypto
         String encrypted = Convert.ToBase64String(buf);
         return encrypted;
     }
-
-    public String Decrypt(String source)
-    {
-        var cbc = new BlowfishCtr(key);
-        byte[] buf = Convert.FromBase64String(source);
-        var ok = cbc.CryptOrDecrypt(buf, iv);
-        String decrypted = Encoding.UTF8.GetString(buf);
-        return decrypted;
-    }
 }
