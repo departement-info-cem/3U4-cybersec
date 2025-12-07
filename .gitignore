@@ -1,0 +1,7 @@
+# IDE
+.idea/
+.vs/
+
+# C# build outputs
+bin/
+obj/
