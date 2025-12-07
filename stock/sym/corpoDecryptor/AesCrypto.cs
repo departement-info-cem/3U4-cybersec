@@ -5,8 +5,8 @@ namespace corpoDecryptor;
 
 public class AesCrypto
 {
-    private static string key = "a3bd614b27864e3f854b971f9df1a802";
-    private static byte[] iv = Convert.FromHexString("17382d434e595a0c22384e5a0c22384e");
+    private static string key = "12341234123412341234123412341234";
+    private static byte[] iv = Convert.FromHexString("12341234123412341234123412341234");
 
     public string Decrypt(string source)
     {
