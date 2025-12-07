@@ -44,18 +44,6 @@ public class RSACrypto
         }
     }
 
-    public string Encrypt(string data)
-    {
-        byte[] dataToEncrypt = Encoding.UTF8.GetBytes(data);
-        byte[] encryptedData;
-        using (var rsa = new RSACryptoServiceProvider())
-        {
-            rsa.ImportParameters(_publicKey);
-            encryptedData = rsa.Encrypt(dataToEncrypt, false);
-        }
-        return Convert.ToBase64String(encryptedData);
-    }
-
     public string Decrypt(string encryptedData)
     {
         byte[] dataToDecrypt = Convert.FromBase64String(encryptedData);
