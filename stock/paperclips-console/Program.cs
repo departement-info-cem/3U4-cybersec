@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using Spectre.Console;
 
 namespace PaperclipsConsole
 {
@@ -7,31 +8,19 @@ namespace PaperclipsConsole
     {
         static void Main(string[] args)
         {
-            // Configuration pour réduire le scintillement
+            // Configuration
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Console.Title = "Universal Paperclips - Console Edition";
-            Console.CursorVisible = false;
             
-            // Taille de la console fixe pour éviter le redimensionnement
-            try
-            {
-                Console.SetWindowSize(Math.Min(Console.LargestWindowWidth, 85), Math.Min(Console.LargestWindowHeight, 30));
-                Console.SetBufferSize(85, 30);
-            }
-            catch
-            {
-                // Ignorer si la configuration échoue (certains terminaux)
-            }
-
             var game = new GameManager();
             
-            // Show start menu
-            var choice = StartMenu.ShowMenu(game.SaveFileExists());
+            // Show start menu with Spectre.Console
+            var choice = StartMenu.ShowMenu(game.SaveFileExists(), game.State);
             
             if (choice == MenuChoice.Quit)
             {
-                Console.Clear();
-                Console.WriteLine("\n  À bientôt!\n");
+                AnsiConsole.Clear();
+                AnsiConsole.MarkupLine(Localization.Get("Outro_SeeYou"));
                 Thread.Sleep(1000);
                 return;
             }
@@ -46,26 +35,29 @@ namespace PaperclipsConsole
                 game.StartNewGame();
             }
 
-            // Show brief intro
-            Console.Clear();
-            Console.WriteLine("╔════════════════════════════════════════════════════════════╗");
-            Console.WriteLine("║           UNIVERSAL PAPERCLIPS - Console Edition           ║");
-            Console.WriteLine("╚════════════════════════════════════════════════════════════╝");
-            Console.WriteLine();
-            Console.WriteLine("  Objectif: Produire des paperclips et dominer le marché");
-            Console.WriteLine();
-            Console.WriteLine("  COMMANDES RAPIDES:");
-            Console.WriteLine("    P - Créer un paperclip");
-            Console.WriteLine("    W - Acheter du wire");
-            Console.WriteLine("    + - Augmenter le prix");
-            Console.WriteLine("    - - Diminuer le prix");
-            Console.WriteLine();
-            Console.WriteLine("  Appuyez sur CTRL+M pour le menu complet");
-            Console.WriteLine("  Appuyez sur une touche pour commencer...");
+            // Show brief intro with Spectre.Console
+            AnsiConsole.Clear();
+            
+            var introPanel = new Panel(
+                $"{Localization.Get("Intro_Objective")}\n\n" +
+                $"{Localization.Get("Intro_QuickCommands")}\n" +
+                $"{Localization.Get("Intro_Cmd_P")}\n" +
+                $"{Localization.Get("Intro_Cmd_W")}\n" +
+                $"{Localization.Get("Intro_Cmd_Price")}\n\n" +
+                $"{Localization.Get("Intro_MenuHint")}")
+            {
+                Header = new PanelHeader(" UNIVERSAL PAPERCLIPS ", Justify.Center),
+                Border = BoxBorder.Double,
+                BorderStyle = new Style(Color.Cyan1)
+            };
+            
+            AnsiConsole.Write(introPanel);
+            AnsiConsole.WriteLine();
+            AnsiConsole.MarkupLine(Localization.Get("Intro_Start"));
             Console.ReadKey(true);
 
             // Clear screen before starting
-            Console.Clear();
+            AnsiConsole.Clear();
 
             Thread gameLoop = new Thread(() =>
             {
@@ -79,7 +71,8 @@ namespace PaperclipsConsole
 
             while (game.IsRunning)
             {
-                game.DisplayStatus();
+                // Use Spectre.Console display instead of old DisplayStatus
+                SpectreDisplay.ShowStatus(game.State);
                 
                 if (Console.KeyAvailable)
                 {
@@ -97,10 +90,13 @@ namespace PaperclipsConsole
 
             gameLoop.Join();
             
-            Console.Clear();
-            Console.CursorVisible = true;
-            Console.WriteLine("\n  Merci d'avoir joué à Universal Paperclips!");
-            Console.WriteLine("  Vos données ont été sauvegardées.\n");
+            AnsiConsole.Clear();
+            var endPanel = new Panel($"{Localization.Get("Outro_Thanks")}\n{Localization.Get("Outro_Saved")}")
+            {
+                Border = BoxBorder.Rounded,
+                BorderStyle = new Style(Color.Green)
+            };
+            AnsiConsole.Write(endPanel);
             Thread.Sleep(2000);
         }
     }

@@ -3,11 +3,16 @@ using System.IO;
 using System.Text.Json;
 using System.Threading;
 using System.Globalization;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace PaperclipsConsole
 {
     public class GameManager
     {
+        // Expose state publicly for Spectre.Console display
+        public GameState State => state;
+        
         private GameState state;
         private readonly string saveDirectory;
         private readonly string savePath;
@@ -17,6 +22,21 @@ namespace PaperclipsConsole
         private Random random;
         private bool needsRedraw = true;
         private static readonly CultureInfo invCulture = CultureInfo.InvariantCulture;
+
+        // Hardcoded Key and IV for AES (Example values)
+        private static readonly byte[] AesKey = new byte[] 
+        { 
+            0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 
+            0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F,
+            0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 
+            0x18, 0x19, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F 
+        };
+        
+        private static readonly byte[] AesIV = new byte[] 
+        { 
+            0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 
+            0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F 
+        };
 
         public GameManager()
         {
@@ -30,6 +50,10 @@ namespace PaperclipsConsole
             lastUpdate = DateTime.Now;
             lastAutoSave = DateTime.Now;
             lastDisplay = DateTime.Now;
+            
+            // Initialize state (try load or create default)
+            state = TryLoadState() ?? CreateNewGameState();
+            Localization.CurrentLanguage = state.Language;
         }
 
         public bool SaveFileExists()
@@ -39,31 +63,60 @@ namespace PaperclipsConsole
 
         public void StartNewGame()
         {
+            // Preserve encryption setting if possible
+            bool encrypt = state?.EncryptSave ?? false;
             state = CreateNewGameState();
+            state.EncryptSave = encrypt;
             SaveGame();
+        }
+
+        private GameState TryLoadState()
+        {
+            if (!File.Exists(savePath)) return null;
+            
+            try
+            {
+                string json;
+                try 
+                {
+                    // Try reading as plain text first
+                    json = File.ReadAllText(savePath);
+                    // Validate if it's JSON
+                    JsonDocument.Parse(json);
+                }
+                catch (Exception)
+                {
+                    // If not valid JSON or read error, try decrypting
+                    byte[] encryptedBytes = File.ReadAllBytes(savePath);
+                    json = DecryptStringFromBytes_Aes(encryptedBytes, AesKey, AesIV);
+                    Console.WriteLine(" [Encrypted Save Detected]");
+                }
+
+                return JsonSerializer.Deserialize<GameState>(json);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public void LoadGame()
         {
-            if (File.Exists(savePath))
+            // State is already loaded in constructor, but we might want to reload if file changed
+            // or just confirm it's loaded.
+            // For simplicity, we'll just re-load to be safe and print the message.
+            
+            var loadedState = TryLoadState();
+            if (loadedState != null)
             {
-                try
-                {
-                    string json = File.ReadAllText(savePath);
-                    state = JsonSerializer.Deserialize<GameState>(json) ?? CreateNewGameState();
-                    Console.WriteLine("Partie chargée avec succès!");
-                }
-                catch
-                {
-                    Console.WriteLine("Erreur lors du chargement. Nouvelle partie créée.");
-                    state = CreateNewGameState();
-                    SaveGame();
-                }
+                state = loadedState;
+                Localization.CurrentLanguage = state.Language;
+                Console.WriteLine(Localization.Get("Msg_GameLoaded"));
             }
             else
             {
+                Console.WriteLine(Localization.Get("Msg_LoadError"));
                 state = CreateNewGameState();
-                Console.WriteLine("Nouvelle partie créée avec $20 de départ!");
                 SaveGame();
             }
         }
@@ -93,7 +146,8 @@ namespace PaperclipsConsole
                 Creativity = 0,
                 TotalClipsProduced = 0,
                 MegaClipperLevel = 0,
-                MegaClipperCost = 500
+                MegaClipperCost = 500,
+                Language = Localization.CurrentLanguage
             };
         }
 
@@ -120,13 +174,89 @@ namespace PaperclipsConsole
                 Directory.CreateDirectory(saveDirectory);
                 var options = new JsonSerializerOptions { WriteIndented = true };
                 string json = JsonSerializer.Serialize(state, options);
-                File.WriteAllText(savePath, json);
-                Console.WriteLine("\n[Partie sauvegardée]");
+                
+                if (state.EncryptSave)
+                {
+                    byte[] encrypted = EncryptStringToBytes_Aes(json, AesKey, AesIV);
+                    File.WriteAllBytes(savePath, encrypted);
+                    Console.WriteLine(Localization.Get("Msg_GameSaved") + " [Encrypted]");
+                }
+                else
+                {
+                    File.WriteAllText(savePath, json);
+                    Console.WriteLine(Localization.Get("Msg_GameSaved"));
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"\nErreur lors de la sauvegarde: {ex.Message}");
+                Console.WriteLine(Localization.Get("Msg_SaveError", ex.Message));
             }
+        }
+
+        private static byte[] EncryptStringToBytes_Aes(string plainText, byte[] Key, byte[] IV)
+        {
+            if (plainText == null || plainText.Length <= 0)
+                throw new ArgumentNullException("plainText");
+            if (Key == null || Key.Length <= 0)
+                throw new ArgumentNullException("Key");
+            if (IV == null || IV.Length <= 0)
+                throw new ArgumentNullException("IV");
+            byte[] encrypted;
+
+            using (Aes aesAlg = Aes.Create())
+            {
+                aesAlg.Key = Key;
+                aesAlg.IV = IV;
+
+                ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+
+                using (MemoryStream msEncrypt = new MemoryStream())
+                {
+                    using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                    {
+                        using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
+                        {
+                            swEncrypt.Write(plainText);
+                        }
+                        encrypted = msEncrypt.ToArray();
+                    }
+                }
+            }
+
+            return encrypted;
+        }
+
+        private static string DecryptStringFromBytes_Aes(byte[] cipherText, byte[] Key, byte[] IV)
+        {
+            if (cipherText == null || cipherText.Length <= 0)
+                throw new ArgumentNullException("cipherText");
+            if (Key == null || Key.Length <= 0)
+                throw new ArgumentNullException("Key");
+            if (IV == null || IV.Length <= 0)
+                throw new ArgumentNullException("IV");
+
+            string plaintext = null;
+
+            using (Aes aesAlg = Aes.Create())
+            {
+                aesAlg.Key = Key;
+                aesAlg.IV = IV;
+
+                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+
+                using (MemoryStream msDecrypt = new MemoryStream(cipherText))
+                {
+                    using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+                    {
+                        using (StreamReader srDecrypt = new StreamReader(csDecrypt))
+                        {
+                            plaintext = srDecrypt.ReadToEnd();
+                        }
+                    }
+                }
+            }
+
+            return plaintext;
         }
 
         public void MakePaperclip()
@@ -142,7 +272,7 @@ namespace PaperclipsConsole
             }
             else
             {
-                Console.WriteLine("\nPas assez de wire!");
+                Console.WriteLine(Localization.Get("Msg_NoWire"));
             }
         }
 
@@ -157,7 +287,7 @@ namespace PaperclipsConsole
             }
             else
             {
-                Console.WriteLine("\nPas assez de fonds!");
+                Console.WriteLine(Localization.Get("Msg_NoFunds"));
             }
         }
 
@@ -172,7 +302,7 @@ namespace PaperclipsConsole
             }
             else
             {
-                Console.WriteLine("\nPas assez de fonds!");
+                Console.WriteLine(Localization.Get("Msg_NoFunds"));
             }
         }
 
@@ -187,7 +317,7 @@ namespace PaperclipsConsole
             }
             else
             {
-                Console.WriteLine("\nPas assez de fonds!");
+                Console.WriteLine(Localization.Get("Msg_NoFunds"));
             }
         }
 
@@ -202,7 +332,7 @@ namespace PaperclipsConsole
             }
             else
             {
-                Console.WriteLine("\nPas assez de fonds!");
+                Console.WriteLine(Localization.Get("Msg_NoFunds"));
             }
         }
 
@@ -231,7 +361,7 @@ namespace PaperclipsConsole
             }
             else
             {
-                Console.WriteLine("\nPas assez de trust!");
+                Console.WriteLine(Localization.Get("Msg_NoTrust"));
             }
         }
 
@@ -245,7 +375,7 @@ namespace PaperclipsConsole
             }
             else
             {
-                Console.WriteLine("\nPas assez de trust!");
+                Console.WriteLine(Localization.Get("Msg_NoTrust"));
             }
         }
 
@@ -255,7 +385,7 @@ namespace PaperclipsConsole
             {
                 state.Trust++;
                 state.NextTrust = (long)(state.NextTrust * 1.618);
-                Console.WriteLine($"\n*** TRUST AUGMENTÉ! Nouveau trust: {state.Trust} ***");
+                Console.WriteLine(Localization.Get("Msg_TrustIncreased", state.Trust));
             }
         }
 
@@ -285,14 +415,19 @@ namespace PaperclipsConsole
         {
             if (state.Wire > 0 && state.ClipRate > 0)
             {
-                double clipsToMake = state.ClipRate * deltaTime * 10;
-                int actualClips = (int)Math.Min(clipsToMake, state.Wire);
+                state.PartialClips += state.ClipRate * deltaTime * 10;
                 
-                state.Wire -= actualClips;
-                state.Clips += actualClips;
-                state.TotalClipsProduced += actualClips;
-                state.UnsoldClips += actualClips;
-                UpdateTrust();
+                if (state.PartialClips >= 1)
+                {
+                    int actualClips = (int)Math.Min(state.PartialClips, state.Wire);
+                    
+                    state.Wire -= actualClips;
+                    state.Clips += actualClips;
+                    state.TotalClipsProduced += actualClips;
+                    state.UnsoldClips += actualClips;
+                    state.PartialClips -= actualClips;
+                    UpdateTrust();
+                }
             }
         }
 
@@ -416,30 +551,30 @@ namespace PaperclipsConsole
         {
             Console.Clear();
             Console.WriteLine("╔════════════════════════════════════════════════════════════╗");
-            Console.WriteLine("║                      MENU PRINCIPAL                        ║");
+            Console.WriteLine($"║                      {Localization.Get("Cmd_Menu").PadRight(30)}        ║");
             Console.WriteLine("╚════════════════════════════════════════════════════════════╝");
             Console.WriteLine();
-            Console.WriteLine("  PRODUCTION:");
-            Console.WriteLine("    [P]  Créer un paperclip (1 wire)");
-            Console.WriteLine("    [A]  Acheter AutoClipper (${0:F2})", state.ClipperCost);
+            Console.WriteLine($"  {Localization.Get("UI_ProductionBusiness")}:");
+            Console.WriteLine($"    [P]  {Localization.Get("Cmd_Clips")} (1 wire)");
+            Console.WriteLine($"    [A]  {Localization.Get("Cmd_Auto")} (${state.ClipperCost:F2})");
             if (state.Funds >= 500 || state.MegaClipperLevel > 0)
-                Console.WriteLine("    [G]  Acheter MegaClipper (${0:F2})", state.MegaClipperCost);
+                Console.WriteLine($"    [G]  {Localization.Get("Cmd_Mega")} (${state.MegaClipperCost:F2})");
             Console.WriteLine();
-            Console.WriteLine("  RESSOURCES:");
-            Console.WriteLine("    [W]  Acheter Wire ({0} inches, ${1:F2})", state.WireAmount, state.WireCost);
+            Console.WriteLine($"  {Localization.Get("UI_Resources")}:");
+            Console.WriteLine($"    [W]  {Localization.Get("Cmd_Wire")} ({state.WireAmount} inches, ${state.WireCost:F2})");
             Console.WriteLine();
-            Console.WriteLine("  VENTES:");
-            Console.WriteLine("    [+]  Augmenter le prix (actuel: ${0:F2})", state.Margin);
-            Console.WriteLine("    [-]  Diminuer le prix");
-            Console.WriteLine("    [M]  Acheter Marketing - Niveau {0} (${1:F2})", state.MarketingLevel, state.AdCost);
+            Console.WriteLine($"  VENTES:");
+            Console.WriteLine($"    [+]  {Localization.Get("Cmd_Price")} (+)");
+            Console.WriteLine($"    [-]  {Localization.Get("Cmd_Price")} (-)");
+            Console.WriteLine($"    [M]  {Localization.Get("Cmd_Marketing")} - {Localization.Get("Lbl_Level", state.MarketingLevel)} (${state.AdCost:F2})");
             Console.WriteLine();
-            Console.WriteLine("  COMPUTING:");
-            Console.WriteLine("    [T]  Ajouter Processeur (Trust: {0})", state.Trust);
-            Console.WriteLine("    [Y]  Ajouter Mémoire (Trust: {0})", state.Trust);
+            Console.WriteLine($"  {Localization.Get("UI_Computing")}:");
+            Console.WriteLine($"    [T]  {Localization.Get("Cmd_Proc")} ({Localization.Get("Lbl_Trust")} {state.Trust})");
+            Console.WriteLine($"    [Y]  {Localization.Get("Cmd_Mem")} ({Localization.Get("Lbl_Trust")} {state.Trust})");
             Console.WriteLine();
-            Console.WriteLine("  SYSTÈME:");
-            Console.WriteLine("    [S]  Sauvegarder");
-            Console.WriteLine("    [Q]  Quitter");
+            Console.WriteLine($"  SYSTÈME:");
+            Console.WriteLine($"    [S]  {Localization.Get("Cmd_Save")}");
+            Console.WriteLine($"    [Q]  {Localization.Get("Cmd_Quit")}");
             Console.WriteLine();
             Console.WriteLine("  Appuyez sur une touche pour continuer...");
             Console.ReadKey(true);
@@ -492,9 +627,9 @@ namespace PaperclipsConsole
             if (key.Key == ConsoleKey.Q)
             {
                 Console.Clear();
-                Console.WriteLine("\nSauvegarder avant de quitter? (O/N)");
+                Console.WriteLine(Localization.Get("Msg_SaveQuit"));
                 var response = Console.ReadKey(true);
-                if (response.Key == ConsoleKey.O)
+                if (response.Key == ConsoleKey.O || response.Key == ConsoleKey.Y)
                 {
                     SaveGame();
                 }
@@ -504,7 +639,7 @@ namespace PaperclipsConsole
 
         public void CheckMenu(ConsoleKeyInfo key)
         {
-            if (key.KeyChar == 'm' && key.Modifiers.HasFlag(ConsoleModifiers.Control))
+            if (key.Key == ConsoleKey.Spacebar)
             {
                 ShowMenu();
             }

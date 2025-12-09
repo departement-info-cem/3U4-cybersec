@@ -1,193 +1,107 @@
 using System;
+using System.Collections.Generic;
+using Spectre.Console;
 
 namespace PaperclipsConsole
 {
     public static class StartMenu
     {
-        public static MenuChoice ShowMenu(bool saveExists)
+        public static MenuChoice ShowMenu(bool saveExists, GameState state)
         {
-            Console.Clear();
-            Console.CursorVisible = false;
-
-            // Header
-            Console.WriteLine("╔══════════════════════════════════════════════════════════════════════════════╗");
-            Console.WriteLine("║                                                                              ║");
-            Console.WriteLine("║                    UNIVERSAL PAPERCLIPS - Console Edition                    ║");
-            Console.WriteLine("║                                                                              ║");
-            Console.WriteLine("╚══════════════════════════════════════════════════════════════════════════════╝");
-            Console.WriteLine();
-            Console.WriteLine();
-
-            int selectedOption = 0;
-            bool choosing = true;
-
-            while (choosing)
+            // Menu choices
+            while (true)
             {
-                // Menu options
-                Console.SetCursorPosition(0, 7);
+                AnsiConsole.Clear();
                 
-                if (saveExists)
+                // ASCII Art Title
+                var title = new FigletText("PAPERCLIPS")
+                    .Centered()
+                    .Color(Color.Cyan1);
+                AnsiConsole.Write(title);
+                
+                AnsiConsole.Write(
+                    new FigletText("Console Edition")
+                    .Centered()
+                    .Color(Color.Grey));
+                
+                AnsiConsole.WriteLine();
+                AnsiConsole.WriteLine();
+
+                var choices = new List<string>();
+                if (saveExists) choices.Add(Localization.Get("Menu_Continue"));
+                choices.Add(Localization.Get("Menu_NewGame"));
+                choices.Add(Localization.Get("Menu_Language"));
+                
+                string encryptionStatus = state.EncryptSave ? Localization.Get("Menu_Enabled") : Localization.Get("Menu_Disabled");
+                string encryptionOption = Localization.Get("Menu_Encryption", encryptionStatus);
+                choices.Add(encryptionOption);
+                
+                choices.Add(Localization.Get("Menu_Quit"));
+                
+                var selection = AnsiConsole.Prompt(
+                    new SelectionPrompt<string>()
+                        .Title($"[cyan1]{Localization.Get("Menu_Prompt")}[/]")
+                        .PageSize(10)
+                        .MoreChoicesText($"[grey]{Localization.Get("Menu_MoreChoices")}[/]")
+                        .HighlightStyle(new Style(Color.Black, Color.Cyan1, Decoration.Bold))
+                        .AddChoices(choices));
+                
+                // Process choice
+                if (selection == Localization.Get("Menu_Continue"))
                 {
-                    // Option 1: Continuer
-                    if (selectedOption == 0)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Black;
-                        Console.BackgroundColor = ConsoleColor.White;
-                        Console.WriteLine("                          ► CONTINUER LA PARTIE ◄                              ");
-                        Console.ResetColor();
-                    }
-                    else
-                    {
-                        Console.WriteLine("                            Continuer la partie                                ");
-                    }
-
-                    Console.WriteLine();
-
-                    // Option 2: Nouvelle partie
-                    if (selectedOption == 1)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Black;
-                        Console.BackgroundColor = ConsoleColor.White;
-                        Console.WriteLine("                          ► NOUVELLE PARTIE ◄                                  ");
-                        Console.ResetColor();
-                    }
-                    else
-                    {
-                        Console.WriteLine("                            Nouvelle partie                                    ");
-                    }
-
-                    Console.WriteLine();
-
-                    // Option 3: Quitter
-                    if (selectedOption == 2)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Black;
-                        Console.BackgroundColor = ConsoleColor.White;
-                        Console.WriteLine("                          ► QUITTER ◄                                          ");
-                        Console.ResetColor();
-                    }
-                    else
-                    {
-                        Console.WriteLine("                            Quitter                                            ");
-                    }
+                    return MenuChoice.Continue;
                 }
-                else
+                else if (selection == Localization.Get("Menu_NewGame"))
                 {
-                    // Pas de sauvegarde - seulement nouvelle partie ou quitter
-                    // Option 1: Nouvelle partie
-                    if (selectedOption == 0)
+                    if (saveExists)
                     {
-                        Console.ForegroundColor = ConsoleColor.Black;
-                        Console.BackgroundColor = ConsoleColor.White;
-                        Console.WriteLine("                          ► NOUVELLE PARTIE ◄                                  ");
-                        Console.ResetColor();
+                        if (ConfirmNewGame()) return MenuChoice.NewGame;
                     }
                     else
                     {
-                        Console.WriteLine("                            Nouvelle partie                                    ");
-                    }
-
-                    Console.WriteLine();
-
-                    // Option 2: Quitter
-                    if (selectedOption == 1)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Black;
-                        Console.BackgroundColor = ConsoleColor.White;
-                        Console.WriteLine("                          ► QUITTER ◄                                          ");
-                        Console.ResetColor();
-                    }
-                    else
-                    {
-                        Console.WriteLine("                            Quitter                                            ");
-                    }
-                }
-
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine("                    Utilisez ↑↓ pour naviguer, ENTRÉE pour sélectionner       ");
-
-                // Get input
-                var key = Console.ReadKey(true);
-
-                switch (key.Key)
-                {
-                    case ConsoleKey.UpArrow:
-                        selectedOption--;
-                        if (selectedOption < 0)
-                            selectedOption = saveExists ? 2 : 1;
-                        break;
-
-                    case ConsoleKey.DownArrow:
-                        selectedOption++;
-                        if (selectedOption > (saveExists ? 2 : 1))
-                            selectedOption = 0;
-                        break;
-
-                    case ConsoleKey.Enter:
-                        choosing = false;
-                        break;
-
-                    case ConsoleKey.Escape:
-                        return MenuChoice.Quit;
-                }
-            }
-
-            // Process choice
-            if (saveExists)
-            {
-                switch (selectedOption)
-                {
-                    case 0:
-                        return MenuChoice.Continue;
-                    case 1:
-                        return ConfirmNewGame() ? MenuChoice.NewGame : ShowMenu(saveExists);
-                    case 2:
-                        return MenuChoice.Quit;
-                }
-            }
-            else
-            {
-                switch (selectedOption)
-                {
-                    case 0:
                         return MenuChoice.NewGame;
-                    case 1:
-                        return MenuChoice.Quit;
+                    }
+                }
+                else if (selection == Localization.Get("Menu_Language"))
+                {
+                    Localization.CurrentLanguage = Localization.CurrentLanguage == Language.French ? Language.English : Language.French;
+                }
+                else if (selection == encryptionOption)
+                {
+                    state.EncryptSave = !state.EncryptSave;
+                }
+                else // Quitter
+                {
+                    return MenuChoice.Quit;
                 }
             }
-
-            return MenuChoice.Quit;
         }
 
         private static bool ConfirmNewGame()
         {
-            Console.Clear();
-            Console.WriteLine("╔══════════════════════════════════════════════════════════════════════════════╗");
-            Console.WriteLine("║                              CONFIRMATION                                    ║");
-            Console.WriteLine("╚══════════════════════════════════════════════════════════════════════════════╝");
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine("                    ⚠️  ATTENTION ⚠️                                            ");
-            Console.WriteLine();
-            Console.WriteLine("          Commencer une nouvelle partie écrasera votre sauvegarde actuelle!    ");
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine("                    Êtes-vous sûr de vouloir continuer?                        ");
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine("                    [O] Oui, nouvelle partie                                   ");
-            Console.WriteLine("                    [N] Non, retour au menu                                    ");
-            Console.WriteLine();
-
-            while (true)
+            AnsiConsole.Clear();
+            
+            var panel = new Panel(
+                new Markup(
+                    $"[red]⚠️  {Localization.Get("Menu_Warning")} ⚠️[/]\n\n" +
+                    $"{Localization.Get("Menu_OverwriteWarning")}"))
             {
-                var key = Console.ReadKey(true);
-                if (key.Key == ConsoleKey.O || key.KeyChar == 'o')
-                    return true;
-                if (key.Key == ConsoleKey.N || key.KeyChar == 'n' || key.Key == ConsoleKey.Escape)
-                    return false;
-            }
+                Header = new PanelHeader($" [red]{Localization.Get("Menu_Confirmation")}[/] ", Justify.Center),
+                Border = BoxBorder.Double,
+                BorderStyle = new Style(Color.Red),
+                Padding = new Padding(2, 1)
+            };
+            
+            AnsiConsole.Write(panel);
+            AnsiConsole.WriteLine();
+            
+            var prompt = new ConfirmationPrompt($"[yellow]{Localization.Get("Menu_ConfirmNewGame")}[/]")
+            {
+                Yes = Localization.Get("Menu_Yes")[0],
+                No = Localization.Get("Menu_No")[0]
+            };
+            
+            return AnsiConsole.Prompt(prompt);
         }
     }
 

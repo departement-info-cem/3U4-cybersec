@@ -25,8 +25,11 @@ namespace PaperclipsConsole
         public long NextTrust { get; set; } = 1000;
         public int Creativity { get; set; } = 0;
         public long TotalClipsProduced { get; set; } = 0;
+        public double PartialClips { get; set; } = 0;
         public int MegaClipperLevel { get; set; } = 0;
         public double MegaClipperCost { get; set; } = 500;
+        public Language Language { get; set; } = Language.French;
+        public bool EncryptSave { get; set; } = false;
         
         [JsonIgnore]
         public int MaxOps => Memory * 1000;
