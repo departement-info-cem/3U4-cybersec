@@ -26,10 +26,21 @@ namespace PaperclipsConsole
             );
             savePath = Path.Combine(saveDirectory, "data.json");
             random = new Random();
-            LoadGame();
+            // Ne pas charger automatiquement
             lastUpdate = DateTime.Now;
             lastAutoSave = DateTime.Now;
             lastDisplay = DateTime.Now;
+        }
+
+        public bool SaveFileExists()
+        {
+            return File.Exists(savePath);
+        }
+
+        public void StartNewGame()
+        {
+            state = CreateNewGameState();
+            SaveGame();
         }
 
         public void LoadGame()

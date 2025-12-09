@@ -25,12 +25,32 @@ namespace PaperclipsConsole
 
             var game = new GameManager();
             
+            // Show start menu
+            var choice = StartMenu.ShowMenu(game.SaveFileExists());
+            
+            if (choice == MenuChoice.Quit)
+            {
+                Console.Clear();
+                Console.WriteLine("\n  À bientôt!\n");
+                Thread.Sleep(1000);
+                return;
+            }
+
+            // Load or start new game based on choice
+            if (choice == MenuChoice.Continue)
+            {
+                game.LoadGame();
+            }
+            else // NewGame
+            {
+                game.StartNewGame();
+            }
+
+            // Show brief intro
             Console.Clear();
             Console.WriteLine("╔════════════════════════════════════════════════════════════╗");
             Console.WriteLine("║           UNIVERSAL PAPERCLIPS - Console Edition           ║");
             Console.WriteLine("╚════════════════════════════════════════════════════════════╝");
-            Console.WriteLine();
-            Console.WriteLine("  Bienvenue dans Universal Paperclips!");
             Console.WriteLine();
             Console.WriteLine("  Objectif: Produire des paperclips et dominer le marché");
             Console.WriteLine();
