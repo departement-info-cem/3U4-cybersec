@@ -13,16 +13,16 @@ Dans ce cours, nous allons aborder la cybersécurité en 3 morceaux:
 
 | Rencontre                                                      | Travaux pratiques              |
 | -------------------------------------------------------------- | ------------------------------ |
-| [1.1 → Accueil](cours/r1.1)                                    | TP1 : Analyse de cas           |
+| [1.1 → Accueil](cours/r1.1)                                    | [TP1 : Analyse de cas](02-tp/01-tp1.md)           |
 | [1.2 → Authen, CID, faille/exploit/fix](cours/r1.2)            | 5%                             |
 | [2.1 → Ateliers](cours/r2.1)                                   | 10%                            |
 | [2.2 → Ateliers (suite)](cours/r2.2)                           | 20%                            |
 | [3.1 → Ingénierie sociale](cours/r3.1)                         | 30%                            |
-| [3.2 → TP1 (oral)](cours/r3.2)                                 | 100% remise du TP1             |
+| [3.2 → TP1 (oral)](cours/r3.2)                                 | [100% remise du TP1](02-tp/01-tp1.md)             |
 | [4.1 → Examen formatif #1](cours/r4.1)                         | --                             |
 | [4.2 → **Examen #1**](cours/r4.2)                              | --                             |
 | [5.1 → Attaque force brute SSH](cours/r5.1)                    | --                             |
-| [5.2 → HTTPS, VPN et cookies](cours/r5.2)                      | TP2 : Protéger les équipements |
+| [5.2 → HTTPS, VPN et cookies](cours/r5.2)                      | [TP2 : Protéger les équipements](02-tp/02-tp2.md) |
 | [6.1 → Droits et privilèges](cours/r6.1)                       | 10%                            |
 | [6.2 → Stratégies de sauvegarde](cours/r6.2)                   | 20%                            |
 | [7.1 → Pare-feu et ports d'écoute](cours/r7.1)                 | 30%                            |
@@ -33,7 +33,7 @@ Dans ce cours, nous allons aborder la cybersécurité en 3 morceaux:
 | [9.2 → Évaluation de l'inventaire](cours/r9.2)                 | 80%                            |
 | [9.3 → Examen formatif #2](cours/r9.3)                         | 100% remise du TP2             |
 | [10.1 → **Examen #2**](cours/r10.1)                            | --                             |
-| [10.2 → Exploration .exe et décompilation](cours/r10.2)        | TP3 : Protéger une application |
+| [10.2 → Exploration .exe et décompilation](cours/r10.2)        | [TP3 : Protéger une application](02-tp/03-tp3.md) |
 | [11.1 → Hachage : attaque](cours/r11.1)                        | 10%                            |
 | [11.2 → Hachage : défense et implantation](cours/r11.2)        | 20%                            |
 | [12.1 → Chiffrement : attaque](cours/r12.1)                    | 30%                            |
