@@ -13,13 +13,19 @@ public class AesCrypto
         using (Aes aes = Aes.Create())
         {
             aes.Key = Encoding.UTF8.GetBytes(key);
-            aes.IV = iv;
             aes.Mode = CipherMode.CBC;
             aes.Padding = PaddingMode.PKCS7;
 
-            ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+            byte[] fullCipher = Convert.FromBase64String(source);
+            int ivLen = aes.BlockSize / 8;
+            byte[] ivBytes = new byte[ivLen];
+            byte[] cipherBytes = new byte[fullCipher.Length - ivLen];
+            Buffer.BlockCopy(fullCipher, 0, ivBytes, 0, ivLen);
+            Buffer.BlockCopy(fullCipher, ivLen, cipherBytes, 0, cipherBytes.Length);
 
-            byte[] cipherBytes = Convert.FromBase64String(source);
+            aes.IV = ivBytes;
+
+            ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
 
             using (MemoryStream ms = new MemoryStream(cipherBytes))
             {

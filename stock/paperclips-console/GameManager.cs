@@ -200,14 +200,12 @@ namespace PaperclipsConsole
                 throw new ArgumentNullException("plainText");
             if (Key == null || Key.Length <= 0)
                 throw new ArgumentNullException("Key");
-            if (IV == null || IV.Length <= 0)
-                throw new ArgumentNullException("IV");
-            byte[] encrypted;
+            // IV parameter is ignored — a fresh IV is generated per-encryption and prepended to the ciphertext
 
             using (Aes aesAlg = Aes.Create())
             {
                 aesAlg.Key = Key;
-                aesAlg.IV = IV;
+                aesAlg.GenerateIV();
 
                 ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
 
@@ -219,12 +217,14 @@ namespace PaperclipsConsole
                         {
                             swEncrypt.Write(plainText);
                         }
-                        encrypted = msEncrypt.ToArray();
+                        byte[] encrypted = msEncrypt.ToArray();
+                        byte[] result = new byte[aesAlg.IV.Length + encrypted.Length];
+                        Buffer.BlockCopy(aesAlg.IV, 0, result, 0, aesAlg.IV.Length);
+                        Buffer.BlockCopy(encrypted, 0, result, aesAlg.IV.Length, encrypted.Length);
+                        return result;
                     }
                 }
             }
-
-            return encrypted;
         }
 
         private static string DecryptStringFromBytes_Aes(byte[] cipherText, byte[] Key, byte[] IV)
@@ -233,19 +233,26 @@ namespace PaperclipsConsole
                 throw new ArgumentNullException("cipherText");
             if (Key == null || Key.Length <= 0)
                 throw new ArgumentNullException("Key");
-            if (IV == null || IV.Length <= 0)
-                throw new ArgumentNullException("IV");
+            // IV parameter is ignored — extract per-message IV from the beginning of cipherText
 
             string plaintext = null;
 
             using (Aes aesAlg = Aes.Create())
             {
                 aesAlg.Key = Key;
-                aesAlg.IV = IV;
+
+                int ivLen = aesAlg.BlockSize / 8;
+                if (cipherText.Length < ivLen) throw new ArgumentException("cipherText too short");
+                byte[] ivBytes = new byte[ivLen];
+                byte[] actualCipher = new byte[cipherText.Length - ivLen];
+                Buffer.BlockCopy(cipherText, 0, ivBytes, 0, ivLen);
+                Buffer.BlockCopy(cipherText, ivLen, actualCipher, 0, actualCipher.Length);
+
+                aesAlg.IV = ivBytes;
 
                 ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
 
-                using (MemoryStream msDecrypt = new MemoryStream(cipherText))
+                using (MemoryStream msDecrypt = new MemoryStream(actualCipher))
                 {
                     using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
                     {

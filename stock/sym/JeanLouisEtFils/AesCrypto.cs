@@ -13,7 +13,7 @@ public class AesCrypto
         using (Aes aes = Aes.Create())
         {
             aes.Key = Encoding.UTF8.GetBytes(key);
-            aes.IV = iv;
+            aes.GenerateIV();
             aes.Mode = CipherMode.CBC;
             aes.Padding = PaddingMode.PKCS7;
 
@@ -27,7 +27,11 @@ public class AesCrypto
                     cs.Write(inputBytes, 0, inputBytes.Length);
                     cs.FlushFinalBlock();
                 }
-                return Convert.ToBase64String(ms.ToArray());
+                byte[] encrypted = ms.ToArray();
+                byte[] result = new byte[aes.IV.Length + encrypted.Length];
+                Buffer.BlockCopy(aes.IV, 0, result, 0, aes.IV.Length);
+                Buffer.BlockCopy(encrypted, 0, result, aes.IV.Length, encrypted.Length);
+                return Convert.ToBase64String(result);
             }
         }
     }
