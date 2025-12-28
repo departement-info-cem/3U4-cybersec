@@ -22,6 +22,8 @@ public class AesCrypto
             byte[] cipherBytes = new byte[fullCipher.Length - ivLen];
             Buffer.BlockCopy(fullCipher, 0, ivBytes, 0, ivLen);
             Buffer.BlockCopy(fullCipher, ivLen, cipherBytes, 0, cipherBytes.Length);
+            Console.WriteLine($"Vecteur d'injection: {Convert.ToHexString(ivBytes)}");
+            Console.WriteLine($"Données chiffrées: {Convert.ToHexString(cipherBytes)}");
 
             aes.IV = ivBytes;
 

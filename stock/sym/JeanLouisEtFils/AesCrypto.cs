@@ -6,14 +6,13 @@ namespace JeanLouisEtFils;
 public class AesCrypto
 {
     private static string key = "12341234123412341234123412341234";
-    private static byte[] iv = Convert.FromHexString("12341234123412341234123412341234");
 
     public string Encrypt(string source)
     {
         using (Aes aes = Aes.Create())
         {
             aes.Key = Encoding.UTF8.GetBytes(key);
-            aes.GenerateIV();
+            aes.GenerateIV();                   // générer un IV pour chaque chiffrement
             aes.Mode = CipherMode.CBC;
             aes.Padding = PaddingMode.PKCS7;
 
@@ -29,8 +28,8 @@ public class AesCrypto
                 }
                 byte[] encrypted = ms.ToArray();
                 byte[] result = new byte[aes.IV.Length + encrypted.Length];
-                Buffer.BlockCopy(aes.IV, 0, result, 0, aes.IV.Length);
-                Buffer.BlockCopy(encrypted, 0, result, aes.IV.Length, encrypted.Length);
+                Buffer.BlockCopy(aes.IV, 0, result, 0, aes.IV.Length);                     // on concatène l'IV au début du tableau
+                Buffer.BlockCopy(encrypted, 0, result, aes.IV.Length, encrypted.Length);   // puis les données chiffrées
                 return Convert.ToBase64String(result);
             }
         }
