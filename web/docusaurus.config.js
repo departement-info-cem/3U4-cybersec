@@ -16,7 +16,7 @@ const config = {
   url: "https://info.cegepmontpetit.ca/",
   baseUrl: `/${siteConfig.nomUrl}/`,
   onBrokenLinks: "warn",
-  onBrokenMarkdownLinks: "warn",
+
   favicon: "img/favicon.ico",
 
   organizationName: "departement-info-cem",
@@ -31,6 +31,9 @@ const config = {
 
   markdown: {
     mermaid: true,
+    hooks: {
+      onBrokenMarkdownLinks: "warn",
+    },
   },
   themes: ['@docusaurus/theme-mermaid'],
 
@@ -70,7 +73,7 @@ const config = {
         items: [
           {
             type: "doc",
-            docId: "cours/r01",
+            docId: "cours/r1.1",
             position: "left",
             label: "Cours",
           },
