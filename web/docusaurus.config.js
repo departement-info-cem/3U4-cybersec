@@ -90,6 +90,11 @@ const config = {
           },
           {
             position: "right",
+            label: "CTF",
+            href: "https://ctf.info.cegepmontpetit.ca/",
+          },
+          {
+            position: "right",
             label: "Repo",
             href: `https://github.com/departement-info-cem/${siteConfig.nomUrl}`,
           }
